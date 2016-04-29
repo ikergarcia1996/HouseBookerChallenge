@@ -1,0 +1,484 @@
+package dataAccess;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.ListIterator;
+import java.util.Stack;
+import java.util.Vector;
+
+import javax.jws.WebMethod;
+
+import com.db4o.Db4oEmbedded;
+import com.db4o.ObjectContainer;
+import com.db4o.ObjectSet;
+import com.db4o.config.EmbeddedConfiguration;
+import com.db4o.cs.Db4oClientServer;
+import com.db4o.cs.config.ClientConfiguration;
+
+import configuration.ConfigXML;
+import domain.BannedUser;
+import domain.Cliente;
+import domain.Mensaje;
+//import domain.Booking;
+import domain.Offer;
+import domain.Propietario;
+import domain.RuralHouse;
+import domain.Usuario;
+import exceptions.OverlappingOfferExists;
+import utilities.ProfileImg;
+public class DataAccess {
+	protected static ObjectContainer		db;
+
+	private static DB4oManagerAux			theDB4oManagerAux;
+	private static EmbeddedConfiguration	configuration;
+	private static ClientConfiguration		configurationCS;
+
+	ConfigXML								c;
+
+	public DataAccess() {
+
+		c = ConfigXML.getInstance();
+
+		if (c.isDatabaseLocal()) {
+			configuration = Db4oEmbedded.newConfiguration();
+			configuration.common().activationDepth(c.getActivationDepth());
+			configuration.common().updateDepth(c.getUpdateDepth());
+			db = Db4oEmbedded.openFile(configuration, c.getDb4oFilename());
+		}
+		else {
+			configurationCS = Db4oClientServer.newClientConfiguration();
+			configurationCS.common().activationDepth(c.getActivationDepth());
+			configurationCS.common().updateDepth(c.getUpdateDepth());
+			configurationCS.common().objectClass(RuralHouse.class).cascadeOnDelete(true);
+			db = Db4oClientServer.openClient(configurationCS, c.getDatabaseNode(), c.getDatabasePort(), c.getUser(),
+					c.getPassword());
+
+		}
+		System.out.println("Creating DB4oManager instance => isDatabaseLocal: " + c.isDatabaseLocal()
+				+ " getDatabBaseOpenMode: " + c.getDataBaseOpenMode());
+	}
+
+	class DB4oManagerAux {
+		int	offerNumber;
+		int	houseNumber;
+
+		DB4oManagerAux(int offerNumber, int houseNumber) {
+			this.offerNumber = offerNumber;
+			this.houseNumber = houseNumber;
+		}
+	}
+	
+	static class SuperAdmin {
+		String password;
+		
+		SuperAdmin(String passwd){
+			this.password = passwd;
+		}
+		boolean changePassword(String current, String newpass){
+			if (this.password.equals(current)){
+				this.password = newpass; 
+				return true;
+			} else
+				return false;
+		}
+	}
+
+	public void initializeDB() {
+
+		System.out.println("Db initialized");
+		//RuralHouse rh1 = new RuralHouse(1, "Ezkioko etxea", "Ezkio", null);
+		//RuralHouse rh2 = new RuralHouse(2, "Etxetxikia", "Iruï¿½a", null);
+		//RuralHouse rh3 = new RuralHouse(3, "Udaletxea", "Bilbo", null);
+		//RuralHouse rh4 = new RuralHouse(4, "Gaztetxea", "Renteria", null);
+
+		//db.store(rh1);
+		//db.store(rh2);
+		//db.store(rh3);
+		//db.store(rh4);
+
+		theDB4oManagerAux = new DB4oManagerAux(1, 1);
+		SuperAdmin admin = new SuperAdmin("admin123");
+
+		db.store(theDB4oManagerAux);
+		db.store(admin);
+
+		db.commit();
+	}
+
+	public boolean superadminLogin(String password){
+		ObjectSet<SuperAdmin> res = db.queryByExample(SuperAdmin.class);
+		ListIterator<SuperAdmin> listIter = res.listIterator();
+		if (listIter.hasNext()) return (res.next().password.equals(password));
+		else return false;
+	}
+	
+	public boolean superadminChangepasswd(String old, String newpsw) {
+		ObjectSet<SuperAdmin> res = db.queryByExample(SuperAdmin.class);
+		ListIterator<SuperAdmin> listIter = res.listIterator();
+		boolean done = false;
+		SuperAdmin adminacc = res.next();
+		if (listIter.hasNext()) {
+			done = adminacc.changePassword(old, newpsw);
+			db.store(adminacc);
+		}
+		return done;
+	}
+	
+	public boolean adminDelete(String password, Object toDelete){
+		ObjectSet<SuperAdmin> res = db.queryByExample(SuperAdmin.class);
+		ListIterator<SuperAdmin> listIter = res.listIterator();
+		boolean auth = false;
+		if (listIter.hasNext()) auth = res.next().password.equals(password);
+		if (auth) {
+			db.delete(db.queryByExample(toDelete).next());
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean banUser(String password, Usuario user){
+		ObjectSet<SuperAdmin> res = db.queryByExample(SuperAdmin.class);
+		ListIterator<SuperAdmin> listIter = res.listIterator();
+		boolean auth = false;
+		if (listIter.hasNext()) auth = res.next().password.equals(password);
+		if (auth) {
+			BannedUser usuariobanneado = new BannedUser(user.getCorreo());
+			db.store(usuariobanneado);
+			return true;
+		}
+		return false;
+	}
+	
+	public void unbanUser(String password, Usuario user) {
+		ObjectSet<SuperAdmin> res = db.queryByExample(SuperAdmin.class);
+		ListIterator<SuperAdmin> listIter = res.listIterator();
+		boolean auth = false;
+		if (listIter.hasNext()) auth = res.next().password.equals(password);
+		if (auth) {
+			db.delete(db.queryByExample(new BannedUser(user.getCorreo())).next());
+		}
+	}
+	
+	public boolean isBanned(Usuario user){
+		ObjectSet<BannedUser> res = db.queryByExample(new BannedUser(user.getCorreo()));
+		return !(res.isEmpty());
+	}
+	
+	public boolean isBannedEmail(String correo){
+		ObjectSet<BannedUser> res = db.queryByExample(new BannedUser(correo));
+		return !(res.isEmpty());
+	}
+	
+	public ArrayList<Boolean> getIsBannedFromList(ArrayList<Usuario> userList){
+		ArrayList<Boolean> isBannedList = new ArrayList<Boolean>();
+		for (Usuario u: userList){
+			isBannedList.add(isBanned(u));
+		}
+		return isBannedList;
+	}
+
+	public void createAccount(boolean isPropietario, String nombre, String apellidos, String telefono, String correo,
+			String password, String DNI, String DirPostal, ProfileImg perfil) {
+		DateFormat dateFormat = new SimpleDateFormat("dd MM yyyy HH:mm:ss");
+		Date date = new Date();
+		if (!isPropietario){
+			Cliente nuevoUsuario = new Cliente(nombre, apellidos, telefono, correo, password, perfil);
+			nuevoUsuario.sendMensaje(new Mensaje(nuevoUsuario, "welcome@hbc.com", "Bienvenido", dateFormat.format(date), "Hola y bienvenido a HouseBookerChallenge.\n En primer lugar te queremos dar las gracias por empezar a formar parte de esta gran comunidad, y estamos deseando ayudarte en todo lo posible, a si que si tienes alguna pregunta, puedes coontactar con el administrador en el correo HBCHelp@HBC.com."));
+			db.store(nuevoUsuario);
+		}
+		else {
+			Propietario nuevoUsuario = new Propietario(nombre, apellidos, telefono, correo, password,
+				perfil, DNI, DirPostal);
+			nuevoUsuario.sendMensaje(new Mensaje(nuevoUsuario, "welcome@hbc.com", "Bienvenido", dateFormat.format(date), "Hola y bienvenido a HouseBookerChallenge.\n En primer lugar te queremos dar las gracias por empezar a formar parte de esta gran comunidad, y estamos deseando ayudarte en todo lo posible, a si que si tienes alguna pregunta, puedes coontactar con el administrador en el correo HBCHelp@HBC.com."));
+			db.store(nuevoUsuario);
+		}
+		db.commit();
+	}
+	
+	public ArrayDeque<Usuario> getUsers(String correo) {
+		ArrayDeque<Usuario> result = new ArrayDeque<Usuario>();
+		result.addAll(db.queryByExample(new Cliente(null, null, null, correo, null, null)));
+		result.addAll(db.queryByExample(new Propietario(null, null, null, correo, null, null, null, null)));
+		return result;
+	}
+
+	public ObjectSet<Usuario> getAuthClients(String correo, String password) {
+		return db.queryByExample(new Cliente(null, null, null, correo, password,null));
+
+	}
+
+	public ObjectSet<Usuario> getAuthOwners(String correo, String password) {
+		return db.queryByExample(new Propietario(null, null, null, correo, password, null, null,null));
+	}
+
+
+	public Offer createOffer(RuralHouse ruralHouse, Date firstDay, Date lastDay, float price, int nPersRoom) {
+
+		try {
+
+			RuralHouse proto = new RuralHouse(ruralHouse.getHouseNumber(), null, null, null,null);
+			ObjectSet<RuralHouse> result = db.queryByExample(proto);
+			RuralHouse rh = result.next();
+
+			ObjectSet<DB4oManagerAux> res = db.queryByExample(DB4oManagerAux.class);
+			ListIterator<DB4oManagerAux> listIter = res.listIterator();
+			if (listIter.hasNext()) theDB4oManagerAux = res.next();
+
+			Offer o = rh.createOffer(theDB4oManagerAux.offerNumber++, firstDay, lastDay, price, nPersRoom);
+			// Offer o=rh.createOffer(1,firstDay, lastDay, price);
+
+			db.store(theDB4oManagerAux); // To store the new value for
+											// offerNumber
+			db.store(rh);
+			db.commit();
+			return o;
+		}
+		catch (com.db4o.ext.ObjectNotStorableException e) {
+			System.out.println("Error: com.db4o.ext.ObjectNotStorableException in createOffer");
+			return null;
+		}
+	}
+
+	public RuralHouse createHouse(String desc, String city, String dir, Usuario user, ArrayList<String> imagenes) {
+		try {
+			ObjectSet<Propietario> result = db.queryByExample(user);
+			Propietario us = result.next();
+
+			ObjectSet<DB4oManagerAux> res = db.queryByExample(DB4oManagerAux.class);
+			ListIterator<DB4oManagerAux> listIter = res.listIterator();
+			if (listIter.hasNext()) theDB4oManagerAux = res.next();
+			RuralHouse rh = new RuralHouse(theDB4oManagerAux.houseNumber, desc, city, dir, us, imagenes);
+			us.getCasas().add(rh);
+			theDB4oManagerAux.houseNumber++;
+
+			db.store(theDB4oManagerAux); // To store the new value for
+											// offerNumber
+			db.store(us);
+			db.commit();
+			return rh;
+		}
+		catch (com.db4o.ext.ObjectNotStorableException e) {
+			System.out.println("Error: com.db4o.ext.ObjectNotStorableException in createOffer");
+			return null;
+		}
+	}
+
+
+	public RuralHouse getRuralHouse(int HouseNumber) {
+		RuralHouse proto = new RuralHouse(HouseNumber, null, null, null,null);
+		ObjectSet<RuralHouse> result = db.queryByExample(proto);
+		RuralHouse rh = result.next();
+		return rh;
+	}
+
+	public ArrayDeque<RuralHouse> getAllRuralHouses() {
+
+		try {
+			RuralHouse proto = new RuralHouse(null, null, null, null,null);
+			ObjectSet<RuralHouse> result = db.queryByExample(proto);
+			ArrayDeque<RuralHouse> ruralHouses = new ArrayDeque<RuralHouse>();
+			while (result.hasNext())
+				ruralHouses.add(result.next());
+			return ruralHouses;
+		}
+		finally {
+			// db.close();
+		}
+	}
+	//public int GetLastOfferNumber(){}
+	
+	public ArrayDeque<Offer> getOffers(RuralHouse rh, Date firstDay, Date lastDay) {
+		ArrayDeque<Offer> offers = new ArrayDeque<Offer>();
+		RuralHouse rhn = (RuralHouse) db.queryByExample(new RuralHouse(rh.getHouseNumber(), null, null, null,null)).next();
+		offers = rhn.getOffers(firstDay, lastDay);
+		return offers;
+	}
+
+	public void updateHouse(RuralHouse rh, RuralHouse update) {
+		ObjectSet<RuralHouse> query = db.queryByExample(rh);
+		RuralHouse q = query.next();
+
+		q.setCity(update.getCity());
+		q.setDescription(update.getDescription());
+		q.setDireccion(update.getDireccion());
+		q.setImagenes(update.getImagenes());
+
+		db.store(q);
+		db.commit();
+	}
+	
+	public void updateOffer(Offer o1, Offer update) {
+		ObjectSet<Offer> query = db.queryByExample(o1);
+		Offer q = query.next();
+
+		q.setFirstDay(update.getFirstDay());
+		q.setLastDay(update.getLastDay());
+		q.setnPersRoom(update.getnPersRoom());
+		q.setPrice(update.getPrice());
+		if (update.getCliente() != null)
+			q.setCliente((Usuario) db.queryByExample(update.getCliente()).next());
+		q.setReservaRealizada(true);
+
+		db.store(q);
+		db.commit();
+	}
+	
+	public void updateCliente(Usuario u1, Offer of) {
+		ObjectSet<Cliente> query = db.queryByExample(u1);
+		Cliente q = query.next();
+		
+		ObjectSet<Offer> query2 = db.queryByExample(of);
+		Offer o = query2.next();
+		
+		q.getOfertasReservadas().add(o);
+		System.out.println("OFERTAS RESERVADAS POR " + q.getCorreo() + " ->" + q.getOfertasReservadas().toString());
+
+		db.store(q);
+		db.commit();
+	}
+	
+	
+
+	public boolean existsOverlappingOffer(RuralHouse rh, Date firstDay, Date lastDay) throws OverlappingOfferExists {
+		try {
+
+			RuralHouse rhn = (RuralHouse) db.queryByExample(new RuralHouse(rh.getHouseNumber(), null, null, null,null))
+					.next();
+			if (rhn.overlapsWith(firstDay, lastDay) != null)
+				return true;
+			else return false;
+		}
+		finally {
+			// db.close();
+		}
+	}
+
+	// Data una RuralHouse (rh) realiza un queryByExample usandola como modeo
+	public ArrayDeque<RuralHouse> SearchRHbyCity(String city) {
+
+		try {
+			RuralHouse rh = new RuralHouse(null, null, city, null,null);
+			ObjectSet<RuralHouse> result = db.queryByExample(rh);
+			ArrayDeque<RuralHouse> ruralHouses = new ArrayDeque<RuralHouse>();
+			while (result.hasNext())
+				ruralHouses.add(result.next());
+			return ruralHouses;
+		}
+		finally {
+			// db.close();
+		}
+	}
+	
+	public ArrayDeque<Offer> getAllOffers(RuralHouse rh) {
+		ArrayDeque<Offer> offers = new ArrayDeque<Offer>();
+		RuralHouse rhn = (RuralHouse) db.queryByExample(new RuralHouse(rh.getHouseNumber(), null, null, null,null)).next();
+		offers = rhn.getOffers();
+		return offers;
+	}
+	
+	public ArrayList<Usuario> getAllUsers() {
+		ArrayList<Usuario> users = new ArrayList<Usuario>();
+		users.addAll(db.queryByExample(Usuario.class));
+		return users;
+	}
+	
+	public Offer getOffer(Offer of){
+		return (Offer) db.queryByExample(of).next();
+	}
+
+	public void close() {
+		db.close();
+		System.out.println("DataBase closed");
+	}
+	public ObjectSet<Usuario> getAuthOwners(Usuario user) {
+		return db.queryByExample(user);
+
+	}
+
+	public ObjectSet<Usuario> getAuthClients(Usuario user) {
+		return db.queryByExample(user);
+
+	}
+	
+	public Propietario getOwner(Usuario user) {
+		return (Propietario) db.queryByExample(user).next();
+
+	}
+
+	public int sendMessageTo(String destinatario, String remitente, String asunto, String detalles, String mensaje) {
+		// 0 todo correcto
+		// 1 usuario no existe
+		int ret;
+		if (!chekUserExists(destinatario))
+			ret = 1;
+		else {
+			Usuario usdest = (Usuario) db.queryByExample(getUsers(destinatario).getFirst()).next();
+			Mensaje m = new Mensaje(usdest, remitente, asunto, detalles, mensaje);
+			usdest.sendMensaje(m);
+			ret = 0;
+
+			db.store(usdest);
+			db.commit();
+		}
+		return ret;
+	}
+
+	private boolean chekUserExists(String destinatario) {
+
+		ArrayDeque<Usuario> result = new ArrayDeque<Usuario>();
+		result.addAll(getUsers(destinatario));
+		return !result.isEmpty();
+
+	}
+
+	public Usuario updateUserFoto(Usuario user, ProfileImg foto) {
+		ObjectSet<Usuario> olduser = db.queryByExample(user);
+		Usuario newuser = olduser.next();
+		newuser.setProfileImg(foto);
+		db.store(newuser);
+		db.commit();
+		return getDBUser(newuser);
+	}
+
+	private Usuario getDBUser(Usuario user) {
+		if (user.getClass().equals(Cliente.class)) return getAuthClients(user).next();
+		else return getAuthOwners(user).next();
+	}
+
+	public Usuario updateUserMail(Usuario user, Stack<Mensaje> mensajes) {
+		ObjectSet<Usuario> olduser = db.queryByExample(user);
+		Usuario newuser = olduser.next();
+		newuser.setMensajes(mensajes);
+		db.store(newuser);
+		db.commit();
+		return getDBUser(newuser);
+	}
+
+	public void updateUser(Usuario user) {
+		// TODO Auto-generated method stub
+		if (user.getClass().equals(Cliente.class)){
+			Cliente upduser = (Cliente) db.queryByExample(new Cliente(null, null, null, user.getCorreo(), null, null)).next();
+			upduser.setProfileImg(user.getProfileImg());
+			db.store(upduser);
+			db.commit();
+		} else if (user.getClass().equals(Propietario.class)){
+			Propietario upduser = (Propietario) db.queryByExample(new Propietario(null, null, null, user.getCorreo(), null, null, null, null)).next();
+			upduser.setProfileImg(user.getProfileImg());
+			db.store(upduser);
+			db.commit();
+		}
+	}
+
+	public void updateMsg(Mensaje oldmsg, Mensaje mensaje) {
+		// TODO Auto-generated method stub
+		Mensaje link = (Mensaje) db.queryByExample(oldmsg).next();
+		if (mensaje.isUnread()) link.setUnReaden();
+		else link.setReaden();
+		db.store(link);
+		db.commit();
+	}
+	
+}
