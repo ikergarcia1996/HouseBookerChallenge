@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
@@ -57,32 +59,30 @@ import javax.swing.SwingConstants;
 
 public class BookerGUI extends JDialog {
 
-	private JPanel				contentPane;
-	private JTextField			textCiudad;
-	private JFormattedTextField			dia;
-	private JFormattedTextField			ano;
-	private JCheckBox			ciudad;
-	private Component			frame		= null;
-	JSpinner					sPrecioMax;
-	JLabel						labelError;
-	JSpinner					spinner;
-	JSpinner					tipoHabitacionL;
-	private Collection			coleccion;
-	JLabel						labelError2;
-	ArrayList<Offer>			offPanel;
+	private JPanel contentPane;
+	private JTextField textCiudad;
+	private JFormattedTextField dia;
+	private JFormattedTextField ano;
+	private JCheckBox ciudad;
+	private Component frame = null;
+	JSpinner sPrecioMax;
+	JLabel labelError;
+	JSpinner spinner;
+	JSpinner tipoHabitacionL;
+	private Collection coleccion;
+	JLabel labelError2;
+	ArrayList<Offer> offPanel;
 	JPanel p1;
 	JPanel p2;
 	JPanel p3;
 	JPanel p4;
-	
 
 	JButton anteriores;
 	JButton siguientes;
-	public WaitGUI wait=new WaitGUI("Buscando ofertas");
-	
+	public WaitGUI wait = new WaitGUI("Buscando ofertas");
+
 	private ArrayList<Offer> ofertasEncontradas = new ArrayList<Offer>();
-	int indice=0;
-	
+	int indice = 0;
 
 	public class ExcepcionBusqueda extends Exception {
 		/**
@@ -94,89 +94,89 @@ public class BookerGUI extends JDialog {
 			super(msg);
 		}
 	}
-	
-	private void mostrarResult(Usuario user, GUIOperator operator){
+
+	private void mostrarResult(Usuario user, GUIOperator operator) {
 		System.out.println("MOSTRANDO RESULTADOS: ");
-		if (indice<4) anteriores.setEnabled(false);
-		else anteriores.setEnabled(true);
-		if (indice+4<ofertasEncontradas.size()) siguientes.setEnabled(true);
-		else siguientes.setEnabled(false);
-		//Borrar paneles
-		if (p1!=null) contentPane.remove(p1);
-		if (p2!=null) contentPane.remove(p2);	
-		if (p3!=null) contentPane.remove(p3);
-		if (p4!=null) contentPane.remove(p4);
-		
-		int i = ofertasEncontradas.size()-indice;
-		
-		
-		if (i>0){
-		
-		p1 = new OfferCliente(ofertasEncontradas.get(indice), user, operator);
-		p1.setBounds(170, 59, 440, 130);
-		contentPane.add(p1);
-		System.out.println(ofertasEncontradas.get(indice).toString() + " " + ofertasEncontradas.get(indice).getRuralHouse().toString());
-		p1.repaint();
-	
-	
+		if (indice < 4)
+			anteriores.setEnabled(false);
+		else
+			anteriores.setEnabled(true);
+		if (indice + 4 < ofertasEncontradas.size())
+			siguientes.setEnabled(true);
+		else
+			siguientes.setEnabled(false);
+		// Borrar paneles
+		if (p1 != null)
+			contentPane.remove(p1);
+		if (p2 != null)
+			contentPane.remove(p2);
+		if (p3 != null)
+			contentPane.remove(p3);
+		if (p4 != null)
+			contentPane.remove(p4);
+
+		int i = ofertasEncontradas.size() - indice;
+
+		if (i > 0) {
+
+			p1 = new OfferCliente(ofertasEncontradas.get(indice), user, operator);
+			p1.setBounds(170, 59, 440, 130);
+			contentPane.add(p1);
+			System.out.println(ofertasEncontradas.get(indice).toString() + " "
+					+ ofertasEncontradas.get(indice).getRuralHouse().toString());
+			p1.repaint();
+
 		}
 
-		
-		
-		if (i>1){
-			
-		p2 = new OfferCliente(ofertasEncontradas.get(indice+1), user, operator);
-		p2.setBounds(170, 201, 440, 130);
-		contentPane.add(p2);
-		System.out.println(ofertasEncontradas.get(indice+1).toString() + " " + ofertasEncontradas.get(indice+1).getRuralHouse().toString());
-		p2.repaint();
-		
-		}
-		
-		if (i>2){
-		p3 = new OfferCliente(ofertasEncontradas.get(indice+2), user, operator);
-		p3.setBounds(170, 342, 440, 130);
-		contentPane.add(p3);
-		System.out.println(ofertasEncontradas.get(indice+2).toString() + " " + ofertasEncontradas.get(indice+2).getRuralHouse().toString());
-		p3.repaint();
-		}
-	
-		if (i>3){
-		p4 = new OfferCliente(ofertasEncontradas.get(indice+3), user, operator);
-		System.out.println(ofertasEncontradas.get(indice+3).toString() + " " + ofertasEncontradas.get(indice+3).getRuralHouse().toString());
-		p4.setBounds(170, 486, 440, 130);
-		contentPane.add(p4);
-		p4.repaint();
-		}
-		
-		/*Debug*/System.out.println("indice lista ofertas: " + indice);
-		
+		if (i > 1) {
 
-	
-		
+			p2 = new OfferCliente(ofertasEncontradas.get(indice + 1), user, operator);
+			p2.setBounds(170, 201, 440, 130);
+			contentPane.add(p2);
+			System.out.println(ofertasEncontradas.get(indice + 1).toString() + " "
+					+ ofertasEncontradas.get(indice + 1).getRuralHouse().toString());
+			p2.repaint();
+
+		}
+
+		if (i > 2) {
+			p3 = new OfferCliente(ofertasEncontradas.get(indice + 2), user, operator);
+			p3.setBounds(170, 342, 440, 130);
+			contentPane.add(p3);
+			System.out.println(ofertasEncontradas.get(indice + 2).toString() + " "
+					+ ofertasEncontradas.get(indice + 2).getRuralHouse().toString());
+			p3.repaint();
+		}
+
+		if (i > 3) {
+			p4 = new OfferCliente(ofertasEncontradas.get(indice + 3), user, operator);
+			System.out.println(ofertasEncontradas.get(indice + 3).toString() + " "
+					+ ofertasEncontradas.get(indice + 3).getRuralHouse().toString());
+			p4.setBounds(170, 486, 440, 130);
+			contentPane.add(p4);
+			p4.repaint();
+		}
+
+		/* Debug */System.out.println("indice lista ofertas: " + indice);
+
 		contentPane.repaint();
-		
-		
+
 	}
-	
-	
+
 	// private FacadeImplementationWS busqueda = new FacadeImplementationWS();
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args, Usuario user, GUIOperator operator) {
-		
-		
-		
+
 		EventQueue.invokeLater(new Runnable() {
 
 			public void run() {
 				try {
 					BookerGUI frame = new BookerGUI(user, operator);
 					frame.setVisible(true);
-				}
-				catch (Exception e) {
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
@@ -191,6 +191,14 @@ public class BookerGUI extends JDialog {
 	 * @param operator
 	 */
 	public BookerGUI(Usuario user, GUIOperator operator) {
+
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosed(WindowEvent e) {
+				MainBookerGUI.main(null, user, operator);
+
+			}
+		});
 		GUIRLoader res = new GUIRLoader();
 		setModal(true);
 		setResizable(false);
@@ -199,9 +207,8 @@ public class BookerGUI extends JDialog {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-			setIconImage(res.icono);
-			setResizable(false);
-	
+		setIconImage(res.icono);
+		setResizable(false);
 
 		setBounds(100, 100, 627, 654);
 		setTitle("Buscador de ofertas");
@@ -211,7 +218,9 @@ public class BookerGUI extends JDialog {
 		btnAtras.setBounds(10, 11, 107, 35);
 		btnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+
 				dispose();
+
 			}
 		});
 		getContentPane().setLayout(null);
@@ -230,7 +239,8 @@ public class BookerGUI extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				if (ciudad.isSelected())
 					textCiudad.setEnabled(true);
-				else textCiudad.setEnabled(false);
+				else
+					textCiudad.setEnabled(false);
 			}
 		});
 		getContentPane().add(ciudad);
@@ -254,7 +264,7 @@ public class BookerGUI extends JDialog {
 		lblDe.setBounds(62, 204, 30, 14);
 		getContentPane().add(lblDe);
 
-		JComboBox <String> mes = new JComboBox<String>();
+		JComboBox<String> mes = new JComboBox<String>();
 		mes.setBounds(92, 201, 74, 20);
 		mes.addItem("Enero");
 		mes.addItem("Febrero");
@@ -297,8 +307,8 @@ public class BookerGUI extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				if (precioMax.isSelected()) {
 					sPrecioMax.setEnabled(true);
-				}
-				else sPrecioMax.setEnabled(false);
+				} else
+					sPrecioMax.setEnabled(false);
 			}
 		});
 		getContentPane().add(precioMax);
@@ -319,7 +329,8 @@ public class BookerGUI extends JDialog {
 			public void actionPerformed(ActionEvent arg0) {
 				if (tipoHabitacion.isSelected())
 					tipoHabitacionL.setEnabled(true);
-				else tipoHabitacionL.setEnabled(false);
+				else
+					tipoHabitacionL.setEnabled(false);
 			}
 		});
 		getContentPane().add(tipoHabitacion);
@@ -355,18 +366,18 @@ public class BookerGUI extends JDialog {
 		labelError2 = new JLabel(" ");
 		labelError2.setBounds(10, 473, 146, 14);
 		getContentPane().add(labelError2);
-		
 
 		JButton btnAplicarFiltros = new JButton("Aplicar filtros y buscar");
 		btnAplicarFiltros.setBounds(10, 513, 156, 37);
 		btnAplicarFiltros.addActionListener(new ActionListener() {
 			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent arg0) {
+				btnAplicarFiltros.setEnabled(false);
 				// BOTON APLICAR FILTROS
-				wait.main(null, wait);
+
 				ofertasEncontradas.clear();
 
-				String city=null;
+				String city = null;
 				ArrayDeque<RuralHouse> result = null;
 
 				try {
@@ -374,7 +385,7 @@ public class BookerGUI extends JDialog {
 					if (ciudad.isSelected()) {
 						// SI EL FILTRO CIUDAD ESTA SELECCIONADO
 						city = textCiudad.getText();
-						
+
 						// SI EL RECUADRO ESTA VACIO <-- error
 						if (city.isEmpty()) {
 
@@ -383,8 +394,7 @@ public class BookerGUI extends JDialog {
 									"No se ha podido realizar la busqueda", JOptionPane.WARNING_MESSAGE);
 							throw new ExcepcionBusqueda("Ciudad");
 							// SI NO ESTA VACIO <-- busqueda
-						}
-						else {
+						} else {
 							result = operator.getRuralHousesCity(city);
 							System.out.println("Busqueda de casas en la ciudad:" + city);
 
@@ -407,7 +417,7 @@ public class BookerGUI extends JDialog {
 					int dayI;
 					int yearI;
 					int numDias = (Integer) spinner.getValue();
-					
+
 					// DIA VACIO <-- error
 					if (day.isEmpty()) {
 						// buscando.dispose();
@@ -424,13 +434,13 @@ public class BookerGUI extends JDialog {
 
 					// 0 Días <--error
 
-					else if (numDias == 0) { //redundante -> quitar
+					else if (numDias == 0) { // redundante -> quitar
 						JOptionPane.showMessageDialog(frame, "No puedes alquilar una casa durante 0 días",
 								"No se ha podido realizar la busqueda", JOptionPane.WARNING_MESSAGE);
 						throw new ExcepcionBusqueda("dias = 0");
 					}
 
-					else if (numDias < 0) { //redundante -> quitar
+					else if (numDias < 0) { // redundante -> quitar
 						JOptionPane.showMessageDialog(frame,
 								"Por desgracia la opicón de invetir el tiempo no está implementada por ahora en la aplicación",
 								"No se ha podido realizar la busqueda", JOptionPane.WARNING_MESSAGE);
@@ -446,17 +456,15 @@ public class BookerGUI extends JDialog {
 							JOptionPane.showMessageDialog(frame, "No puedes buscar habitaciones para 0 personas",
 									"No se ha podido realizar la busqueda", JOptionPane.WARNING_MESSAGE);
 							throw new ExcepcionBusqueda("Tipo habitacion");
-						}
-						else if (PersHabit < 0) {
+						} else if (PersHabit < 0) {
 							JOptionPane.showMessageDialog(frame,
 									"No puedes buscar habitaciones para un número de personas negativo",
 									"No se ha podido realizar la busqueda", JOptionPane.WARNING_MESSAGE);
 							throw new ExcepcionBusqueda("Tipo habitacion");
 						}
-						
 
 					}
-					
+
 					dayI = Integer.valueOf(day);
 					yearI = Integer.valueOf(year);
 
@@ -468,9 +476,10 @@ public class BookerGUI extends JDialog {
 
 					// BUSQUEDA DE OFERTAS
 					Iterator<RuralHouse> itr;
-					if(result!=null){
-					 itr= result.iterator();}
-					else itr=null;
+					if (result != null) {
+						itr = result.iterator();
+					} else
+						itr = null;
 
 					// Precio maximo
 					float premax = Integer.MAX_VALUE; // Siempre hago la
@@ -488,7 +497,7 @@ public class BookerGUI extends JDialog {
 														// menor.
 
 					if (precioMax.isSelected()) {
-						premax =  (float) sPrecioMax.getValue();
+						premax = (float) sPrecioMax.getValue();
 						if (premax == 0) { // DEJAMOS BUSCAR CASAS GRATIS
 							labelError.setText("AVISO: Has puesto 0€ como precio máximo");
 
@@ -501,162 +510,163 @@ public class BookerGUI extends JDialog {
 
 						}
 
-						else labelError.setText("");
+						else
+							labelError.setText("");
 					}
 					System.out.println(date);
 					System.out.println(datefin);
 					// tableModel = new DefaultTableModel(null, columnNames);
 					offPanel = new ArrayList<Offer>();
-					if (itr!=null){
-					while (itr.hasNext()) {
+					if (itr != null) {
+						while (itr.hasNext()) {
 
-						RuralHouse rhtemp = itr.next();
+							RuralHouse rhtemp = itr.next();
 
-						System.out.println(rhtemp);
+							System.out.println(rhtemp);
 
-						ArrayDeque<Offer> ofertas = operator.getOffers(rhtemp, date, datefin);
+							ArrayDeque<Offer> ofertas = operator.getOffers(rhtemp, date, datefin);
 
-						System.out.println(ofertas.toString());
+							System.out.println(ofertas.toString());
 
-						for (Offer vo : ofertas) {
+							for (Offer vo : ofertas) {
 
-							System.out.println(vo.toString());
-							if (vo.getPrice() <= premax && vo.getnPersRoom() >= PersHabit && !vo.isReservaRealizada()) {
-								ofertasEncontradas.add(vo);
-								
-								//-------------SUSTITUIDO POR PANELES-----------------
-								// CARGAR AL JLIST LO ENCONTRADO
-								
+								System.out.println(vo.toString());
+								if (vo.getPrice() <= premax && vo.getnPersRoom() >= PersHabit
+										&& !vo.isReservaRealizada()) {
+									ofertasEncontradas.add(vo);
 
-								/*System.out.println("Offer retrieved: " + vo.toString());
-								Vector row = new Vector();
-								row.add(rhtemp.getCity());
+									// -------------SUSTITUIDO POR
+									// PANELES-----------------
+									// CARGAR AL JLIST LO ENCONTRADO
 
-								String firstDaySqlDate = (vo.getFirstDay().getDate() + "/"
-										+ (vo.getFirstDay().getMonth() + 1) + "/"
-										+ (vo.getFirstDay().getYear() + 1900));
-								String lastDaySqlDate = (vo.getLastDay().getDate() + "/"
-										+ (vo.getLastDay().getMonth() + 1) + "/" + (vo.getLastDay().getYear() + 1900));
+									/*
+									 * System.out.println("Offer retrieved: " +
+									 * vo.toString()); Vector row = new
+									 * Vector(); row.add(rhtemp.getCity());
+									 * 
+									 * String firstDaySqlDate =
+									 * (vo.getFirstDay().getDate() + "/" +
+									 * (vo.getFirstDay().getMonth() + 1) + "/" +
+									 * (vo.getFirstDay().getYear() + 1900));
+									 * String lastDaySqlDate =
+									 * (vo.getLastDay().getDate() + "/" +
+									 * (vo.getLastDay().getMonth() + 1) + "/" +
+									 * (vo.getLastDay().getYear() + 1900));
+									 * 
+									 * row.add(firstDaySqlDate);
+									 * row.add(lastDaySqlDate);
+									 * row.add(vo.getPrice() + "€");
+									 * row.add(vo.getnPersRoom());
+									 * 
+									 * tableModel.addRow(row); offPanel.add(vo);
+									 * scrollPane.revalidate();
+									 * scrollPane.repaint();
+									 */
 
-								row.add(firstDaySqlDate);
-								row.add(lastDaySqlDate);
-								row.add(vo.getPrice() + "€");
-								row.add(vo.getnPersRoom());
-
-								tableModel.addRow(row);
-								offPanel.add(vo);
-								scrollPane.revalidate();
-								scrollPane.repaint();*/
-
+								}
 							}
+
 						}
-						
-					
 					}
-					}
-					
-					//Si escribes null en ciudad te carga toda las ofertas
-					//Sirve para hacer pruebas de forma sencilla. 
+
+					// Si escribes null en ciudad te carga toda las ofertas
+					// Sirve para hacer pruebas de forma sencilla.
 					System.out.println(city);
-					if (city!=null){
-					if (city.equals("null")){
-					ArrayDeque<RuralHouse> tmp1 = new ArrayDeque<RuralHouse>();
-					tmp1=operator.getAllRuralHouses();
-					Iterator<RuralHouse> itr2 = tmp1.iterator();
-					while (itr2.hasNext())
-					ofertasEncontradas.addAll(operator.getAllOffers((RuralHouse) itr2.next()));}
+					if (city != null) {
+						if (city.equals("null")) {
+							ArrayDeque<RuralHouse> tmp1 = new ArrayDeque<RuralHouse>();
+							tmp1 = operator.getAllRuralHouses();
+							Iterator<RuralHouse> itr2 = tmp1.iterator();
+							while (itr2.hasNext())
+								ofertasEncontradas.addAll(operator.getAllOffers((RuralHouse) itr2.next()));
+						}
 					}
-					
-					 mostrarResult(user,operator);
+
+					mostrarResult(user, operator);
 				}
-				
-				
-				
+
 				catch (java.lang.NumberFormatException exc) {
 					JOptionPane.showMessageDialog(frame,
 							"Ha ocurrido un error, por favor, revise los datos introducidos",
 							"No se ha podido realizar la busqueda", JOptionPane.ERROR_MESSAGE);
-				}
-				catch (ExcepcionBusqueda exc) {
+				} catch (ExcepcionBusqueda exc) {
 					System.out.println(exc);
 				}
-				wait.dispose();;
-				
+
+				btnAplicarFiltros.setEnabled(true);
 			}
 		});
 		getContentPane().add(btnAplicarFiltros);
-		
+
 		JLabel lblOrdenarPor = new JLabel("Ordenar por:");
 		lblOrdenarPor.setBounds(351, 0, 84, 25);
 		getContentPane().add(lblOrdenarPor);
-		
+
 		JButton btnPrecio = new JButton("Precio\u2191");
 		btnPrecio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Collections.sort(ofertasEncontradas, Offer.StrPrice);
-				indice=0;
-				mostrarResult(user,operator);
+				indice = 0;
+				mostrarResult(user, operator);
 			}
 		});
 		btnPrecio.setBounds(355, 23, 69, 22);
 		getContentPane().add(btnPrecio);
-		
+
 		JButton btnNombre = new JButton("Precio\u2193");
 		btnNombre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			Collections.sort(ofertasEncontradas, Offer.StrPriceI);
-			indice=0;
-			mostrarResult(user,operator);
-				
+				Collections.sort(ofertasEncontradas, Offer.StrPriceI);
+				indice = 0;
+				mostrarResult(user, operator);
+
 			}
 		});
 		btnNombre.setBounds(287, 23, 69, 22);
 		getContentPane().add(btnNombre);
-		
+
 		JButton btnCiudad = new JButton("Ciudad");
 		btnCiudad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Collections.sort(ofertasEncontradas, Offer.StrCity);
-				indice=0;
-				mostrarResult(user,operator);
+				indice = 0;
+				mostrarResult(user, operator);
 			}
 		});
 		btnCiudad.setBounds(423, 23, 69, 22);
 		getContentPane().add(btnCiudad);
-		
+
 		anteriores = new JButton("<- Anteriores");
 		anteriores.setEnabled(false);
 		anteriores.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				indice-=4;
-				 mostrarResult(user,operator);
+				indice -= 4;
+				mostrarResult(user, operator);
 			}
 		});
 		anteriores.setForeground(new Color(0, 0, 102));
 		anteriores.setBounds(191, 21, 97, 25);
 		getContentPane().add(anteriores);
-		
+
 		siguientes = new JButton("Siguientes ->");
 		siguientes.setEnabled(false);
 		siguientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				indice+=4;
-				 mostrarResult(user,operator);
+				indice += 4;
+				mostrarResult(user, operator);
 			}
 		});
 		siguientes.setForeground(new Color(0, 0, 102));
 		siguientes.setBounds(491, 21, 97, 25);
 		getContentPane().add(siguientes);
-		
-	
 
 	}
+
 	protected MaskFormatter createFormatter(String s) {
 		MaskFormatter formatter = null;
 		try {
 			formatter = new MaskFormatter(s);
-		}
-		catch (ParseException e) {
+		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

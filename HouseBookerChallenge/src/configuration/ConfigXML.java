@@ -10,8 +10,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import gui.SplashGUI;
-
 public class ConfigXML {
 	private String			businessLogicNode;
 
@@ -137,7 +135,10 @@ public class ConfigXML {
 		catch (Exception e) {
 			System.out.println("Error in ConfigXML.java: problems with config.xml");
 			main.Runer.splash.textArea.append("\n Error in ConfigXML.java: problems with config.xml");
-			main.Runer.splash.setBounds(100, 100, 343, 220);;
+			main.Runer.splash.setBounds(main.Runer.splash.getX(), main.Runer.splash.getY(), main.Runer.splash.getWidth(), 220);
+			main.Runer.splash.progressBar.setIndeterminate(false);
+			main.Runer.splash.progressBar.setValue(0);
+			main.Runer.splash.progressBar.setString("Error");
 			e.printStackTrace();
 		}
 

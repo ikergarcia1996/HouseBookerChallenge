@@ -45,6 +45,7 @@ public class MainBookerGUI extends JDialog {
 
 	private JPanel				contentPane;
 	private ArrayList<Offer>	ultimasOfertas;
+	
 
 	/**
 	 * Launch the application.
@@ -78,7 +79,7 @@ public class MainBookerGUI extends JDialog {
 		Component frame = null;
 		GUIRLoader res = new GUIRLoader();
 		setTitle("HouseBookerChallenge");
-		setIconImage(res.icono);
+		
 		setModal(true);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -89,7 +90,7 @@ public class MainBookerGUI extends JDialog {
 		contentPane.setLayout(null);
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
-
+		setIconImage(res.icono);
 		try {
 			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
 		}
@@ -211,6 +212,7 @@ public class MainBookerGUI extends JDialog {
 			public void actionPerformed(ActionEvent arg0) {
 				if (user.getClass().equals(Cliente.class)) {
 					BookerGUI.main(null, user, operator);
+					dispose();
 				}
 				else HouseManagerGUI.main(null, user, operator);
 

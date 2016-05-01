@@ -28,7 +28,7 @@ public class Offer implements Serializable {
 	private RuralHouse	ruralHouse;
 	
 	private boolean reservaRealizada=false; //true = reservado
-	private Usuario cliente=null;
+	private Cliente cliente=null;
 
 	public boolean isReservaRealizada() {
 		return reservaRealizada;
@@ -42,7 +42,7 @@ public class Offer implements Serializable {
 		return cliente;
 	}
 
-	public void setCliente(Usuario cliente) {
+	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
 

@@ -59,7 +59,6 @@ public class MainGUI extends JFrame {
 	 */
 	public MainGUI(GUIOperator operator) {
 		GUIRLoader res = new GUIRLoader();
-		setIconImage(res.icono);
 		setResizable(false);
 		
 		setTitle("HouseBookerChallenge");
@@ -85,14 +84,15 @@ public class MainGUI extends JFrame {
 		setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
 		
 		
-			try {
-				UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-			}
-			catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-					| UnsupportedLookAndFeelException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+		setIconImage(res.icono);
+		try {
+			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+		}
+		catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+				| UnsupportedLookAndFeelException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		
 
@@ -126,12 +126,6 @@ public class MainGUI extends JFrame {
 		});
 		contentPane.add(btnIniciar);
 
-		JLabel lblAyuda = new JLabel("Ayuda");
-		lblAyuda.setVisible(false);
-		lblAyuda.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		lblAyuda.setForeground(Color.BLUE);
-		lblAyuda.setBounds(15, 341, 221, 14);
-		contentPane.add(lblAyuda);
 
 		JLabel lblAcercaDe = new JLabel("Acerca de...");
 		lblAcercaDe.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -168,8 +162,9 @@ public class MainGUI extends JFrame {
 		btnVerOfertas.setDefaultCapable(false);
 		btnVerOfertas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//dialog.main(null, dialog);
+				
 				MainBookerGUI.main(null, new Cliente("Invitado", "Easter Egg!", "JAJAJA", "Invitado@hbc.com", "", new ProfileImg(null)), operator);
+				
 			}
 		});
 		btnVerOfertas.setBounds(10, 241, 114, 23);

@@ -23,7 +23,7 @@ import javax.swing.filechooser.*;
 import utilities.ImageFilter;
 import utilities.ProfileImg;
 import utilities.ImageUtils;
-import javax.swing.ImageIcon;
+
 import javax.swing.border.LineBorder;;
 
 public class RegistroGUI extends JDialog {
@@ -31,10 +31,10 @@ public class RegistroGUI extends JDialog {
 	/**
 	 * 
 	 */
-	private static final long	serialVersionUID	= 1L;
-	public Component[]			Cliente;
-	public Component[]			Propietario;
-	JFileChooser				fc;
+	private static final long serialVersionUID = 1L;
+	public Component[] Cliente;
+	public Component[] Propietario;
+	JFileChooser fc;
 
 	/**
 	 * Launch the application.
@@ -46,8 +46,7 @@ public class RegistroGUI extends JDialog {
 			RegistroGUI dialog = new RegistroGUI(tipo, operator);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -58,10 +57,13 @@ public class RegistroGUI extends JDialog {
 	 * @param operator
 	 */
 	public RegistroGUI(boolean tipo, GUIOperator operator) {
+		GUIRLoader res = new GUIRLoader();
+		setIconImage(res.icono);
 		try {
-			setIconImage(ImageIO.read(new File("Images/icon.png")));
+			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
 		}
-		catch (IOException e1) {
+		catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+				| UnsupportedLookAndFeelException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
@@ -70,30 +72,10 @@ public class RegistroGUI extends JDialog {
 		setResizable(false);
 		if (tipo) {
 			setBounds(100, 100, 633, 440);
-		}
-		else {
+		} else {
 			setBounds(100, 100, 335, 440);
 		}
-		try {
-			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-		}
-		catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		catch (InstantiationException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		catch (IllegalAccessException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		catch (UnsupportedLookAndFeelException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-
+		
 		SwingUtilities.updateComponentTreeUI(getContentPane());
 
 		getContentPane().setLayout(null);
@@ -124,7 +106,8 @@ public class RegistroGUI extends JDialog {
 			JSeparator separator2 = new JSeparator();
 			if (tipo)
 				separator2.setBounds(10, 367, 588, 7);
-			else separator2.setBounds(10, 367, 280, 7);
+			else
+				separator2.setBounds(10, 367, 280, 7);
 			getContentPane().add(separator2);
 		}
 		{
@@ -155,18 +138,17 @@ public class RegistroGUI extends JDialog {
 					if (returnVal == JFileChooser.APPROVE_OPTION) {
 						File img = fc.getSelectedFile();
 						BufferedImage image = null;
-							try {
-								image = ImageIO.read(img);
-							}
-							catch (IOException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-							image = ImageUtils.resize(image, 80, 80);
-							String filestring = img.getPath();
-							String filetype=filestring.substring(filestring.lastIndexOf('.')+1, filestring.length());
-							perfil.setImage(ImageUtils.encodeToString(image,filetype));
-							lblPerfil.setIcon(new ImageIcon(image));
+						try {
+							image = ImageIO.read(img);
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						image = ImageUtils.resize(image, 80, 80);
+						String filestring = img.getPath();
+						String filetype = filestring.substring(filestring.lastIndexOf('.') + 1, filestring.length());
+						perfil.setImage(ImageUtils.encodeToString(image, filetype));
+						lblPerfil.setIcon(new ImageIcon(image));
 
 					}
 
@@ -179,8 +161,8 @@ public class RegistroGUI extends JDialog {
 			btnContinuar.setLocation(0, 71);
 			if (tipo) {
 				btnContinuar.setBounds(508, 380, 89, 23);
-			}
-			else btnContinuar.setBounds(201, 380, 89, 23);
+			} else
+				btnContinuar.setBounds(201, 380, 89, 23);
 			getContentPane().add(btnContinuar);
 			JRootPane rootPane = getRootPane();
 			rootPane.setDefaultButton(btnContinuar);
@@ -198,6 +180,7 @@ public class RegistroGUI extends JDialog {
 			btnContinuar.addMouseListener(new MouseAdapter() {
 
 				public void mouseClicked(MouseEvent e) {
+					btnContinuar.setEnabled(false);
 					String Nombre = ((JTextField) Cliente[3]).getText();
 					String Apellidos = ((JTextField) Cliente[5]).getText();
 					String Telefono = ((JFormattedTextField) Cliente[7]).getText();
@@ -227,47 +210,63 @@ public class RegistroGUI extends JDialog {
 					}
 					int error = 0;
 					if (tipo) {
-						if (Provincia.length() == 0) error = 15;
-						if (Poblacion.length() == 0) error = 14;
+						if (Provincia.length() == 0)
+							error = 15;
+						if (Poblacion.length() == 0)
+							error = 14;
 						CP = CP.replaceAll("\\s", "");
-						if (CP.length() == 0) error = 13;
-						if (Numero.length() == 0) error = 12;
-						if (Calle.length() == 0) error = 11;
+						if (CP.length() == 0)
+							error = 13;
+						if (Numero.length() == 0)
+							error = 12;
+						if (Calle.length() == 0)
+							error = 11;
 						DNI = DNI.replaceAll("\\s", "");
 						DNI = DNI.replaceAll("-", "");
-						if (DNI.length() == 0) error = 10;
+						if (DNI.length() == 0)
+							error = 10;
 						DNI = DNI.replaceAll("-", "");
-						if (!comprobarDNI(DNI)) if (!(error == 10)) error = 9;
+						if (!comprobarDNI(DNI))
+							if (!(error == 10))
+								error = 9;
 					}
-					if (Contrasena.length() == 0) error = 8;
-					if (!Contrasena.equals(Confinmar)) error = 7;
-					if (Correo.length() == 0) error = 6;
+					if (Contrasena.length() == 0)
+						error = 8;
+					if (!Contrasena.equals(Confinmar))
+						error = 7;
+					if (Correo.length() == 0)
+						error = 6;
 					if (!(Correo.matches(
 							"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")))
-						if (!(error == 6)) error = 5;
+						if (!(error == 6))
+							error = 5;
 					Telefono = Telefono.replaceAll("\\s", "");
-					if (Telefono.length() == 0) error = 4;
-					if (Telefono.length() <= 8) Telefono = "000000000";
+					if (Telefono.length() == 0)
+						error = 4;
+					if (Telefono.length() <= 8)
+						Telefono = "000000000";
 					int tlf = Integer.valueOf(Telefono);
 					Component frame = null;
 					if (!((tlf <= 999999999 && tlf >= 900000000) || (tlf <= 799999999 && tlf >= 600000000)))
-						if (!(error == 4)) error = 3;
-					if (Apellidos.length() == 0) error = 2;
-					if (Nombre.length() == 0) error = 1;
+						if (!(error == 4))
+							error = 3;
+					if (Apellidos.length() == 0)
+						error = 2;
+					if (Nombre.length() == 0)
+						error = 1;
 
 					if (error != 0) {
 						GenerarError(error);
 
-					}
-					else {
+					} else {
 						CaptchaGUI.main(null);
-						WaitGUI dialog = new WaitGUI("Registrando usuario");
-						dialog.main(null, dialog);
+						
+						
 						int resultado = operator.Registrar(tipo, Nombre, Apellidos, Telefono, Correo, Contrasena, DNI,
 								Calle, Numero, Piso, Puerta, Letra, CP, Poblacion, Provincia, perfil);
 
 						if (resultado == -1) {
-							dialog.dispose();
+						
 							int n = JOptionPane.showConfirmDialog(frame,
 									"Este usuario ya ha sido registrado previamente. ¿Desea iniciar sesión ahora?",
 									"Error", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
@@ -276,74 +275,74 @@ public class RegistroGUI extends JDialog {
 								LoginGUI.main(null, operator);
 							}
 
-						}
-						else if (resultado == 0) {
-							dialog.dispose();
+						} else if (resultado == 0) {
+							
 							JOptionPane.showMessageDialog(frame, "Registro correcto. Ahora puede iniciar sesión.",
 									"Registro correcto", JOptionPane.INFORMATION_MESSAGE);
 							dispose();
 							LoginGUI.main(null, operator);
 						} else if (resultado == -2) {
-							dialog.dispose();
-							JOptionPane.showMessageDialog(frame, "No se puede registrar este usuario por que ese correo o DNI está banneado de poder usar el sistema. Contacte con el administrador para más información.",
+							
+							JOptionPane.showMessageDialog(frame,
+									"No se puede registrar este usuario por que ese correo o DNI está banneado de poder usar el sistema. Contacte con el administrador para más información.",
 									"Error", JOptionPane.INFORMATION_MESSAGE);
 						}
 
 					}
-
+					btnContinuar.setEnabled(true);
 				}
 
 				private void GenerarError(int error) {
 					String mensaje;
 					switch (error) {
-						case (15):
-							mensaje = "No ha especificado ninguna provincia.";
-							break;
-						case (14):
-							mensaje = "No ha especificado ninguna población.";
-							break;
-						case (13):
-							mensaje = "No ha especificado ningún código postal.";
-							break;
-						case (12):
-							mensaje = "No ha especificado ningún número";
-							break;
-						case (11):
-							mensaje = "No ha especificado ninguna calle.";
-							break;
-						case (10):
-							mensaje = "No ha especificado nungún DNI.";
-							break;
-						case (9):
-							mensaje = "El DNI introducido no es válido";
-							break;
-						case (8):
-							mensaje = "No ha especificado ninguna contraseña.";
-							break;
-						case (7):
-							mensaje = "Las contraseñas no coinciden";
-							break;
-						case (6):
-							mensaje = "No ha especificado ningún correo electrónico.";
-							break;
-						case (5):
-							mensaje = "El correo electrónico introducido no es correcto.";
-							break;
-						case (4):
-							mensaje = "No ha introducido ningún teléfono.";
-							break;
-						case (3):
-							mensaje = "El teléfono introducido no es correcto";
-							break;
-						case (2):
-							mensaje = "No ha especificado ningún apellido.";
-							break;
-						case (1):
-							mensaje = "No ha especificado ningún nombre.";
-							break;
-						default:
-							mensaje = "Error desconocido.";
-							break;
+					case (15):
+						mensaje = "No ha especificado ninguna provincia.";
+						break;
+					case (14):
+						mensaje = "No ha especificado ninguna población.";
+						break;
+					case (13):
+						mensaje = "No ha especificado ningún código postal.";
+						break;
+					case (12):
+						mensaje = "No ha especificado ningún número";
+						break;
+					case (11):
+						mensaje = "No ha especificado ninguna calle.";
+						break;
+					case (10):
+						mensaje = "No ha especificado nungún DNI.";
+						break;
+					case (9):
+						mensaje = "El DNI introducido no es válido";
+						break;
+					case (8):
+						mensaje = "No ha especificado ninguna contraseña.";
+						break;
+					case (7):
+						mensaje = "Las contraseñas no coinciden";
+						break;
+					case (6):
+						mensaje = "No ha especificado ningún correo electrónico.";
+						break;
+					case (5):
+						mensaje = "El correo electrónico introducido no es correcto.";
+						break;
+					case (4):
+						mensaje = "No ha introducido ningún teléfono.";
+						break;
+					case (3):
+						mensaje = "El teléfono introducido no es correcto";
+						break;
+					case (2):
+						mensaje = "No ha especificado ningún apellido.";
+						break;
+					case (1):
+						mensaje = "No ha especificado ningún nombre.";
+						break;
+					default:
+						mensaje = "Error desconocido.";
+						break;
 					}
 					Component frame = null;
 					JOptionPane.showMessageDialog(frame, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
@@ -361,13 +360,19 @@ public class RegistroGUI extends JDialog {
 						DNI = "0" + DNI;
 					}
 
-					if (DNI.length() != 9) { return false; }
+					if (DNI.length() != 9) {
+						return false;
+					}
 
-					if (!Character.isLetter(DNI.charAt(8))) { return false; }
+					if (!Character.isLetter(DNI.charAt(8))) {
+						return false;
+					}
 
 					for (int i = 0; i < 8; i++) {
 
-						if (!Character.isDigit(DNI.charAt(i))) { return false; }
+						if (!Character.isDigit(DNI.charAt(i))) {
+							return false;
+						}
 
 						num += DNI.charAt(i);
 					}
@@ -375,7 +380,9 @@ public class RegistroGUI extends JDialog {
 					ind = Integer.parseInt(num);
 					ind %= 23;
 
-					if ((Character.toUpperCase(DNI.charAt(8))) != letraDni[ind]) { return false; }
+					if ((Character.toUpperCase(DNI.charAt(8))) != letraDni[ind]) {
+						return false;
+					}
 
 					return true;
 				}

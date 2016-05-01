@@ -64,9 +64,13 @@ public class LoginGUI extends JDialog {
 	 * @param operator
 	 */
 	public LoginGUI(GUIOperator operator) {
+		GUIRLoader res = new GUIRLoader();
+		setIconImage(res.icono);
 		try {
-			setIconImage(ImageIO.read(new File("Images/icon.png")));
-		} catch (IOException e1) {
+			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+		}
+		catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+				| UnsupportedLookAndFeelException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
@@ -77,34 +81,23 @@ public class LoginGUI extends JDialog {
 		getContentPane().setLayout(null);
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
-
-		try {
-			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-				| UnsupportedLookAndFeelException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-
 		SwingUtilities.updateComponentTreeUI(getContentPane());
-		
-		
+
 		JLabel lblCaps = new JLabel("");
 		if (Toolkit.getDefaultToolkit().getLockingKeyState(KeyEvent.VK_CAPS_LOCK))
-		lblCaps.setIcon(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.WARNING)));
+			lblCaps.setIcon(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.WARNING)));
 		lblCaps.setBounds(275, 42, 14, 14);
 		getContentPane().add(lblCaps);
 		KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
 			@Override
 			public boolean dispatchKeyEvent(KeyEvent e) {
-				if (Toolkit.getDefaultToolkit().getLockingKeyState(KeyEvent.VK_CAPS_LOCK)){
+				if (Toolkit.getDefaultToolkit().getLockingKeyState(KeyEvent.VK_CAPS_LOCK)) {
 					lblCaps.setIcon(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.WARNING)));
 					pwdContrasea.setBounds(104, 39, 168, 20);
-					}
-				else{
+				} else {
 					lblCaps.setIcon(null);
 					pwdContrasea.setBounds(104, 39, 189, 20);
-					}
+				}
 				return false;
 			}
 		});
@@ -137,10 +130,6 @@ public class LoginGUI extends JDialog {
 		lblContrasea.setBounds(10, 42, 84, 14);
 		getContentPane().add(lblContrasea);
 
-		
-		
-	
-	
 		txtUsuario = new JTextField();
 		txtUsuario.setText("");
 		txtUsuario.setColumns(10);
@@ -157,9 +146,11 @@ public class LoginGUI extends JDialog {
 		pwdContrasea.addKeyListener(new KeyAdapter() {
 		});
 		pwdContrasea.setText("");
-		if (Toolkit.getDefaultToolkit().getLockingKeyState(KeyEvent.VK_CAPS_LOCK)) pwdContrasea.setBounds(104, 39, 168, 20);
-		
-		else pwdContrasea.setBounds(104, 39, 189, 20);
+		if (Toolkit.getDefaultToolkit().getLockingKeyState(KeyEvent.VK_CAPS_LOCK))
+			pwdContrasea.setBounds(104, 39, 168, 20);
+
+		else
+			pwdContrasea.setBounds(104, 39, 189, 20);
 		getContentPane().add(pwdContrasea);
 
 		JLabel label_3 = new JLabel("Recuperar usuario...");
@@ -180,6 +171,7 @@ public class LoginGUI extends JDialog {
 		JButton btnIniciarSesion = new JButton("Iniciar sesi\u00F3n");
 		btnIniciarSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				btnIniciarSesion.setEnabled(false);
 				String usuario = txtUsuario.getText();
 				char[] password = pwdContrasea.getPassword();
 				String pass = String.valueOf(password);
@@ -217,11 +209,16 @@ public class LoginGUI extends JDialog {
 					MainGUI.dialog.main(null, MainGUI.dialog);
 					dispose();
 					MainBookerGUI.main(null, user, operator);
-				}  else if (resultado == -2){
-					JOptionPane.showMessageDialog(null, "Este usuario está banneado del sistema. Contacte con el administrador para más información.",
+				} else if (resultado == -2) {
+					JOptionPane.showMessageDialog(null,
+							"Este usuario está banneado del sistema. Contacte con el administrador para más información.",
 							"Error", JOptionPane.ERROR_MESSAGE);
 				} else {
+					JOptionPane.showMessageDialog(null,
+							"Ha ocurrido un error desconocido. Contacte con el administrador para informar de este problema.",
+							"Error", JOptionPane.ERROR_MESSAGE);
 				}
+				btnIniciarSesion.setEnabled(true);
 			}
 
 		});

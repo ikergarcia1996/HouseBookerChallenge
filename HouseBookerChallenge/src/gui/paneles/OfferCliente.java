@@ -48,7 +48,7 @@ public class OfferCliente extends JPanel {
 		btnConsultar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			
-				BookOfferGUI.main(offer, user, operator, false, false);
+				BookOfferGUI.main(operator.getOffer(offer), user, operator, false, false);
 				
 			}
 		});

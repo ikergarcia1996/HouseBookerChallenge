@@ -16,6 +16,7 @@ import com.db4o.ObjectSet;
 
 import configuration.ConfigXML;
 import dataAccess.DataAccess;
+import domain.Cliente;
 import domain.Mensaje;
 //import domain.Booking;
 import domain.Offer;
@@ -324,7 +325,8 @@ public class FacadeImplementationWS implements ApplicationFacadeInterfaceWS {
 		
 		Offer mod = dB4oManager.getOffer(of);
 		mod.setReservaRealizada(true);
-		mod.setCliente(cliente);
+		//Solo necesito pasarme el correo, lo hago así para no modificar la función updateOffer ya que se usa en otos sitos
+		mod.setCliente(new Cliente(null, null, null, cliente.getCorreo(), null, null));
 		
 		
 
@@ -408,6 +410,13 @@ public class FacadeImplementationWS implements ApplicationFacadeInterfaceWS {
 		DataAccess dB4oManager = new DataAccess();
 		dB4oManager.updateMsg(oldmsg, mensaje);
 		dB4oManager.close();
+	}
+	
+	public Offer getOffer (Offer of){
+		DataAccess dB4oManager = new DataAccess();
+		Offer rt = dB4oManager.getOffer(of);
+		dB4oManager.close();
+		return rt;
 	}
 
 	

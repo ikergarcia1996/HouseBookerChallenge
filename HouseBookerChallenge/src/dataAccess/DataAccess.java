@@ -298,14 +298,14 @@ public class DataAccess {
 	}
 
 	public void updateHouse(RuralHouse rh, RuralHouse update) {
-		ObjectSet<RuralHouse> query = db.queryByExample(rh);
+		ObjectSet<RuralHouse> query = db.queryByExample(new RuralHouse(rh.getHouseNumber(), rh.getDescription(), rh.getCity(), rh.getDireccion(), null));
 		RuralHouse q = query.next();
 
 		q.setCity(update.getCity());
 		q.setDescription(update.getDescription());
 		q.setDireccion(update.getDireccion());
 		q.setImagenes(update.getImagenes());
-
+		q.setOwner((Usuario) db.queryByExample(new Propietario(null, null, null, update.getOwner().getCorreo(), null, null, null, null)));
 		db.store(q);
 		db.commit();
 	}
@@ -318,10 +318,12 @@ public class DataAccess {
 		q.setLastDay(update.getLastDay());
 		q.setnPersRoom(update.getnPersRoom());
 		q.setPrice(update.getPrice());
-		if (update.getCliente() != null)
-			q.setCliente((Usuario) db.queryByExample(update.getCliente()).next());
+		if (update.getCliente()!=null){
+			q.setCliente((Cliente) db.queryByExample(new Cliente(null, null, null, update.getCliente().getCorreo(), null, null)).next());
+			System.out.println("añadiendo cliente a oferta");
+		}
 		q.setReservaRealizada(true);
-
+		q.setRuralHouse((RuralHouse) db.queryByExample(new RuralHouse (update.getRuralHouse().getHouseNumber(), null, null, null,null)).next());
 		db.store(q);
 		db.commit();
 	}
@@ -385,9 +387,7 @@ public class DataAccess {
 		return users;
 	}
 	
-	public Offer getOffer(Offer of){
-		return (Offer) db.queryByExample(of).next();
-	}
+	
 
 	public void close() {
 		db.close();
@@ -404,7 +404,7 @@ public class DataAccess {
 	}
 	
 	public Propietario getOwner(Usuario user) {
-		return (Propietario) db.queryByExample(user).next();
+		return (Propietario) db.queryByExample(new Propietario (null, null, null, user.getCorreo(), null, null, null, null)).next();
 
 	}
 
@@ -479,6 +479,11 @@ public class DataAccess {
 		else link.setReaden();
 		db.store(link);
 		db.commit();
+	}
+	
+	public Offer getOffer(Offer of){
+		Offer rt = (Offer) db.queryByExample(new Offer(of.getOfferNumber(), of.getFirstDay(), of.getLastDay(), of.getPrice(), of.getRuralHouse(), of.getnPersRoom())).next();
+		return rt;
 	}
 	
 }

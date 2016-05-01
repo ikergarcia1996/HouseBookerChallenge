@@ -53,22 +53,12 @@ public class AcercaDeGUI extends JDialog {
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
 		
+		setIconImage(res.icono);
 		try {
 			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
 		}
-		catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		catch (InstantiationException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		catch (IllegalAccessException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		catch (UnsupportedLookAndFeelException e1) {
+		catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+				| UnsupportedLookAndFeelException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
@@ -114,7 +104,7 @@ public class AcercaDeGUI extends JDialog {
 		btnAceptar.setBounds(260, 141, 89, 23);
 		getContentPane().add(btnAceptar);
 
-		JLabel lblVersinDelPrograma = new JLabel("Versi\u00F3n del programa: 1.0");
+		JLabel lblVersinDelPrograma = new JLabel("Versi\u00F3n del programa: 2.1");
 		lblVersinDelPrograma.setBounds(5, 150, 240, 14);
 		getContentPane().add(lblVersinDelPrograma);
 	}

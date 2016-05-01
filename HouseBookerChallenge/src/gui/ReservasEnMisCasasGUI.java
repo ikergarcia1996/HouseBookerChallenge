@@ -89,8 +89,8 @@ public class ReservasEnMisCasasGUI extends JDialog {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (reservas.size()!=0)
-				BookOfferGUI.main(reservas.get(table.getSelectedRow()), user, operator, true, true);
-				
+				BookOfferGUI.main(operator.getOffer(reservas.get(table.getSelectedRow())), user, operator, true, true);
+					
 				
 			}
 		});

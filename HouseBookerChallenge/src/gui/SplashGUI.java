@@ -1,7 +1,6 @@
 package gui;
 
 import java.awt.Component;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.SystemColor;
 import java.awt.TextArea;
@@ -13,43 +12,45 @@ import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.JButton;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.Point;
 
 public class SplashGUI extends JDialog {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	/**
-	 * 
-	 */
 	public TextArea textArea = new TextArea();
 	GUIRLoader res = new GUIRLoader();
+	public JProgressBar progressBar = new JProgressBar();
 
 	/**
 	 * Launch the application.
 	 */
 	public void main(String[] args, SplashGUI dialog) {
-		try {
+	
 
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-			this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
+			
 			dialog.setVisible(true);
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
+		
 	}
 
 	/**
 	 * Create the dialog.
 	 */
 	public SplashGUI() {
+		setBounds(100, 100, 343, 200);
 		
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		setLocation(dim.width / 2 - getSize().width / 2, dim.height / 2 - getSize().height / 2);
+
 		setAlwaysOnTop(true);
 		setUndecorated(true);
 		setResizable(false);
-		setBounds(100, 100, 343, 200);
+		
 		
 			try {
 				UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
@@ -75,7 +76,7 @@ public class SplashGUI extends JDialog {
 					lblLogo.setBounds(0, 0, 343, 69);
 					this.getContentPane().add(lblLogo);
 		
-					JProgressBar progressBar = new JProgressBar();
+					
 					progressBar.setString("Iniciando...");
 					progressBar.setStringPainted(true);
 					progressBar.setIndeterminate(true);
@@ -91,6 +92,16 @@ public class SplashGUI extends JDialog {
 					JLabel lblV = new JLabel("v1.0");
 					lblV.setBounds(311, 49, 22, 20);
 					getContentPane().add(lblV);
+					
+					JButton btnSalir = new JButton("Salir");
+					btnSalir.addMouseListener(new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent arg0) {
+							System.exit(ERROR);
+						}
+					});
+					btnSalir.setBounds(228, 201, 115, 19);
+					getContentPane().add(btnSalir);
 
 	}
 }
