@@ -1,5 +1,5 @@
 package domain;
-
+//banned user
 public class BannedUser {
 	private String correo;
 	
