@@ -89,6 +89,7 @@ public class DataAccess {
 	public void initializeDB() {
 
 		System.out.println("Db initialized");
+		main.Runer.splash.textArea.append("DB initialized");
 		//RuralHouse rh1 = new RuralHouse(1, "Ezkioko etxea", "Ezkio", null);
 		//RuralHouse rh2 = new RuralHouse(2, "Etxetxikia", "Iruï¿½a", null);
 		//RuralHouse rh3 = new RuralHouse(3, "Udaletxea", "Bilbo", null);

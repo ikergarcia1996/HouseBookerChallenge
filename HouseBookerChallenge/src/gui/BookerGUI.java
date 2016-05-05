@@ -88,7 +88,8 @@ public class BookerGUI extends JDialog {
 
 	JButton anteriores;
 	JButton siguientes;
-	public WaitGUI wait = new WaitGUI("Buscando ofertas");
+	public static WaitGUI wait = new WaitGUI("Buscando ofertas");
+	public static WaitGUI cargando=new WaitGUI("Cargando contenido, por favor espere.");
 
 	private ArrayList<Offer> ofertasEncontradas = new ArrayList<Offer>();
 	int indice = 0;
@@ -178,13 +179,15 @@ public class BookerGUI extends JDialog {
 	 * Launch the application.
 	 */
 	public static void main(String[] args, Usuario user, GUIOperator operator) {
-
+		cargando.setVisible(true);
 		EventQueue.invokeLater(new Runnable() {
 
 			public void run() {
 				try {
 					BookerGUI frame = new BookerGUI(user, operator);
+					cargando.setVisible(false);
 					frame.setVisible(true);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -203,8 +206,9 @@ public class BookerGUI extends JDialog {
 
 		addWindowListener(new WindowAdapter() {
 			@Override
-			public void windowClosed(WindowEvent e) {
+			public void windowClosing(WindowEvent e) {
 				MainBookerGUI.main(null, user, operator);
+				dispose();
 
 			}
 		});
@@ -230,7 +234,7 @@ public class BookerGUI extends JDialog {
 		btnAtras.setBounds(10, 11, 107, 35);
 		btnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
+				MainBookerGUI.main(null, user, operator);
 				dispose();
 
 			}
@@ -249,10 +253,12 @@ public class BookerGUI extends JDialog {
 			e1.printStackTrace();
 		}
 		JCalendar calendar = new JCalendar();
+		calendar.getMonthChooser().getComboBox().setBackground(Color.WHITE);
+		calendar.getMonthChooser().getSpinner().setForeground(Color.WHITE);
 		
 		
 		calendar.putClientProperty("JCalendar.background", null);
-		calendar.getMonthChooser().getSpinner().setBackground(UIManager.getColor("Button.disabledShadow"));
+		calendar.getMonthChooser().getSpinner().setBackground(Color.WHITE);
 		calendar.getDayChooser().setBackground(UIManager.getColor("Button.background"));
 		calendar.getDayChooser().getDayPanel().setBorder(null);
 		calendar.setMaxDayCharacters(2);

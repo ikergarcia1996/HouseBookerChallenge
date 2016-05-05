@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Point;
+import java.awt.Color;
 
 public class SplashGUI extends JDialog {
 	/**
@@ -24,84 +25,81 @@ public class SplashGUI extends JDialog {
 	private static final long serialVersionUID = 1L;
 	public TextArea textArea = new TextArea();
 	GUIRLoader res = new GUIRLoader();
-	public JProgressBar progressBar = new JProgressBar();
+	public JProgressBar progressBar;
 
 	/**
 	 * Launch the application.
 	 */
 	public void main(String[] args, SplashGUI dialog) {
-	
 
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			
-			dialog.setVisible(true);
-		
+		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+
+		dialog.setVisible(true);
+
 	}
 
 	/**
 	 * Create the dialog.
 	 */
 	public SplashGUI() {
-		setBounds(100, 100, 343, 200);
+		try {
+			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+				| UnsupportedLookAndFeelException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
+		setBounds(100, 100, 343, 200);
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		setLocation(dim.width / 2 - getSize().width / 2, dim.height / 2 - getSize().height / 2);
-
 		setAlwaysOnTop(true);
 		setUndecorated(true);
 		setResizable(false);
-		
-		
-			try {
-				UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-			}
-			catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-					| UnsupportedLookAndFeelException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 
-		SwingUtilities.updateComponentTreeUI(getContentPane());
+		
+		progressBar = new JProgressBar();
+		progressBar.setForeground(new Color(50, 205, 50));
+		progressBar.setMaximum(1);
+		progressBar.setString("Cargando...");
+		progressBar.setStringPainted(true);
+		progressBar.setIndeterminate(true);
+		progressBar.setBounds(0, 70, 343, 26);
+		
+		getContentPane().add(progressBar);
+
+
+		// BufferedImage img = ImageIO.read(new
+		// File("Images/HouseBookerChallenge.png"));
+
+		getContentPane().setLayout(null);
+		JLabel lblLogo = new JLabel("logotipo");
+
+		lblLogo.setIcon(res.logotipo);
+		lblLogo.setAlignmentX(Component.CENTER_ALIGNMENT);
+		lblLogo.setBounds(0, 0, 343, 69);
+		this.getContentPane().add(lblLogo);
+
 		
 		
-		
-		
-		//			BufferedImage img = ImageIO.read(new File("Images/HouseBookerChallenge.png"));
-					
-					getContentPane().setLayout(null);
-					JLabel lblLogo = new JLabel("logotipo");
-					
-					lblLogo.setIcon(res.logotipo);
-					lblLogo.setAlignmentX(Component.CENTER_ALIGNMENT);
-					lblLogo.setBounds(0, 0, 343, 69);
-					this.getContentPane().add(lblLogo);
-		
-					
-					progressBar.setString("Iniciando...");
-					progressBar.setStringPainted(true);
-					progressBar.setIndeterminate(true);
-					progressBar.setBounds(0, 70, 343, 26);
-					getContentPane().add(progressBar);
-					textArea.setBackground(SystemColor.text);
-					textArea.setEditable(false);
-		
-					textArea.setBounds(0, 95, 343, 105);
-		
-					getContentPane().add(textArea);
-		
-					JLabel lblV = new JLabel("v1.0");
-					lblV.setBounds(311, 49, 22, 20);
-					getContentPane().add(lblV);
-					
-					JButton btnSalir = new JButton("Salir");
-					btnSalir.addMouseListener(new MouseAdapter() {
-						@Override
-						public void mouseClicked(MouseEvent arg0) {
-							System.exit(ERROR);
-						}
-					});
-					btnSalir.setBounds(228, 201, 115, 19);
-					getContentPane().add(btnSalir);
+		textArea.setBackground(SystemColor.text);
+		textArea.setEditable(false);
+		textArea.setBounds(0, 95, 343, 105);
+		getContentPane().add(textArea);
+
+		JLabel lblV = new JLabel("v1.0");
+		lblV.setBounds(311, 49, 22, 20);
+		getContentPane().add(lblV);
+
+		JButton btnSalir = new JButton("Salir");
+		btnSalir.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				System.exit(ERROR);
+			}
+		});
+		btnSalir.setBounds(228, 201, 115, 19);
+		getContentPane().add(btnSalir);
 
 	}
 }
