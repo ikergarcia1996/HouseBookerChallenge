@@ -16,6 +16,7 @@ import java.text.ParseException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -26,6 +27,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -56,6 +58,13 @@ import javax.swing.JScrollBar;
 import java.awt.Color;
 import java.awt.SystemColor;
 import javax.swing.SwingConstants;
+import com.toedter.calendar.JCalendar;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
+import java.awt.event.MouseMotionAdapter;
+import javax.swing.event.ChangeListener;
+import javax.swing.plaf.PanelUI;
+import javax.swing.event.ChangeEvent;
 
 public class BookerGUI extends JDialog {
 
@@ -67,7 +76,7 @@ public class BookerGUI extends JDialog {
 	private Component frame = null;
 	JSpinner sPrecioMax;
 	JLabel labelError;
-	JSpinner spinner;
+	JSpinner numnoches;
 	JSpinner tipoHabitacionL;
 	private Collection coleccion;
 	JLabel labelError2;
@@ -204,6 +213,9 @@ public class BookerGUI extends JDialog {
 		setResizable(false);
 
 		contentPane = new JPanel();
+		
+		
+		
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -226,6 +238,39 @@ public class BookerGUI extends JDialog {
 		getContentPane().setLayout(null);
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
+//UIManager.getLookAndFeelDefaults().put("Panel.background", null);
+//UIManager.getLookAndFeelDefaults().put("Background", null);
+		try {
+			String clase = "javax.swing.plaf.metal.MetalLookAndFeel";
+			UIManager.setLookAndFeel(clase);
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+				| UnsupportedLookAndFeelException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		JCalendar calendar = new JCalendar();
+		
+		
+		calendar.putClientProperty("JCalendar.background", null);
+		calendar.getMonthChooser().getSpinner().setBackground(UIManager.getColor("Button.disabledShadow"));
+		calendar.getDayChooser().setBackground(UIManager.getColor("Button.background"));
+		calendar.getDayChooser().getDayPanel().setBorder(null);
+		calendar.setMaxDayCharacters(2);
+		calendar.setBounds(3, 170, 175, 115);
+		Component botones[] = calendar.getDayChooser().getDayPanel().getComponents();
+		for(int i=7;i<49;i++){
+			((JComponent) botones[i]).setBorder(null);
+		}
+		contentPane.add(calendar);
+		try {
+			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+				| UnsupportedLookAndFeelException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		
 
 		getContentPane().add(btnAtras);
 
@@ -256,15 +301,18 @@ public class BookerGUI extends JDialog {
 		getContentPane().add(lblFechaInicio);
 
 		dia = new JFormattedTextField();
+		dia.setVisible(false);
 		dia.setBounds(20, 201, 32, 20);
 		getContentPane().add(dia);
 		dia.setColumns(10);
 
 		JLabel lblDe = new JLabel("de");
+		lblDe.setVisible(false);
 		lblDe.setBounds(62, 204, 30, 14);
 		getContentPane().add(lblDe);
 
 		JComboBox<String> mes = new JComboBox<String>();
+		mes.setVisible(false);
 		mes.setBounds(92, 201, 74, 20);
 		mes.addItem("Enero");
 		mes.addItem("Febrero");
@@ -281,10 +329,12 @@ public class BookerGUI extends JDialog {
 		getContentPane().add(mes);
 
 		JLabel lblDel = new JLabel("del");
+		lblDel.setVisible(false);
 		lblDel.setBounds(30, 232, 46, 14);
 		getContentPane().add(lblDel);
 
 		ano = new JFormattedTextField();
+		ano.setVisible(false);
 		ano.setBounds(60, 229, 57, 20);
 		getContentPane().add(ano);
 		ano.setColumns(10);
@@ -298,7 +348,7 @@ public class BookerGUI extends JDialog {
 		getContentPane().add(separator_1);
 
 		JSeparator separator_2 = new JSeparator();
-		separator_2.setBounds(10, 299, 156, 2);
+		separator_2.setBounds(10, 312, 156, 2);
 		getContentPane().add(separator_2);
 
 		JCheckBox precioMax = new JCheckBox("Precio M\u00E1ximo");
@@ -340,14 +390,77 @@ public class BookerGUI extends JDialog {
 		getContentPane().add(separator_4);
 
 		JLabel lblNDeNoches = new JLabel("N\u00BA de noches");
-		lblNDeNoches.setBounds(23, 274, 69, 14);
+		lblNDeNoches.setBounds(23, 290, 69, 14);
 		getContentPane().add(lblNDeNoches);
+		
+		Color bonito = new Color (0,184,245);
+		numnoches = new JSpinner();
+		numnoches.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				Component components[] = calendar.getDayChooser().getDayPanel().getComponents();
+				int i = 7;
+				int selected = 7;
+				boolean encontrado = false;
+				Color def=new Color(238,238,238);
+				Color defsel=new Color(160,160,160);
+				int dia=calendar.getDayChooser().getDay();
+				
+				for (int s = 7; s < 49; s++) components[s].setBackground(def);
+				
+				calendar.getDayChooser().setDay(dia);
+				
 
-		spinner = new JSpinner();
-		SpinnerModel model = new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1);
-		spinner.setModel(model);
-		spinner.setBounds(109, 268, 47, 20);
-		getContentPane().add(spinner);
+				while (!encontrado && i < 49) {
+					if (components[i].getBackground().equals(defsel)) {
+						selected = i;
+						encontrado = true;
+					}
+					i++;
+				}
+				 
+				
+				for (int j = selected+1; j < selected + (Integer) numnoches.getValue()&&j<49; j++) {
+					components[j].setBackground(bonito);
+				}
+				
+			}
+
+		});
+		calendar.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent arg0) {
+				Component components[] = calendar.getDayChooser().getDayPanel().getComponents();
+				int i = 7;
+				int selected = 7;
+				boolean encontrado = false;
+				Color def=new Color(238,238,238);
+				Color defsel=new Color(160,160,160);
+				int dia=calendar.getDayChooser().getDay();
+				
+				for (int s = 7; s < 49; s++) components[s].setBackground(def);
+				
+				calendar.getDayChooser().setDay(dia);
+				
+
+				while (!encontrado && i < 49) {
+					if (components[i].getBackground().equals(defsel)) {
+						selected = i;
+						encontrado = true;
+					}
+					i++;
+				}
+				 
+				
+				for (int j = selected+1; j < selected + (Integer) numnoches.getValue()&&j<49; j++) {
+					components[j].setBackground(bonito);
+				}
+				
+			}
+
+		});
+		SpinnerModel nochesmodel = new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1);
+		numnoches.setModel(nochesmodel);
+		numnoches.setBounds(102, 287, 47, 20);
+		getContentPane().add(numnoches);
 
 		labelError = new JLabel(" ");
 		labelError.setBounds(287, 44, 222, 14);
@@ -357,12 +470,15 @@ public class BookerGUI extends JDialog {
 		lblNewLabelResult.setBounds(10, 536, 204, 14);
 		getContentPane().add(lblNewLabelResult);
 
+		SpinnerModel tipomodel = new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1);
 		tipoHabitacionL = new JSpinner();
-		tipoHabitacionL.setModel(model);
+		tipoHabitacionL.setModel(tipomodel);
 		tipoHabitacionL.setBounds(20, 442, 136, 20);
 		getContentPane().add(tipoHabitacionL);
 		tipoHabitacionL.setEnabled(false);
 
+
+		
 		labelError2 = new JLabel(" ");
 		labelError2.setBounds(10, 473, 146, 14);
 		getContentPane().add(labelError2);
@@ -412,11 +528,13 @@ public class BookerGUI extends JDialog {
 
 					// CREACION DE FECHA
 					int m = mes.getSelectedIndex();
-					String day = dia.getText();
-					String year = ano.getText();
+					// String day = dia.getText();
+					// String year = ano.getText();
+					String day = "just for testing";
+					String year = "just for testing";
 					int dayI;
 					int yearI;
-					int numDias = (Integer) spinner.getValue();
+					int numDias = (Integer) numnoches.getValue();
 
 					// DIA VACIO <-- error
 					if (day.isEmpty()) {
@@ -465,11 +583,17 @@ public class BookerGUI extends JDialog {
 
 					}
 
-					dayI = Integer.valueOf(day);
-					yearI = Integer.valueOf(year);
+					// dayI = Integer.valueOf(day);
+					// yearI = Integer.valueOf(year);
 
-					@SuppressWarnings("deprecation")
-					Date date = new Date(yearI - 1900, m, dayI);
+					// @SuppressWarnings("deprecation")
+					// Date date = new Date(yearI - 1900, m, dayI);
+					// System.out.println(date);
+					Date date = new Date(calendar.getYearChooser().getYear() - 1900,
+							calendar.getMonthChooser().getMonth(), calendar.getDayChooser().getDay());
+					dayI = calendar.getDayChooser().getDay();
+					yearI = calendar.getYearChooser().getYear();
+					System.out.println(date);
 					@SuppressWarnings("deprecation")
 					Date datefin = (Date) date.clone();
 					datefin.setDate(dayI + numDias);
@@ -513,8 +637,8 @@ public class BookerGUI extends JDialog {
 						else
 							labelError.setText("");
 					}
-					System.out.println(date);
-					System.out.println(datefin);
+					// System.out.println(date);
+					// System.out.println(datefin);
 					// tableModel = new DefaultTableModel(null, columnNames);
 					offPanel = new ArrayList<Offer>();
 					if (itr != null) {
