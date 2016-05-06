@@ -16,6 +16,7 @@ import java.awt.event.ActionEvent;
 
 public class URLLoaderGUI extends JDialog {
 	private JTextField txtUrl;
+	private CloudUtilities.JavaDownload Cloud;
 
 	/**
 	 * Launch the application.
@@ -58,7 +59,7 @@ public class URLLoaderGUI extends JDialog {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				int download = CloudUtilities.JavaDownload.Download(direccion.toString(), "%tmp%\\HBC\\" + direccion.getFile());
+				int download = Cloud.Download(direccion.toString(), "%tmp%\\HBC\\" + direccion.getFile());
 				System.out.println(download);
 			}
 		});
@@ -77,7 +78,7 @@ public class URLLoaderGUI extends JDialog {
 		JButton btnPrevisualizar = new JButton("Abrir en el navegador");
 		btnPrevisualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				CloudUtilities.JavaDownload.openURLinExplorer(txtUrl.getText());
+				Cloud.openURLinExplorer(txtUrl.getText());
 			}
 		});
 		btnPrevisualizar.setBounds(248, 91, 137, 23);
