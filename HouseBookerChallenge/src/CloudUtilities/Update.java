@@ -53,12 +53,8 @@ public class Update {
 					textReader.close();
 					
 					//Borrar el fichero descargado, en proceso. 
-					StringBuilder fileRoute = new StringBuilder();  
-					fileRoute.append(System.getProperty("user.dir"));
-					fileRoute.append("\\");
-					fileRoute.append("NewVersion.rh");
-					System.out.println("Borrando el fichero " + fileRoute.toString());
-					Files.delete(Paths.get(fileRoute.toString()));
+					FileManager fl = new FileManager();
+					fl.removeFile("NewVersion.rh");
 					NewVersion nw = new NewVersion(LastVersion, url, comando, notas.toString());
 					return nw;
 					
