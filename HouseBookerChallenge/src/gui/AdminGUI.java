@@ -38,6 +38,7 @@ public class AdminGUI extends JFrame {
 	 * Create the frame.
 	 */
 	public AdminGUI(GUIOperator gOP, String adminpass) {
+		setAlwaysOnTop(true);
 		setResizable(false);
 		setTitle("Modo Administrador");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

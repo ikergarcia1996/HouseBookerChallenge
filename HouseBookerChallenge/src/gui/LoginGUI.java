@@ -66,14 +66,7 @@ public class LoginGUI extends JDialog {
 	public LoginGUI(GUIOperator operator) {
 		GUIRLoader res = new GUIRLoader();
 		setIconImage(res.icono);
-		try {
-			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-		}
-		catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-				| UnsupportedLookAndFeelException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		
 		setTitle("Iniciar sesi\u00F3n");
 		setResizable(false);
 		setModal(true);

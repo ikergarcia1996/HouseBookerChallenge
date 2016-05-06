@@ -21,6 +21,9 @@ import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Window.Type;
+import com.toedter.calendar.JDateChooser;
+import com.toedter.calendar.JCalendar;
+import com.toedter.calendar.JDayChooser;
 
 public class VerMisReservasGUI extends JDialog {
 
@@ -76,7 +79,7 @@ public class VerMisReservasGUI extends JDialog {
 		};
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 92, 700, 488);
+		scrollPane.setBounds(10, 92, 700, 245);
 		contentPane.add(scrollPane);
 		scrollPane.setViewportBorder(null);
 		scrollPane.setViewportView(table);
