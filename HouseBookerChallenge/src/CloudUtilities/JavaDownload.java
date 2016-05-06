@@ -16,7 +16,7 @@ public class JavaDownload {
 	//SE PUEDE USAR DROPBOX, GOOGLE DRIVE O ONE DRIVE
 	//SE PUEDE USAR ESTA WEB APRA CONSEGUIR EL ENLACE DIRECTO: http://www.syncwithtech.org/p/direct-download-link-generator.html
 	//NOTA: EN el caso de dropbox con cambiar ?dl=0 a ?dl=1 sirve.
-	
+	 
 	//Devuelve:
 	//0 -> Todo ok
 	//-1 -> Error en la conexión (probablemente no hay internet).

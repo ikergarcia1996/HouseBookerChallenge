@@ -20,6 +20,7 @@ public class Runer {
 		main.Runer.splash.progressBar.setValue(1);
 		main.Runer.splash.progressBar.setString("Iniciando...");
 		main.Runer.splash.textArea.append("\n Launching...");
+		//ACTUALIZAR
 		MainGUI.main(null, operator);
 		splash.dispose();
 
