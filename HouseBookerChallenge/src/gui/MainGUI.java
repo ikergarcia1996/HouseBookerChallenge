@@ -12,6 +12,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -24,9 +25,12 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 import domain.Cliente;
 import domain.Usuario;
+import utilities.ImageTypes;
+import utilities.ImageUtils;
 import utilities.ProfileImg;
 
 public class MainGUI extends JFrame {
@@ -65,7 +69,7 @@ public class MainGUI extends JFrame {
 		
 		setTitle("HouseBookerChallenge");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 365, 400);
+		setBounds(100, 100, 365, 430);
 		contentPane = new JPanel();
 		contentPane.addMouseListener(new MouseAdapter() {
 			@Override
@@ -127,7 +131,7 @@ public class MainGUI extends JFrame {
 			}
 		});
 		lblAcercaDe.setForeground(Color.BLUE);
-		lblAcercaDe.setBounds(15, 319, 221, 14);
+		lblAcercaDe.setBounds(5, 376, 221, 14);
 		contentPane.add(lblAcercaDe);
 
 		this.addWindowListener(new WindowAdapter() {
@@ -155,7 +159,7 @@ public class MainGUI extends JFrame {
 				System.exit(0);}
 			}
 		});
-		btnSalir.setBounds(259, 337, 89, 23);
+		btnSalir.setBounds(259, 372, 89, 23);
 		contentPane.add(btnSalir);
 
 		JScrollPane scrollPane = new JScrollPane();
@@ -175,7 +179,7 @@ public class MainGUI extends JFrame {
 		contentPane.add(btnVerOfertas);
 
 		JSeparator separator = new JSeparator();
-		separator.setBounds(15, 307, 333, 8);
+		separator.setBounds(5, 363, 343, 2);
 		contentPane.add(separator);
 		
 		JTextArea txtWellcome = new JTextArea();
@@ -195,6 +199,32 @@ public class MainGUI extends JFrame {
 		scroll.setAutoscrolls(false);
 		
 		contentPane.add(scroll);
+		
+		
+		JLabel lblTwitter = new JLabel("Twitter");
+		lblTwitter.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		lblTwitter.setBorder(new LineBorder(new Color(0, 191, 255), 2, true));
+		lblTwitter.setBounds(234, 327, 25, 25);
+		lblTwitter.setIcon(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.TWITTER)));
+		getContentPane().add(lblTwitter);
+		
+		JLabel lblFacebook = new JLabel("Facebook");
+		lblFacebook.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		lblFacebook.setBorder(new LineBorder(new Color(65, 105, 225), 2, true));
+		lblFacebook.setBounds(323, 327, 25, 25);
+		lblFacebook.setIcon(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FACEBOOK)));
+		getContentPane().add(lblFacebook);
+		
+		JLabel lblGoogle = new JLabel("Google");
+		lblGoogle.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		lblGoogle.setBorder(new LineBorder(new Color(255, 0, 0), 2, true));
+		lblGoogle.setBounds(281, 327, 25, 25);
+		lblGoogle.setIcon(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.GOOGLE)));
+		getContentPane().add(lblGoogle);
+		
+		JSeparator separator_1 = new JSeparator();
+		separator_1.setBounds(234, 310, 115, 6);
+		contentPane.add(separator_1);
 		
 		
 	}
