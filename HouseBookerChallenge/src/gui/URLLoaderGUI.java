@@ -7,16 +7,22 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import CloudUtilities.JavaDownload;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.awt.event.ActionEvent;
 
 public class URLLoaderGUI extends JDialog {
 	private JTextField txtUrl;
-	private CloudUtilities.JavaDownload Cloud;
+	private JavaDownload Cloud = new JavaDownload();
 
 	/**
 	 * Launch the application.
@@ -59,7 +65,24 @@ public class URLLoaderGUI extends JDialog {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				int download = Cloud.Download(direccion.toString(), "%tmp%\\HBC\\" + direccion.getFile());
+				Process p = null;
+				try {
+					p = Runtime.getRuntime().exec("cmd.exe /c echo %TMP%");
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} 
+				BufferedReader br = new BufferedReader 
+				( new InputStreamReader( p.getInputStream() ) ); 
+				String myvar = null;
+				try {
+					myvar = br.readLine();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} 
+				String direccionS=direccion.toString();
+				int download = Cloud.Download(direccionS, myvar+"\\HBC\\" + direccionS.substring(direccionS.lastIndexOf('/')+1, direccionS.length()));
 				System.out.println(download);
 			}
 		});
