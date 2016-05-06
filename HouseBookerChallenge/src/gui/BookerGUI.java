@@ -269,7 +269,7 @@ public class BookerGUI extends JDialog {
 		}
 		contentPane.add(calendar);
 		try {
-			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
 				| UnsupportedLookAndFeelException e1) {
 			// TODO Auto-generated catch block

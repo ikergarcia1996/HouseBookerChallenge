@@ -40,16 +40,6 @@ public class WaitGUI extends JDialog {
 	public WaitGUI(String text) {
 		setAlwaysOnTop(true);
 	
-			try {
-				UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-			}
-			catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-					| UnsupportedLookAndFeelException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		
-
 		SwingUtilities.updateComponentTreeUI(getContentPane());
 
 		setUndecorated(true);

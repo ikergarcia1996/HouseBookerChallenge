@@ -101,31 +101,31 @@ public class HouseEditorGUI extends JDialog {
 		contentPanel.add(lblCiudad);
 
 		ciudad = new JTextField();
-		ciudad.setBounds(36, 53, 279, 20);
+		ciudad.setBounds(82, 25, 279, 20);
 		contentPanel.add(ciudad);
 		ciudad.setColumns(10);
 
 		JLabel lblDescripcin = new JLabel("Direcci\u00F3n:");
-		lblDescripcin.setBounds(26, 105, 140, 14);
+		lblDescripcin.setBounds(26, 68, 54, 14);
 		contentPanel.add(lblDescripcin);
 
 		dir = new JTextField();
-		dir.setBounds(36, 130, 471, 20);
+		dir.setBounds(82, 65, 471, 20);
 		contentPanel.add(dir);
 		dir.setColumns(10);
 
 		JLabel lblDescripcin_1 = new JLabel("Descripci\u00F3n:");
-		lblDescripcin_1.setBounds(26, 184, 150, 14);
+		lblDescripcin_1.setBounds(27, 111, 150, 14);
 		contentPanel.add(lblDescripcin_1);
 		
 		fc = new JFileChooser();
 
 		JEditorPane desc = new JEditorPane();
 		desc.setBorder(new LineBorder(Color.LIGHT_GRAY));
-		desc.setBounds(36, 209, 679, 253);
+		desc.setBounds(26, 140, 679, 253);
 		contentPanel.add(desc);
 		
-				JButton btnSeleccionarImagenDe = new JButton("Añadir una imagen");
+				JButton btnSeleccionarImagenDe = new JButton("A\u00F1adir una imagen desde archivo");
 				contentPanel.add(btnSeleccionarImagenDe);
 				btnSeleccionarImagenDe.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
@@ -151,7 +151,7 @@ public class HouseEditorGUI extends JDialog {
 					}
 				});
 				
-				btnSeleccionarImagenDe.setBounds(36, 473, 262, 50);
+				btnSeleccionarImagenDe.setBounds(26, 404, 191, 23);
 				
 				JButton button = new JButton("Eliminar todas las imágenes");
 				button.addActionListener(new ActionListener() {
@@ -161,8 +161,12 @@ public class HouseEditorGUI extends JDialog {
 								"¡Se han borrado todas las imágenes!", "Operación completada correctamente", JOptionPane.WARNING_MESSAGE);
 					}
 				});
-				button.setBounds(453, 473, 262, 50);
+				button.setBounds(542, 404, 163, 23);
 				contentPanel.add(button);
+				
+				JButton btnCargarImagenDesde = new JButton("Cargar imagen desde URL");
+				btnCargarImagenDesde.setBounds(26, 438, 191, 23);
+				contentPanel.add(btnCargarImagenDesde);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
