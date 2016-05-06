@@ -12,13 +12,14 @@ import java.util.Iterator;
 public class Update {
 
 	final int CurrentVersion = 3; //ACTUALIZAR AL SACAR UNA NUEVA VERSIÓN. 
-	
+	JavaDownload jv = new JavaDownload();
+	FileManager fl = new FileManager();
 	//Comprueba si hay una nueva versión, si la hay devuelve un objeto de la clase NewVersion (mirar más abajo) en caso contrario, devuelve null
 	//ERRORES: Devuelve un objeto con el nº de vesión -1 si no hay conexión con el servidor de descarga, y -2 si hay algún otro tipo de error.  
 	
 	public NewVersion testForUpdates (){ 
-		JavaDownload jv = new JavaDownload();
-		int result = jv.Download("https://www.dropbox.com/s/aorbo9tsuuddxv5/nev.txt?dl=1", "NewVersion.rh");
+		String filename = fl.GetTempRoute() + "NewVersion.rh";
+		int result = jv.Download("https://www.dropbox.com/s/aorbo9tsuuddxv5/nev.txt?dl=1", filename );
 		if (result==-1){
 			return new NewVersion(-1, null, 0, null);
 			
@@ -29,7 +30,7 @@ public class Update {
 		}
 		
 		try {
-			FileReader fr = new FileReader("NewVersion.rh");
+			FileReader fr = new FileReader(filename);
 			BufferedReader textReader = new BufferedReader(fr);
 			try {
 				int LastVersion = Integer.valueOf(textReader.readLine());
@@ -53,8 +54,8 @@ public class Update {
 					textReader.close();
 					
 					//Borrar el fichero descargado, en proceso. 
-					FileManager fl = new FileManager();
-					fl.removeFile("NewVersion.rh");
+					
+					fl.removeFile(filename);
 					NewVersion nw = new NewVersion(LastVersion, url, comando, notas.toString());
 					return nw;
 					

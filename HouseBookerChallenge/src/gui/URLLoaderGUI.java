@@ -74,15 +74,15 @@ public class URLLoaderGUI extends JDialog {
 				} 
 				BufferedReader br = new BufferedReader 
 				( new InputStreamReader( p.getInputStream() ) ); 
-				String myvar = null;
+				String tmp = null;
 				try {
-					myvar = br.readLine();
+					tmp = br.readLine();
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				} 
 				String direccionS=direccion.toString();
-				int download = Cloud.Download(direccionS, myvar+"\\HBC\\" + direccionS.substring(direccionS.lastIndexOf('/')+1, direccionS.length()));
+				int download = Cloud.Download(direccionS, tmp+"\\HBC\\" + direccionS.substring(direccionS.lastIndexOf('/')+1, direccionS.length()));
 				System.out.println(download);
 			}
 		});
