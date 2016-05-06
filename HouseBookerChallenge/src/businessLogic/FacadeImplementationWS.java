@@ -45,6 +45,7 @@ public class FacadeImplementationWS implements ApplicationFacadeInterfaceWS {
 		ConfigXML c = ConfigXML.getInstance();
 
 		if (c.getDataBaseOpenMode().equals("initialize") && (c.isDatabaseLocal())) {
+			main.Runer.splash.textArea.append("File deleted");
 			System.out.println("File deleted");
 			new File(c.getDb4oFilename()).delete();
 		}

@@ -8,7 +8,7 @@
   <database local="true">
 	<databaseNode>0.0.0.0</databaseNode>
 	<db4oFilename>casasWS.db4o</db4oFilename>
-	<dataBaseOpenMode>initialize</dataBaseOpenMode>
+	<dataBaseOpenMode>open</dataBaseOpenMode>
 	<activationDepth>5</activationDepth>
 	<updateDepth>5</updateDepth>
 	<databasePort>8000</databasePort>

@@ -9,6 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -139,6 +141,19 @@ public class MainGUI extends JFrame {
 		lblAcercaDe.setBounds(15, 319, 221, 14);
 		contentPane.add(lblAcercaDe);
 
+		this.addWindowListener(new WindowAdapter() {
+
+			public void windowClosing(WindowEvent windowEvent) {
+				Component frame = null;
+				;
+				if (JOptionPane.showConfirmDialog(frame,
+						"¿Estas seguro de que quieres salir de HouseBookerChallenge?",
+						"Salir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)==JOptionPane.YES_OPTION) {
+				System.exit(0);}
+				else setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+			}
+		});
+		
 		JButton btnSalir = new JButton("Salir");
 		btnSalir.setDefaultCapable(false);
 		btnSalir.addActionListener(new ActionListener() {

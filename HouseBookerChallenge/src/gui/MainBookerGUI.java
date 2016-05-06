@@ -43,9 +43,10 @@ import java.awt.Color;
 
 public class MainBookerGUI extends JDialog {
 
-	private JPanel				contentPane;
-	private ArrayList<Offer>	ultimasOfertas;
-	
+	private JPanel contentPane;
+	private ArrayList<Offer> ultimasOfertas;
+
+	public static WaitGUI cargando = new WaitGUI("Cargando ofertas recientes");
 
 	/**
 	 * Launch the application.
@@ -53,16 +54,17 @@ public class MainBookerGUI extends JDialog {
 	 * @param operator
 	 */
 	public static void main(String[] args, Usuario user, GUIOperator operator) {
-		// MainGUI.dialog.main(null, MainGUI.dialog);
+
+		cargando.setVisible(true);
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 
 					MainBookerGUI frame = new MainBookerGUI(user, operator);
+					cargando.setVisible(false);
 					frame.setVisible(true);
 
-				}
-				catch (Exception e) {
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
@@ -75,11 +77,11 @@ public class MainBookerGUI extends JDialog {
 	 * @param operator
 	 */
 	public MainBookerGUI(Usuario user, GUIOperator operator) {
-		
+
 		Component frame = null;
 		GUIRLoader res = new GUIRLoader();
 		setTitle("HouseBookerChallenge");
-		
+
 		setModal(true);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -93,23 +95,19 @@ public class MainBookerGUI extends JDialog {
 		setIconImage(res.icono);
 		try {
 			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-		}
-		catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
 				| UnsupportedLookAndFeelException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 
 		SwingUtilities.updateComponentTreeUI(contentPane);
-		
-		
-		
+
 		ArrayDeque<RuralHouse> tmp = new ArrayDeque<RuralHouse>();
 
 		if (user.getClass().equals(Cliente.class)) {
 			tmp = operator.getAllRuralHouses();
-		}
-		else {
+		} else {
 			for (RuralHouse v : operator.getOwnerHouses(user)) {
 				tmp.add(v);
 			}
@@ -124,7 +122,7 @@ public class MainBookerGUI extends JDialog {
 			coleccion = operator.getAllOffers(tmp.removeLast());
 
 			for (Offer v : coleccion) {
-				if (!v.isReservaRealizada()){
+				if (!v.isReservaRealizada()) {
 					ultimasOfertas.add(v);
 					añadidos++;
 				}
@@ -139,8 +137,7 @@ public class MainBookerGUI extends JDialog {
 				JPanel panel = new OfferCliente(ultima0, user, operator);
 				panel.setBounds(180, 96, 440, 130);
 				contentPane.add(panel);
-			}
-			else {
+			} else {
 				JPanel panel = new OfferPropietario(ultima0, user, operator);
 				panel.setBounds(180, 96, 440, 130);
 				contentPane.add(panel);
@@ -153,8 +150,7 @@ public class MainBookerGUI extends JDialog {
 				JPanel panel_1 = new OfferCliente(ultima1, user, operator);
 				panel_1.setBounds(180, 237, 440, 130);
 				contentPane.add(panel_1);
-			}
-			else {
+			} else {
 				JPanel panel_1 = new OfferPropietario(ultimasOfertas.get(1), user, operator);
 				panel_1.setBounds(180, 237, 440, 130);
 				contentPane.add(panel_1);
@@ -167,8 +163,7 @@ public class MainBookerGUI extends JDialog {
 				JPanel panel_2 = new OfferCliente(ultima2, user, operator);
 				panel_2.setBounds(180, 378, 440, 130);
 				contentPane.add(panel_2);
-			}
-			else {
+			} else {
 				JPanel panel_2 = new OfferPropietario(ultima2, user, operator);
 				panel_2.setBounds(180, 378, 440, 130);
 				contentPane.add(panel_2);
@@ -180,15 +175,13 @@ public class MainBookerGUI extends JDialog {
 				JPanel panel_3 = new OfferCliente(ultima3, user, operator);
 				panel_3.setBounds(180, 519, 440, 130);
 				contentPane.add(panel_3);
-			}
-			else {
+			} else {
 				JPanel panel_3 = new OfferPropietario(ultima3, user, operator);
 				panel_3.setBounds(180, 519, 440, 130);
 				contentPane.add(panel_3);
 			}
 		}
 
-		
 		JSeparator separator = new JSeparator();
 		separator.setBounds(15, 80, 605, 10);
 		contentPane.add(separator);
@@ -197,24 +190,25 @@ public class MainBookerGUI extends JDialog {
 		separator_1.setOrientation(SwingConstants.VERTICAL);
 		separator_1.setBounds(358, 5, 10, 69);
 		contentPane.add(separator_1);
-		
-		
+
 		JSeparator separator_2 = new JSeparator();
 		separator_2.setOrientation(SwingConstants.VERTICAL);
 		separator_2.setBounds(165, 120, 15, 670);
 		contentPane.add(separator_2);
 
 		JButton btnBuscarOCasas = new JButton("");
-		if(user.getClass().equals(Propietario.class)) btnBuscarOCasas.setText("Administrar casas");
-		else btnBuscarOCasas.setText("Buscar ofertas");
-		
+		if (user.getClass().equals(Propietario.class))
+			btnBuscarOCasas.setText("Administrar casas");
+		else
+			btnBuscarOCasas.setText("Buscar ofertas");
+
 		btnBuscarOCasas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (user.getClass().equals(Cliente.class)) {
 					BookerGUI.main(null, user, operator);
 					dispose();
-				}
-				else HouseManagerGUI.main(null, user, operator);
+				} else
+					HouseManagerGUI.main(null, user, operator);
 
 			}
 		});
@@ -229,12 +223,12 @@ public class MainBookerGUI extends JDialog {
 		JButton btnVolverAlMenu = new JButton("Cerrar Sesi\u00F3n");
 		btnVolverAlMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-					if (JOptionPane.showConfirmDialog(frame,
-							"¿Estás seguro de que quieres cerrar serión y salir al menu principal?", "Cerrar sesión",
-							JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
-						operator.logout(user);
-						dispose();
-					}
+				if (JOptionPane.showConfirmDialog(frame,
+						"¿Estás seguro de que quieres cerrar serión y salir al menu principal?", "Cerrar sesión",
+						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+					operator.logout(user);
+					dispose();
+				}
 			}
 		});
 		btnVolverAlMenu.setActionCommand("");
@@ -258,7 +252,8 @@ public class MainBookerGUI extends JDialog {
 				lblNotification.setIcon(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.NEW_NOTIFY)));
 			}
 
-			else lblNotification.setIcon(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.NEW_MESSAE)));
+			else
+				lblNotification.setIcon(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.NEW_MESSAE)));
 		}
 		lblNotification.setBounds(599, 0, 25, 25);
 		contentPane.add(lblNotification);
@@ -273,15 +268,12 @@ public class MainBookerGUI extends JDialog {
 						dispose();
 						ElegirTipoGUI.main(null, operator);
 					}
-				}
-				else {
+				} else {
 					UserGUI.main(null, user, operator);
 					dispose();
 					MainBookerGUI.main(null, user, operator);
-					
-					
-				}
 
+				}
 
 			}
 		});
@@ -297,36 +289,37 @@ public class MainBookerGUI extends JDialog {
 		this.addWindowListener(new WindowAdapter() {
 
 			public void windowClosing(WindowEvent windowEvent) {
-				if (JOptionPane.showConfirmDialog(frame,
-						"¿Estás seguro de que quieres cerrar serión y salir al menu principal?", "Cerrar sesión",
-						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
-					operator.logout(user);
+				if (!user.getUserName().equals("Invitado")) {
+					if (JOptionPane.showConfirmDialog(frame,
+							"¿Estás seguro de que quieres cerrar serión y salir al menu principal?", "Cerrar sesión",
+							JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+						operator.logout(user);
+						dispose();
+					} else
+						setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+				}
+
+				else
 					dispose();
 			}
-			}
-
 		});
-		
-		if (!user.getUserName().equals("Invitado")){
-			
+
+		if (!user.getUserName().equals("Invitado")) {
+
 			JButton ver = new JButton("Reservas");
 			ver.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					if (user.getClass().equals(Propietario.class)){
-					ReservasEnMisCasasGUI.main(null, operator.getUser(user.getCorreo()), operator);	
-					}
-					else VerMisReservasGUI.main(null, operator.getUser(user.getCorreo()), operator);
+					if (user.getClass().equals(Propietario.class)) {
+						ReservasEnMisCasasGUI.main(null, operator.getUser(user.getCorreo()), operator);
+					} else
+						VerMisReservasGUI.main(null, operator.getUser(user.getCorreo()), operator);
 				}
 
-				});
+			});
 			ver.setBounds(15, 200, 135, 29);
 			contentPane.add(ver);
-			
-				
-			}
-	}
-	
-	
 
+		}
+	}
 
 }
