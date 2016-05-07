@@ -19,7 +19,6 @@ public class FileManager {
 		Files.delete(Paths.get(fileRoute.toString()));
 	} catch (IOException e) {
 		System.out.println("Error al borrar el archivo");
-		e.printStackTrace();
 		
 	}
 	}
