@@ -306,7 +306,7 @@ public class DataAccess {
 		q.setDescription(update.getDescription());
 		q.setDireccion(update.getDireccion());
 		q.setImagenes(update.getImagenes());
-		q.setOwner((Usuario) db.queryByExample(new Propietario(null, null, null, update.getOwner().getCorreo(), null, null, null, null)));
+		q.setOwner( (Usuario) db.queryByExample(new Propietario(null, null, null, update.getOwner().getCorreo(), null, null, null, null)));
 		db.store(q);
 		db.commit();
 	}

@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
+import javax.swing.JScrollPane;
 
 public class HouseEditorGUI extends JDialog {
 
@@ -72,7 +73,7 @@ public class HouseEditorGUI extends JDialog {
 			imgtemp = new ArrayList<String>();
 		}
 
-		setBounds(100, 100, 780, 640);
+		setBounds(100, 100, 550, 580);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -93,36 +94,36 @@ public class HouseEditorGUI extends JDialog {
 		SwingUtilities.updateComponentTreeUI(getContentPane());
 
 		JSeparator separator = new JSeparator();
-		separator.setBounds(10, 565, 744, 13);
+		separator.setBounds(10, 509, 527, 2);
 		contentPanel.add(separator);
 
 		JLabel lblCiudad = new JLabel("Ciudad:");
-		lblCiudad.setBounds(26, 28, 46, 14);
+		lblCiudad.setBounds(10, 11, 46, 14);
 		contentPanel.add(lblCiudad);
 
 		ciudad = new JTextField();
-		ciudad.setBounds(82, 25, 279, 20);
+		ciudad.setBounds(66, 8, 220, 20);
 		contentPanel.add(ciudad);
 		ciudad.setColumns(10);
 
 		JLabel lblDescripcin = new JLabel("Direcci\u00F3n:");
-		lblDescripcin.setBounds(26, 68, 54, 14);
+		lblDescripcin.setBounds(10, 36, 54, 14);
 		contentPanel.add(lblDescripcin);
 
 		dir = new JTextField();
-		dir.setBounds(82, 65, 471, 20);
+		dir.setBounds(66, 33, 471, 20);
 		contentPanel.add(dir);
 		dir.setColumns(10);
 
 		JLabel lblDescripcin_1 = new JLabel("Descripci\u00F3n:");
-		lblDescripcin_1.setBounds(27, 111, 150, 14);
+		lblDescripcin_1.setBounds(10, 61, 150, 14);
 		contentPanel.add(lblDescripcin_1);
 		
 		fc = new JFileChooser();
 
 		JEditorPane desc = new JEditorPane();
 		desc.setBorder(new LineBorder(Color.LIGHT_GRAY));
-		desc.setBounds(26, 140, 679, 253);
+		desc.setBounds(10, 86, 527, 253);
 		contentPanel.add(desc);
 		
 				JButton btnSeleccionarImagenDe = new JButton("A\u00F1adir una imagen desde archivo");
@@ -151,56 +152,68 @@ public class HouseEditorGUI extends JDialog {
 					}
 				});
 				
-				btnSeleccionarImagenDe.setBounds(26, 404, 191, 23);
+				btnSeleccionarImagenDe.setBounds(10, 350, 191, 23);
 				
 				JButton button = new JButton("Eliminar todas las imágenes");
 				button.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						imgtemp.clear();
 						JOptionPane.showMessageDialog(null,
-								"¡Se han borrado todas las imágenes!", "Operación completada correctamente", JOptionPane.WARNING_MESSAGE);
+								"¡Se han borrado todas las imágenes!", "Operación completada correctamente", JOptionPane.INFORMATION_MESSAGE);
 					}
 				});
-				button.setBounds(542, 404, 163, 23);
+				button.setBounds(374, 350, 163, 23);
 				contentPanel.add(button);
 				
 				JButton btnCargarImagenDesde = new JButton("Cargar imagen desde URL");
-				btnCargarImagenDesde.setBounds(26, 438, 191, 23);
+				btnCargarImagenDesde.setBounds(10, 384, 191, 23);
 				contentPanel.add(btnCargarImagenDesde);
-		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				JButton okButton = new JButton("Guardar");
-				okButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						//Añadir comprobacion de errores. Direccion vacia,descripcion muy corta o vacia, ciudad vacia etc.
-						if (editmode) {
-							operator.updateHouse(casa, new RuralHouse(casa.getHouseNumber(), desc.getText(), ciudad.getText(), dir.getText(), user, imgtemp));
+				
+				JScrollPane panelImagenes = new JScrollPane();
+				panelImagenes.setBounds(10, 418, 527, 86);
+				panelImagenes.setLayout(null);
+				if (editmode) {
+					ArrayList<String> listacasas = casa.getImagenes();
+					int cantidad = listacasas.size();
+					for (int i=0; i<cantidad;i++){
+						JLabel label=new JLabel();
+						label.setBounds(3+83*i, 3, 80, 80);
+						label.setIcon(new ImageIcon(utilities.ImageUtils.resize(utilities.ImageUtils.decodeToImage(listacasas.get(i)), 80, 80)));
+						panelImagenes.add(label);
+					}			
+				}
+				contentPanel.add(panelImagenes);
+				{
+					JButton okButton = new JButton("Guardar");
+					okButton.setBounds(466, 522, 71, 23);
+					contentPanel.add(okButton);
+					okButton.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							//Añadir comprobacion de errores. Direccion vacia,descripcion muy corta o vacia, ciudad vacia etc.
+							if (editmode) {
+								operator.updateHouse(casa, new RuralHouse(casa.getHouseNumber(), desc.getText(), ciudad.getText(), dir.getText(), user, imgtemp));
+								dispose();
+							}
+							else {
+								operator.createHouse(desc.getText(), ciudad.getText(), dir.getText(), user, imgtemp);
+								dispose();
+							}
+						}
+					});
+					okButton.setActionCommand("OK");
+					getRootPane().setDefaultButton(okButton);
+				}
+				{
+					JButton cancelButton = new JButton("Cancelar");
+					cancelButton.setBounds(381, 522, 75, 23);
+					contentPanel.add(cancelButton);
+					cancelButton.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
 							dispose();
 						}
-						else {
-							operator.createHouse(desc.getText(), ciudad.getText(), dir.getText(), user, imgtemp);
-							dispose();
-						}
-					}
-				});
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-			}
-			{
-				JButton cancelButton = new JButton("Cancelar");
-				cancelButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						dispose();
-					}
-				});
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
-			}
-		}
+					});
+					cancelButton.setActionCommand("Cancel");
+				}
 		if (editmode) {
 			ciudad.setText(casa.getCity());
 			dir.setText(casa.getDireccion());
