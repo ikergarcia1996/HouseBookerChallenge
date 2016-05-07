@@ -71,11 +71,14 @@ public class DataAccess {
 		}
 	}
 	
-	static class SuperAdmin {
-		String password;
+	private static class SuperAdmin {
+		
+		static String password;
+		static Stack<Mensaje> buzon;
 		
 		SuperAdmin(String passwd){
-			this.password = passwd;
+			password = passwd;
+			buzon=new Stack<Mensaje>();
 		}
 		boolean changePassword(String current, String newpass){
 			if (this.password.equals(current)){
@@ -84,22 +87,16 @@ public class DataAccess {
 			} else
 				return false;
 		}
+		static Stack<Mensaje> getBuzon() {
+			return buzon;
+		}
+		
 	}
 
 	public void initializeDB() {
 
 		System.out.println("Db initialized");
 		main.Runer.splash.textArea.append("DB initialized");
-		//RuralHouse rh1 = new RuralHouse(1, "Ezkioko etxea", "Ezkio", null);
-		//RuralHouse rh2 = new RuralHouse(2, "Etxetxikia", "Iruï¿½a", null);
-		//RuralHouse rh3 = new RuralHouse(3, "Udaletxea", "Bilbo", null);
-		//RuralHouse rh4 = new RuralHouse(4, "Gaztetxea", "Renteria", null);
-
-		//db.store(rh1);
-		//db.store(rh2);
-		//db.store(rh3);
-		//db.store(rh4);
-
 		theDB4oManagerAux = new DB4oManagerAux(1, 1);
 		SuperAdmin admin = new SuperAdmin("admin123");
 
@@ -485,6 +482,11 @@ public class DataAccess {
 	public Offer getOffer(Offer of){
 		Offer rt = (Offer) db.queryByExample(new Offer(of.getOfferNumber(), of.getFirstDay(), of.getLastDay(), of.getPrice(), of.getRuralHouse(), of.getnPersRoom())).next();
 		return rt;
+	}
+
+	public Stack<Mensaje> getAdminMenssages() {
+		SuperAdmin.getBuzon();
+		return null;
 	}
 	
 }

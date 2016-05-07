@@ -137,16 +137,7 @@ public class UserGUI extends JDialog {
 		separator.setBounds(10, 102, 479, 1);
 		getContentPane().add(separator);
 
-		String[] columnNames = { "Remitente", "Asunto", "Detalles" };
-		DefaultTableModel tableModel = new DefaultTableModel(null, columnNames) {
-
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public boolean isCellEditable(int row, int column) {
-				return false;
-			}
-		};
+		
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -156,6 +147,8 @@ public class UserGUI extends JDialog {
 		scrollPane.setViewportBorder(null);
 		getContentPane().add(scrollPane);
 
+		String[] columnNames = { "Remitente", "Asunto", "Detalles" };
+		
 		int nmensajes = 0;
 
 		ArrayList<Object[]> Data = new ArrayList<Object[]>();
@@ -192,13 +185,7 @@ public class UserGUI extends JDialog {
 			tabledata[index2] = row;
 			index2++;
 		}
-
-		for (int i = 0; i < nmensajes; i++) {
-			// tableModel.set
-		}
-		JLabel lblNotificacionesYMensajes = new JLabel("Notificaciones y mensajes");
-		lblNotificacionesYMensajes.setBounds(10, 114, 123, 14);
-		getContentPane().add(lblNotificacionesYMensajes);
+		
 
 		JTable table = new JTable(tabledata, columnNames) {
 			public Component prepareRenderer(TableCellRenderer renderer, int row, int col) {
@@ -213,7 +200,11 @@ public class UserGUI extends JDialog {
 				return comp;
 			}
 		};
-
+		
+		JLabel lblNotificacionesYMensajes = new JLabel("Notificaciones y mensajes");
+		lblNotificacionesYMensajes.setBounds(10, 114, 123, 14);
+		getContentPane().add(lblNotificacionesYMensajes);
+		
 		scrollPane.setViewportView(table);
 
 		table.addMouseListener(new MouseAdapter() {

@@ -420,6 +420,13 @@ public class FacadeImplementationWS implements ApplicationFacadeInterfaceWS {
 		return rt;
 	}
 
+	public Stack<Mensaje> getAdminMenssages() {
+		DataAccess dB4oManager = new DataAccess();
+		Stack<Mensaje> buzon = dB4oManager.getAdminMenssages();
+		dB4oManager.close();
+		return buzon;
+	}
+
 	
 	
 }
