@@ -38,51 +38,50 @@ public class AdminLoginGUI extends JDialog {
 	 * Create the dialog.
 	 */
 	public AdminLoginGUI(GUIOperator gOP) {
+		setResizable(false);
+		setModal(true);
 		setTitle("Modo Administrador: Se necesita autenticaci\u00F3n");
-		setBounds(100, 100, 450, 180);
+		setBounds(100, 100, 450, 110);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		
 		JLabel lblContrasea = new JLabel("Contrase\u00F1a:");
-		lblContrasea.setBounds(28, 30, 127, 14);
+		lblContrasea.setBounds(15, 16, 127, 14);
 		contentPanel.add(lblContrasea);
 		
 		password = new JPasswordField();
 		password.setColumns(10);
-		password.setBounds(68, 55, 292, 20);
+		password.setBounds(127, 13, 292, 20);
 		contentPanel.add(password);
 		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				JButton okButton = new JButton("Iniciar sesi\u00F3n");
-				okButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						if (gOP.superAdminLogin(password.getText()))
-							AdminGUI.main(null, gOP, password.getText());
-						else
-							JOptionPane.showMessageDialog(null,
-									"Acceso no autorizado. Credenciales incorrectas.", "Error", JOptionPane.WARNING_MESSAGE);
-						dispose();
-					}
-				});
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-			}
-			{
-				JButton cancelButton = new JButton("Cancelar");
-				cancelButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						dispose();
-					}
-				});
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
-			}
+			JButton okButton = new JButton("Iniciar sesi\u00F3n");
+			okButton.setBounds(127, 46, 125, 23);
+			contentPanel.add(okButton);
+			okButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if (gOP.superAdminLogin(password.getText()))
+						AdminGUI.main(null, gOP, password.getText());
+					else
+						JOptionPane.showMessageDialog(null,
+								"Acceso no autorizado. Credenciales incorrectas.", "Error", JOptionPane.WARNING_MESSAGE);
+					dispose();
+				}
+			});
+			okButton.setActionCommand("OK");
+			getRootPane().setDefaultButton(okButton);
+		}
+		{
+			JButton cancelButton = new JButton("Cancelar");
+			cancelButton.setBounds(336, 46, 93, 23);
+			contentPanel.add(cancelButton);
+			cancelButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					dispose();
+				}
+			});
+			cancelButton.setActionCommand("Cancel");
 		}
 	}
 }
