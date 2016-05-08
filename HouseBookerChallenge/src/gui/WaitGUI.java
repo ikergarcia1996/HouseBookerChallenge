@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.Dimension;
+import java.awt.EventQueue;
 import java.awt.Toolkit;
 
 import javax.swing.JDialog;
@@ -12,24 +13,24 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 public class WaitGUI extends JDialog {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
-	/**
-	 * Launch the application.
-	 */
 	public void main(String[] args, WaitGUI dialog) {
+		Thread t = new Thread(new Runnable() {
+	        @Override
+	        public void run() {
 		try {
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-			this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
+			setLocation(dim.width / 2 - getSize().width / 2,
+					dim.height / 2 - getSize().height / 2);
 			dialog.setVisible(true);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
+	        }
+		}
+		);
+		t.run();
 	}
 
 	/**
@@ -39,16 +40,12 @@ public class WaitGUI extends JDialog {
 	 */
 	public WaitGUI(String text) {
 		setAlwaysOnTop(true);
-	
-		SwingUtilities.updateComponentTreeUI(getContentPane());
-
 		setUndecorated(true);
 		setResizable(false);
 		setBounds(100, 100, 220, 70);
 		getContentPane().setLayout(null);
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
-		
 
 		JLabel lblText = new JLabel(text);
 		lblText.setBounds(10, 11, 200, 14);
@@ -61,4 +58,6 @@ public class WaitGUI extends JDialog {
 		progressBar.setBounds(10, 36, 200, 25);
 		getContentPane().add(progressBar);
 	}
+	
+ 
 }

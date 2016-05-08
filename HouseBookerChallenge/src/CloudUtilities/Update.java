@@ -4,33 +4,28 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Iterator;
 
 public class Update {
 
 	final int CurrentVersion = 3; //ACTUALIZAR AL SACAR UNA NUEVA VERSIÓN. 
-	JavaDownload jv = new JavaDownload();
-	FileManager fl = new FileManager();
+	
 	//Comprueba si hay una nueva versión, si la hay devuelve un objeto de la clase NewVersion (mirar más abajo) en caso contrario, devuelve null
-	//ERRORES: Devuelve un objeto con el nº de vesión -1 si no hay conexión con el servidor de descarga, y -2 si hay algún otro tipo de error.  
+	  
 	
 	public NewVersion testForUpdates (){ 
-		String filename = fl.GetTempRoute() + "NewVersion.rh";
-		int result = jv.Download("https://www.dropbox.com/s/aorbo9tsuuddxv5/nev.txt?dl=1", filename );
+		JavaDownload jv = new JavaDownload();
+		int result = jv.Download("https://www.dropbox.com/s/aorbo9tsuuddxv5/nev.txt?dl=1", "NewVersion.rh");
 		if (result==-1){
-			return new NewVersion(-1, null, 0, null);
+			return null;
 			
 		}
 		
 		if (result==-2){
-			return new NewVersion(-2, null, 0, null);
+			return null;
 		}
 		
 		try {
-			FileReader fr = new FileReader(filename);
+			FileReader fr = new FileReader("NewVersion.rh");
 			BufferedReader textReader = new BufferedReader(fr);
 			try {
 				int LastVersion = Integer.valueOf(textReader.readLine());
@@ -41,6 +36,7 @@ public class Update {
 					System.out.println("Nueva versión encontrada");
 					
 					String url = textReader.readLine();
+					String urlupdate = textReader.readLine();
 					int comando = Integer.valueOf(textReader.readLine());
 					
 					StringBuilder notas = new StringBuilder();
@@ -54,9 +50,9 @@ public class Update {
 					textReader.close();
 					
 					//Borrar el fichero descargado, en proceso. 
-					
-					fl.removeFile(filename);
-					NewVersion nw = new NewVersion(LastVersion, url, comando, notas.toString());
+					//FileManager fl = new FileManager();
+					//fl.removeFile("NewVersion.rh");
+					NewVersion nw = new NewVersion(LastVersion, url, urlupdate, comando, notas.toString());
 					return nw;
 					
 				}
@@ -98,13 +94,15 @@ public class Update {
 		
 		public int LastVersion; 
 		public String LinkLastVersion;
+		public String LinkUpdater;
 		public int Comandos;
 		public String Notas;
 		
-		public NewVersion(int lastVersion, String linkLastVersion, int comandos, String notas) {
+		public NewVersion(int lastVersion, String linkLastVersion,String LinkUpdater, int comandos, String notas) {
 	
 			LastVersion = lastVersion;
 			LinkLastVersion = linkLastVersion;
+			LinkUpdater= LinkUpdater;
 			Comandos = comandos;
 			Notas = notas;
 		}
@@ -125,3 +123,4 @@ public class Update {
 		
 	}
 }
+

@@ -30,6 +30,7 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.border.LineBorder;
 
 import businessLogic.FacadeImplementationWS.loginresult;
 import domain.Usuario;
@@ -253,5 +254,6 @@ public class LoginGUI extends JDialog {
 		lblGoogle.setBounds(360, 98, 25, 25);
 		lblGoogle.setIcon(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.GOOGLE)));
 		getContentPane().add(lblGoogle);
+
 	}
 }

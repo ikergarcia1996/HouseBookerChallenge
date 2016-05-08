@@ -200,7 +200,6 @@ public class MainGUI extends JFrame {
 		
 		contentPane.add(scroll);
 		
-		
 		JLabel lblTwitter = new JLabel("Twitter");
 		lblTwitter.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblTwitter.setBorder(new LineBorder(new Color(0, 191, 255), 2, true));
@@ -227,5 +226,6 @@ public class MainGUI extends JFrame {
 		contentPane.add(separator_1);
 		
 		
+
 	}
 }
