@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Stack;
 
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -179,6 +180,11 @@ public class GUIOperator {
 
 	public Offer getOffer(Offer of) {
 		return businessLG.getOffer(of);
+	}
+
+	public Stack<Mensaje> getAdminMenssages() {
+		// TODO Auto-generated method stub
+		return businessLG.getAdminMenssages();
 	}
 
 }
