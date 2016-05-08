@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.ListIterator;
 import java.util.Stack;
 import java.util.Vector;
@@ -250,6 +251,7 @@ public class DataAccess {
 
 			ObjectSet<DB4oManagerAux> res = db.queryByExample(DB4oManagerAux.class);
 			ListIterator<DB4oManagerAux> listIter = res.listIterator();
+			
 			if (listIter.hasNext()) theDB4oManagerAux = res.next();
 			RuralHouse rh = new RuralHouse(theDB4oManagerAux.houseNumber, desc, city, dir, us, imagenes);
 			us.getCasas().add(rh);
@@ -322,8 +324,11 @@ public class DataAccess {
 		if (update.getCliente()!=null){
 			q.setCliente((Cliente) db.queryByExample(new Cliente(null, null, null, update.getCliente().getCorreo(), null, null)).next());
 			System.out.println("añadiendo cliente a oferta");
+			q.setReservaRealizada(true);
 		}
-		q.setReservaRealizada(true);
+		else {q.setCliente(null);
+				q.setReservaRealizada(false);
+		}
 		q.setRuralHouse((RuralHouse) db.queryByExample(new RuralHouse (update.getRuralHouse().getHouseNumber(), null, null, null,null)).next());
 		db.store(q);
 		db.commit();
@@ -485,6 +490,40 @@ public class DataAccess {
 	public Offer getOffer(Offer of){
 		Offer rt = (Offer) db.queryByExample(new Offer(of.getOfferNumber(), of.getFirstDay(), of.getLastDay(), of.getPrice(), of.getRuralHouse(), of.getnPersRoom())).next();
 		return rt;
+	}
+
+	public void updateClienteAnular(Usuario u1, Offer of) {
+		ObjectSet<Cliente> query = db.queryByExample(u1);
+		Cliente q = query.next();
+		
+		if (q.getOfertasReservadas().remove(db.queryByExample(of).next())) 
+			System.out.println("BORRADA"); 
+		else System.out.println("NO BORRADA");
+		
+		
+		System.out.println("OFERTAS RESERVADAS POR " + q.getCorreo() + " ->" + q.getOfertasReservadas().toString());
+
+		db.store(q);
+		db.commit();
+		
+	}
+	
+	public void removeOffer(Offer of){
+		Offer d = (Offer) db.queryByExample(of).next();
+		System.out.println("Elimindo oferta " + of.toString() );
+		RuralHouse rh = (RuralHouse) db.queryByExample(d.getRuralHouse()).next();
+		
+		Iterator<Offer> itr = rh.offers.iterator();
+		Vector<Offer> rho = new Vector<Offer>();
+		//while (itr.hasNext()){
+			//rho.add(itr.next());
+		//}
+		if (rho.remove(d)) System.out.println("ELIMINADA OFERTA DE LA CASA");
+		else System.out.println("NO SE HA ENCONTRADO LA OFERTA EN LA CASA");
+		rh.offers=rho;
+		db.delete(d);
+		db.store(rh);
+		db.commit();
 	}
 	
 }

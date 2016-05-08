@@ -340,6 +340,23 @@ public class FacadeImplementationWS implements ApplicationFacadeInterfaceWS {
 		
 	}
 	
+	public int AnularReserva(Offer of, Usuario cliente){
+		DataAccess dB4oManager = new DataAccess();	
+		dB4oManager.updateClienteAnular(cliente, of);
+		System.out.println("AAA");
+		Offer update = new Offer (of.getOfferNumber(), of.getFirstDay(),of.getLastDay(), of.getPrice(), of.getRuralHouse(), of.getnPersRoom());
+		System.out.println("BB: " + of.isReservaRealizada());
+
+		dB4oManager.updateOffer(of, update);
+	//	dB4oManager.removeOffer(of);
+	//	System.out.println("BBB");
+	//	dB4oManager.createOffer(of.getRuralHouse(), of.getFirstDay(), of.getLastDay(), of.getPrice(), of.getnPersRoom());
+	//	System.out.println("CCC");
+		dB4oManager.close();
+		return 0;
+		
+	}
+	
 	public Usuario getUser(String correo){
 		DataAccess dB4oManager = new DataAccess();
 		Usuario u = (Usuario) dB4oManager.getUsers(correo).getFirst();

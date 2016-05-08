@@ -25,6 +25,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 
+
 import domain.Cliente;
 import domain.Usuario;
 import utilities.ProfileImg;
@@ -38,6 +39,7 @@ public class MainGUI extends JFrame {
 
 	/**
 	 * Launch the application.
+	 * @param nw 
 	 */
 	public static void main(String[] args, GUIOperator operator) {
 		EventQueue.invokeLater(new Runnable() {
