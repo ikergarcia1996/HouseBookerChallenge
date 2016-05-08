@@ -15,6 +15,12 @@ public class Mensaje {
 		this.Detalles=detalles;
 		this.Contenido=contenido;
 	}
+	public Mensaje(String remite,String asunto,String detalles,String contenido){
+		this.Remite=remite;
+		this.Asunto=asunto;
+		this.Detalles=detalles;
+		this.Contenido=contenido;
+	}
 	public Mensaje() {
 		super();
 	}

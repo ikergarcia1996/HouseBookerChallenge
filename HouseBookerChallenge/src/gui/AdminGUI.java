@@ -36,14 +36,13 @@ public class AdminGUI extends JDialog {
 	 * Launch the application.
 	 */
 	public static void main(String[] args, GUIOperator gOP, String adminpass) {
-		
-				try {
-					AdminGUI frame = new AdminGUI(gOP, adminpass);
-					frame.setVisible(true);
-				}
-				catch (Exception e) {
-					e.printStackTrace();
-				}
+
+		try {
+			AdminGUI frame = new AdminGUI(gOP, adminpass);
+			frame.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -59,7 +58,7 @@ public class AdminGUI extends JDialog {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JButton btnAdministrarUsuarios = new JButton("Administrar usuarios");
 		btnAdministrarUsuarios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -68,7 +67,7 @@ public class AdminGUI extends JDialog {
 		});
 		btnAdministrarUsuarios.setBounds(10, 60, 194, 23);
 		contentPane.add(btnAdministrarUsuarios);
-		
+
 		JButton btnEliminarUnaCasa = new JButton("Eliminar una casa");
 		btnEliminarUnaCasa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -77,7 +76,7 @@ public class AdminGUI extends JDialog {
 		});
 		btnEliminarUnaCasa.setBounds(10, 99, 194, 23);
 		contentPane.add(btnEliminarUnaCasa);
-		
+
 		JButton btnEliminarUnaOferta = new JButton("Eliminar una oferta");
 		btnEliminarUnaOferta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -86,7 +85,7 @@ public class AdminGUI extends JDialog {
 		});
 		btnEliminarUnaOferta.setBounds(10, 138, 194, 23);
 		contentPane.add(btnEliminarUnaOferta);
-		
+
 		JButton btnSalirDelModo = new JButton("Salir del modo administrador");
 		btnSalirDelModo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -95,23 +94,23 @@ public class AdminGUI extends JDialog {
 		});
 		btnSalirDelModo.setBounds(15, 382, 167, 23);
 		contentPane.add(btnSalirDelModo);
-		
+
 		passwordField = new JPasswordField();
 		passwordField.setBounds(321, 383, 178, 20);
 		passwordField.setVisible(false);
 		contentPane.add(passwordField);
-		
+
 		JButton btnOk = new JButton("OK");
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (gOP.superAdminChangePass(adminpass, passwordField.getText())){
-					JOptionPane.showMessageDialog(null,
-							"Por motivos de seguridad, por favor, vuelva a iniciar sesión.", "Contraseña modificada", JOptionPane.WARNING_MESSAGE);
+				if (gOP.superAdminChangePass(adminpass, passwordField.getText())) {
+					JOptionPane.showMessageDialog(null, "Por motivos de seguridad, por favor, vuelva a iniciar sesión.",
+							"Contraseña modificada", JOptionPane.WARNING_MESSAGE);
 					AdminLoginGUI.main(null, gOP);
 					dispose();
 				} else {
-					JOptionPane.showMessageDialog(null,
-							"Acceso no autorizado. Credenciales incorrectas.", "Error", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Acceso no autorizado. Credenciales incorrectas.", "Error",
+							JOptionPane.WARNING_MESSAGE);
 					dispose();
 				}
 			}
@@ -119,7 +118,7 @@ public class AdminGUI extends JDialog {
 		btnOk.setBounds(511, 382, 48, 23);
 		btnOk.setVisible(false);
 		contentPane.add(btnOk);
-		
+
 		JButton btnCambiarContrasea = new JButton("Cambiar contrase\u00F1a");
 		btnCambiarContrasea.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -130,71 +129,63 @@ public class AdminGUI extends JDialog {
 		});
 		btnCambiarContrasea.setBounds(419, 382, 140, 23);
 		contentPane.add(btnCambiarContrasea);
-		
+
 		JLabel lblTareasAdministrativas = new JLabel("Tareas administrativas");
 		lblTareasAdministrativas.setBounds(10, 16, 194, 14);
 		contentPane.add(lblTareasAdministrativas);
-		
+
 		JSeparator separator = new JSeparator();
 		separator.setOrientation(SwingConstants.VERTICAL);
 		separator.setBounds(219, 16, 2, 389);
 		contentPane.add(separator);
-		
+
 		JLabel lblMensajes = new JLabel("Mensajes");
 		lblMensajes.setBounds(236, 16, 269, 14);
 		contentPane.add(lblMensajes);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(236, 46, 323, 321);
 		contentPane.add(scrollPane);
-		
-String[] columnNames = { "Remitente", "Asunto", "Detalles" };
-		
-		int nmensajes = 0;
+
+		String[] columnNames = { "Remitente", "Asunto", "Detalles" };
 
 		ArrayList<Object[]> Data = new ArrayList<Object[]>();
 		Stack<Mensaje> mensajes = gOP.getAdminMenssages();
+		String test="test";
+		mensajes.add(new Mensaje(test,test,test,test));
 		if (!mensajes.isEmpty())
 			for (Mensaje msg : mensajes) {
-			Object[] row = new Object[3];
-			if (msg.isUnread())
-			{
-				row[0] = msg.getRemite()+"  " ;
-			}
-			else
-				row[0] = msg.getRemite();
-			
-			if (msg.isUnread())
-			{
-				row[1] = msg.getAsunto()+"  " ;
-			}
-			else
-				row[1] = msg.getAsunto();
-			
-			if (msg.isUnread())
-			{
-				row[2] = msg.getDetalles()+"  " ;
-			}
-			else
-				row[2] = msg.getDetalles();
-			Data.add(row);
-			nmensajes++;
+				Object[] row = new Object[3];
+				if (msg.isUnread()) {
+					row[0] = msg.getRemite() + "  ";
+				} else
+					row[0] = msg.getRemite();
 
-		}
+				if (msg.isUnread()) {
+					row[1] = msg.getAsunto() + "  ";
+				} else
+					row[1] = msg.getAsunto();
+
+				if (msg.isUnread()) {
+					row[2] = msg.getDetalles() + "  ";
+				} else
+					row[2] = msg.getDetalles();
+				Data.add(row);
+
+			}
 		int index2 = 0;
 		Object[][] tabledata = new Object[Data.size()][3];
 		for (Object[] row : Data) {
 			tabledata[index2] = row;
 			index2++;
 		}
-		
 
 		JTable table = new JTable(tabledata, columnNames) {
 			public Component prepareRenderer(TableCellRenderer renderer, int row, int col) {
 				Component comp = super.prepareRenderer(renderer, row, col);
 				Object value = getModel().getValueAt(row, col);
 				if (value.toString().contains("  ")) {
-					comp.setBackground(new Color(135,206,250));
+					comp.setBackground(new Color(135, 206, 250));
 
 				} else {
 					comp.setBackground(Color.white);
@@ -202,6 +193,6 @@ String[] columnNames = { "Remitente", "Asunto", "Detalles" };
 				return comp;
 			}
 		};
-		
+
 	}
 }
