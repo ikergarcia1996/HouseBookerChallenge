@@ -10,6 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import domain.RuralHouse;
@@ -34,37 +35,45 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.border.LineBorder;
+
+import CloudUtilities.FileManager;
+
 import java.awt.Color;
 
 public class HouseEditorGUI extends JDialog {
 
-	private final JPanel	contentPanel	= new JPanel();
-	private JTextField		ciudad;
-	private JTextField		dir;
+	private final JPanel contentPanel = new JPanel();
+	private JTextField ciudad;
+	private JTextField dir;
 	private JFileChooser fc;
 	private ArrayList<String> imgtemp;
+	public int result=-2;
+	public String Image;
+	public static HouseEditorGUI dialog;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args, Usuario user, boolean editmode, RuralHouse casa, GUIOperator operator) {
 		try {
-			HouseEditorGUI dialog = new HouseEditorGUI(user, editmode, casa,operator);
+			dialog = new HouseEditorGUI(user, editmode, casa, operator, dialog);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	/**
 	 * Create the dialog.
+	 * 
+	 * @param dialog2
 	 */
-	public HouseEditorGUI(Usuario user, boolean editmode, RuralHouse casa, GUIOperator operator) {
+	public HouseEditorGUI(Usuario user, boolean editmode, RuralHouse casa, GUIOperator operator,
+			HouseEditorGUI dialog2) {
 		setModal(true);
 		setResizable(false);
-		if (editmode){
+		if (editmode) {
 			setTitle("Editar casa");
 			imgtemp = casa.getImagenes();
 		} else {
@@ -79,16 +88,14 @@ public class HouseEditorGUI extends JDialog {
 		contentPanel.setLayout(null);
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
-	
-			try {
-				UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-			}
-			catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-					| UnsupportedLookAndFeelException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
 
+		try {
+			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+				| UnsupportedLookAndFeelException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
 		SwingUtilities.updateComponentTreeUI(getContentPane());
 
@@ -117,70 +124,116 @@ public class HouseEditorGUI extends JDialog {
 		JLabel lblDescripcin_1 = new JLabel("Descripci\u00F3n:");
 		lblDescripcin_1.setBounds(27, 111, 150, 14);
 		contentPanel.add(lblDescripcin_1);
-		
+
 		fc = new JFileChooser();
 
 		JEditorPane desc = new JEditorPane();
 		desc.setBorder(new LineBorder(Color.LIGHT_GRAY));
 		desc.setBounds(26, 140, 679, 253);
 		contentPanel.add(desc);
-		
-				JButton btnSeleccionarImagenDe = new JButton("A\u00F1adir una imagen desde archivo");
-				contentPanel.add(btnSeleccionarImagenDe);
-				btnSeleccionarImagenDe.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						fc.addChoosableFileFilter(new ImageFilter());
-						int returnVal = fc.showOpenDialog(HouseEditorGUI.this);
-						if (returnVal == JFileChooser.APPROVE_OPTION) {
-							File img = fc.getSelectedFile();
-							BufferedImage image = null;
-								try {
-									image = ImageIO.read(img);
-								}
-								catch (IOException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
-								image = ImageUtils.resize(image, 1080, 1080);
-								String filestring = img.getPath();
-								String filetype=filestring.substring(filestring.lastIndexOf('.')+1, filestring.length());
-								imgtemp.add(ImageUtils.encodeToString(image,filetype));
-								JOptionPane.showMessageDialog(null,
-										"¡Imagen añadida!", "Operación completada correctamente", JOptionPane.WARNING_MESSAGE);
-						}
+
+		JButton btnSeleccionarImagenDe = new JButton("A\u00F1adir una imagen desde archivo");
+		contentPanel.add(btnSeleccionarImagenDe);
+		btnSeleccionarImagenDe.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				fc.addChoosableFileFilter(new ImageFilter());
+				int returnVal = fc.showOpenDialog(HouseEditorGUI.this);
+				if (returnVal == JFileChooser.APPROVE_OPTION) {
+					File img = fc.getSelectedFile();
+					BufferedImage image = null;
+					try {
+						image = ImageIO.read(img);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
-				});
-				
-				btnSeleccionarImagenDe.setBounds(26, 404, 191, 23);
-				
-				JButton button = new JButton("Eliminar todas las imágenes");
-				button.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						imgtemp.clear();
-						JOptionPane.showMessageDialog(null,
-								"¡Se han borrado todas las imágenes!", "Operación completada correctamente", JOptionPane.WARNING_MESSAGE);
+					image = ImageUtils.resize(image, 1080, 1080);
+					String filestring = img.getPath();
+					String filetype = filestring.substring(filestring.lastIndexOf('.') + 1, filestring.length());
+					imgtemp.add(ImageUtils.encodeToString(image, filetype));
+					JOptionPane.showMessageDialog(null, "¡Imagen añadida!", "Operación completada correctamente",
+							JOptionPane.INFORMATION_MESSAGE);
+					
+				}
+			}
+		});
+
+		btnSeleccionarImagenDe.setBounds(26, 404, 191, 23);
+
+		JButton button = new JButton("Eliminar todas las imágenes");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				imgtemp.clear();
+				JOptionPane.showMessageDialog(null, "¡Se han borrado todas las imágenes!",
+						"Operación completada correctamente", JOptionPane.WARNING_MESSAGE);
+			}
+		});
+		button.setBounds(542, 404, 163, 23);
+		contentPanel.add(button);
+
+		JButton btnCargarImagenDesde = new JButton("Cargar imagen desde URL");
+		btnCargarImagenDesde.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				gui.URLLoaderGUI.main(null, dialog);
+				if (result == 0) {
+					File imagen = new File(Image);
+					BufferedImage urlimage = null;
+					try {
+						urlimage = ImageIO.read(imagen);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
-				});
-				button.setBounds(542, 404, 163, 23);
-				contentPanel.add(button);
+					urlimage = ImageUtils.resize(urlimage, 1080, 1080);
+					imgtemp.add(ImageUtils.encodeToString(urlimage,
+							Image.substring(Image.lastIndexOf(".") + 1, Image.length())));
+					JOptionPane.showMessageDialog(null, "¡Imagen añadida!", "Operación completada correctamente",
+							JOptionPane.INFORMATION_MESSAGE);
+
+				}
+				else JOptionPane.showMessageDialog(null, "Ha ocurrido un error al añadir la imagen.", "Error",
+						JOptionPane.ERROR_MESSAGE);
 				
-				JButton btnCargarImagenDesde = new JButton("Cargar imagen desde URL");
-				btnCargarImagenDesde.setBounds(26, 438, 191, 23);
-				contentPanel.add(btnCargarImagenDesde);
+				//FileManager fm=new FileManager();
+				//fm.removeFile(Image);
+
+			}
+		});
+		btnCargarImagenDesde.setBounds(26, 438, 191, 23);
+		contentPanel.add(btnCargarImagenDesde);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+
+			JScrollPane panelImagenes = new JScrollPane();
+			panelImagenes.setBounds(10, 470, 527, 86);
+			panelImagenes.setLayout(null);
+			if (editmode) {
+				ArrayList<String> listacasas = casa.getImagenes();
+				int cantidad = listacasas.size();
+				for (int i = 0; i < cantidad; i++) {
+					JLabel label = new JLabel();
+					label.setBounds(3 + 83 * i, 3, 80, 80);
+					label.setIcon(new ImageIcon(utilities.ImageUtils
+							.resize(utilities.ImageUtils.decodeToImage(listacasas.get(i)), 80, 80)));
+					panelImagenes.add(label);
+				}
+			}
+			contentPanel.add(panelImagenes);
+
 			{
 				JButton okButton = new JButton("Guardar");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						//Añadir comprobacion de errores. Direccion vacia,descripcion muy corta o vacia, ciudad vacia etc.
+						// Añadir comprobacion de errores. Direccion
+						// vacia,descripcion muy corta o vacia, ciudad vacia
+						// etc.
 						if (editmode) {
-							operator.updateHouse(casa, new RuralHouse(casa.getHouseNumber(), desc.getText(), ciudad.getText(), dir.getText(), user, imgtemp));
+							operator.updateHouse(casa, new RuralHouse(casa.getHouseNumber(), desc.getText(),
+									ciudad.getText(), dir.getText(), user, imgtemp));
 							dispose();
-						}
-						else {
+						} else {
 							operator.createHouse(desc.getText(), ciudad.getText(), dir.getText(), user, imgtemp);
 							dispose();
 						}

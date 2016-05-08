@@ -46,10 +46,10 @@ public class JavaDownload {
 						fos.close();
 						return -1;
 					}	
-				} catch (FileNotFoundException e) {
+				} catch (java.io.FileNotFoundException e) {
 					System.out.println("Error al crear el archivo de destino");
 					e.printStackTrace();
-					fos.close();
+					//fos.close();
 					return -2;
 				}
 			} catch (IOException e1) {
