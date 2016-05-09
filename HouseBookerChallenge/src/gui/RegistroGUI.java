@@ -14,6 +14,9 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.filechooser.*;
 
+import gui.dialogs.CaptchaGUI;
+import gui.dialogs.ElegirTipoGUI;
+
 import java.io.*;
 import java.awt.*;
 import java.awt.event.*;

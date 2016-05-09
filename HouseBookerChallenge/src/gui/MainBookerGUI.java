@@ -32,6 +32,7 @@ import domain.Offer;
 import domain.Propietario;
 import domain.RuralHouse;
 import domain.Usuario;
+import gui.dialogs.ElegirTipoGUI;
 import gui.paneles.OfferCliente;
 import gui.paneles.OfferPropietario;
 import utilities.ImageTypes;

@@ -30,6 +30,7 @@ import javax.swing.border.LineBorder;
 
 import domain.Cliente;
 import domain.Usuario;
+import gui.dialogs.ElegirTipoGUI;
 import utilities.ImageTypes;
 import utilities.ImageUtils;
 import utilities.ProfileImg;

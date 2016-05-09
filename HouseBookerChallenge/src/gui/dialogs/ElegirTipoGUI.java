@@ -1,4 +1,4 @@
-package gui;
+package gui.dialogs;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -14,6 +14,8 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 
 import businessLogic.FacadeImplementationWS;
+import gui.GUIOperator;
+import gui.RegistroGUI;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;

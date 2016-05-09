@@ -34,6 +34,7 @@ import javax.swing.border.LineBorder;
 
 import businessLogic.FacadeImplementationWS.loginresult;
 import domain.Usuario;
+import gui.dialogs.ElegirTipoGUI;
 import utilities.ImageTypes;
 import utilities.ImageUtils;
 

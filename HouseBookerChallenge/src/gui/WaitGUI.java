@@ -14,23 +14,15 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class WaitGUI extends JDialog {
 
 	public void main(String[] args, WaitGUI dialog) {
-		Thread t = new Thread(new Runnable() {
-	        @Override
-	        public void run() {
+
 		try {
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-			setLocation(dim.width / 2 - getSize().width / 2,
-					dim.height / 2 - getSize().height / 2);
+			setLocation(dim.width / 2 - getSize().width / 2, dim.height / 2 - getSize().height / 2);
 			dialog.setVisible(true);
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	        }
-		}
-		);
-		t.run();
 	}
 
 	/**
@@ -58,6 +50,5 @@ public class WaitGUI extends JDialog {
 		progressBar.setBounds(10, 36, 200, 25);
 		getContentPane().add(progressBar);
 	}
-	
- 
+
 }
