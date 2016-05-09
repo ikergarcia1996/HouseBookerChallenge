@@ -41,7 +41,7 @@ public class OfferCliente extends JPanel {
 		setLayout(null);
 
 		JLabel lblCiudad = new JLabel("Ciudad: " + offer.getRuralHouse().getCity());
-		lblCiudad.setBounds(128, 11, 312, 14);
+		lblCiudad.setBounds(155, 11, 285, 14);
 		add(lblCiudad);
 
 		JButton btnConsultar = new JButton("M\u00E1s info / Reservar");
@@ -61,7 +61,7 @@ public class OfferCliente extends JPanel {
 
 		JLabel lblPrecio = new JLabel("Precio: " + offer.getPrice() + " €");
 		lblPrecio.setForeground(SystemColor.controlDkShadow);
-		lblPrecio.setBounds(128, 107, 162, 14);
+		lblPrecio.setBounds(155, 107, 130, 14);
 		add(lblPrecio);
 
 		JLabel labelPrecionum = new JLabel("");
@@ -69,28 +69,28 @@ public class OfferCliente extends JPanel {
 		add(labelPrecionum);
 		
 		JLabel lblNumeroDePersonas = new JLabel("Numero de personas: "+ offer.getnPersRoom());
-		lblNumeroDePersonas.setBounds(128, 79, 162, 14);
+		lblNumeroDePersonas.setBounds(155, 79, 130, 14);
 		add(lblNumeroDePersonas);
 		
-		ImageIcon imagen;
+		BufferedImage imagen;
 		try {
-			imagen = new ImageIcon (ImageUtils.decodeToImage(offer.getRuralHouse().getImagenes().get(0)));
+			imagen = ImageUtils.decodeToImage(offer.getRuralHouse().getImagenes().get(0));
 		}
 		catch (java.lang.NullPointerException | java.lang.IndexOutOfBoundsException ext) {
 			//si no hay imagenes se asigna la imagen default
-			imagen = new ImageIcon(ImageUtils.decodeToImage(ImageTypes.DefaultHouse));
+			imagen = ImageUtils.decodeToImage(ImageTypes.DefaultHouse);
 			
 		}
 		
 	
 		
-		JLabel lblImagen = new JLabel(operator.resizeIcon(imagen, 108, 108));
+		JLabel lblImagen = new JLabel(new ImageIcon(utilities.ImageUtils.resize(imagen, 130, 108)));
 		
-		lblImagen.setBounds(10, 11, 108, 108);
+		lblImagen.setBounds(10, 11, 130, 108);
 		add(lblImagen);
 		
 		JLabel lblNewLabel = new JLabel("Descripción: " + offer.getRuralHouse().getDescription());
-		lblNewLabel.setBounds(128, 36, 312, 42);
+		lblNewLabel.setBounds(155, 36, 280, 42);
 		add(lblNewLabel);
 		
 

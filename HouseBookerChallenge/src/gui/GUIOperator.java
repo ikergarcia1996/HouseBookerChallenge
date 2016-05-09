@@ -109,22 +109,6 @@ public class GUIOperator {
 
 	}
 
-	public BufferedImage decodeToImage(String imageString) {
-		return imgUtil.decodeToImage(imageString);
-
-	}
-
-	public BufferedImage resize(BufferedImage img, int newW, int newH) {
-		return imgUtil.resize(img, newW, newH);
-	}
-
-	public ImageIcon resizeIcon(ImageIcon icon, int newW, int newH) {
-		Image img = icon.getImage();
-		Image newimg = img.getScaledInstance(newW, newH, java.awt.Image.SCALE_SMOOTH);
-		ImageIcon newIcon = new ImageIcon(newimg);
-		return newIcon;
-	}
-
 	public Usuario getUser(String correo) {
 		return businessLG.getUser(correo);
 	}

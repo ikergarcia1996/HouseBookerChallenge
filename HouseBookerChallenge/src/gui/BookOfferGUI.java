@@ -7,6 +7,8 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import com.sun.webkit.Utilities;
+
 import domain.Offer;
 import domain.RuralHouse;
 import domain.Usuario;
@@ -79,18 +81,16 @@ public class BookOfferGUI extends JDialog {
 		setIconImage(res.icono);
 		
 		try {
-			img = new JLabel(
-					operator.resizeIcon(new ImageIcon(operator.decodeToImage(rh.getImagenes().get(0))), 450, 450));
-			img.setBounds(67, 152, 450, 450);
+			img = new JLabel(new ImageIcon(utilities.ImageUtils.resize(utilities.ImageUtils.decodeToImage(rh.getImagenes().get(0)), 560, 450)));
+			img.setBounds(15, 152, 560, 450);
 			contenpane.add(img);
 
 		}
 
 		catch (java.lang.NullPointerException | java.lang.IndexOutOfBoundsException ext) {
 			// IMAGEN POR DEFECTO
-			JLabel img = new JLabel(
-					operator.resizeIcon(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.DefaultHouse)), 450, 450));
-			img.setBounds(67, 152, 450, 450);
+			JLabel img = new JLabel(new ImageIcon(utilities.ImageUtils.resize(ImageUtils.decodeToImage(ImageTypes.DefaultHouse), 560, 450)));
+			img.setBounds(15, 152, 560, 450);
 			contenpane.add(img);
 
 		}
@@ -101,9 +101,8 @@ public class BookOfferGUI extends JDialog {
 				ifotos--;
 				img.removeAll();
 				contenpane.remove(img);
-				img = new JLabel(operator
-						.resizeIcon(new ImageIcon(operator.decodeToImage(rh.getImagenes().get(ifotos))), 450, 450));
-				img.setBounds(67, 152, 450, 450);
+				img = new JLabel(new ImageIcon(utilities.ImageUtils.resize(utilities.ImageUtils.decodeToImage(rh.getImagenes().get(ifotos)), 560, 450)));
+				img.setBounds(15, 152, 560, 450);
 				contenpane.add(img);
 				img.repaint();
 				contenpane.repaint();
@@ -115,19 +114,18 @@ public class BookOfferGUI extends JDialog {
 				siguiente.setEnabled(true);
 			}
 		});
-		anterior.setBounds(63, 612, 164, 42);
+		anterior.setBounds(15, 618, 164, 23);
 		contenpane.add(anterior);
 		anterior.setEnabled(false);
 
-		siguiente = new JButton("Imagen Siguiente");
+		siguiente = new JButton("Imagen Siguiente \uF075");
 		siguiente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ifotos++;
 				img.removeAll();
 				contenpane.remove(img);
-				img = new JLabel(operator
-						.resizeIcon(new ImageIcon(operator.decodeToImage(rh.getImagenes().get(ifotos))), 450, 450));
-				img.setBounds(67, 152, 450, 450);
+				img = new JLabel(new ImageIcon(utilities.ImageUtils.resize(utilities.ImageUtils.decodeToImage(rh.getImagenes().get(ifotos)), 560, 450)));
+				img.setBounds(15, 152, 560, 450);
 				contenpane.add(img);
 				img.repaint();
 				contenpane.repaint();
@@ -139,7 +137,7 @@ public class BookOfferGUI extends JDialog {
 				anterior.setEnabled(true);
 			}
 		});
-		siguiente.setBounds(353, 612, 164, 42);
+		siguiente.setBounds(398, 618, 177, 23);
 		if (rh.getImagenes() != null) {
 			if (rh.getImagenes().size() > 1)
 				siguiente.setEnabled(true);
@@ -173,7 +171,7 @@ public class BookOfferGUI extends JDialog {
 							"", operator);
 			}
 		});
-		contacto.setBounds(255, 44, 304, 42);
+		contacto.setBounds(434, 20, 141, 23);
 		contenpane.add(contacto);
 
 		if (!verInfo && !offer.isReservaRealizada()) {
@@ -244,7 +242,7 @@ public class BookOfferGUI extends JDialog {
 		lblContacto.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lblContacto.setBounds(63, 23, 160, 14);
 		contenpane.add(lblContacto);
-
+		
 		if (!esPropietario) {
 			try {
 				Usuario ow = rh.getOwner();

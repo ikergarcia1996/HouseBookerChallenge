@@ -148,7 +148,7 @@ public class HouseEditorGUI extends JDialog {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					image = ImageUtils.resize(image, 1080, 1080);
+					image = ImageUtils.resize(image, 1280, 720);
 					String filestring = img.getPath();
 					String filetype = filestring.substring(filestring.lastIndexOf('.') + 1, filestring.length());
 					imgtemp.add(ImageUtils.encodeToString(image, filetype));
@@ -186,7 +186,7 @@ public class HouseEditorGUI extends JDialog {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					urlimage = ImageUtils.resize(urlimage, 1080, 1080);
+					urlimage = ImageUtils.resize(urlimage, 1280, 720);
 					imgtemp.add(ImageUtils.encodeToString(urlimage,
 							Image.substring(Image.lastIndexOf(".") + 1, Image.length())));
 					JOptionPane.showMessageDialog(null, "¡Imagen añadida!", "Operación completada correctamente",
