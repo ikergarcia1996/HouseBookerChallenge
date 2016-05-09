@@ -199,6 +199,9 @@ public class UserGUI extends JDialog {
 				}
 				return comp;
 			}
+			public boolean isCellEditable(int row, int column) {
+		        return false;
+			}
 		};
 		
 		JLabel lblNotificacionesYMensajes = new JLabel("Notificaciones y mensajes");

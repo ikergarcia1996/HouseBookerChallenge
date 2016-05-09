@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
 import domain.Mensaje;
@@ -17,6 +18,8 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Stack;
 import java.awt.event.ActionEvent;
@@ -143,16 +146,12 @@ public class AdminGUI extends JDialog {
 		lblMensajes.setBounds(236, 16, 269, 14);
 		contentPane.add(lblMensajes);
 
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(236, 46, 323, 321);
-		contentPane.add(scrollPane);
+		
 
 		String[] columnNames = { "Remitente", "Asunto", "Detalles" };
 
 		ArrayList<Object[]> Data = new ArrayList<Object[]>();
 		Stack<Mensaje> mensajes = gOP.getAdminMenssages();
-		String test="test";
-		mensajes.add(new Mensaje(test,test,test,test));
 		if (!mensajes.isEmpty())
 			for (Mensaje msg : mensajes) {
 				Object[] row = new Object[3];
@@ -192,7 +191,33 @@ public class AdminGUI extends JDialog {
 				}
 				return comp;
 			}
+			public boolean isCellEditable(int row, int column) {
+		        return false;
+		    }
 		};
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				ViewMsjGUI.main(null, null, mensajes.get(table.getSelectedRow()), mensajes.get(table.getSelectedRow()),
+						gOP);
+			}
+		});
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(236, 46, 323, 321);
+		contentPane.add(scrollPane);
+		scrollPane.setViewportView(table);
+	}
+	public class NonEditableModel extends DefaultTableModel {
 
+	    NonEditableModel(Object[][] data, String[] columnNames) {
+	        super(data, columnNames);
+	    }
+
+	    @Override
+	    public boolean isCellEditable(int row, int column) {
+	        return false;
+	    }
 	}
 }
+

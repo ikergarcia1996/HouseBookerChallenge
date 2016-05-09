@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 import utilities.ImageUtils;
 import utilities.ProfileImg;
 
+
 public abstract class Usuario {
 	private String				nombre;
 	private String				apellido;

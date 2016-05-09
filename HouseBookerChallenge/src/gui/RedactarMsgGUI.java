@@ -11,6 +11,7 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import domain.Usuario;
+import gui.dialogs.UUIDDialog;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -22,6 +23,7 @@ import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 import java.awt.event.ActionEvent;
 
 public class RedactarMsgGUI extends JDialog {
@@ -103,22 +105,44 @@ public class RedactarMsgGUI extends JDialog {
 				DateFormat dateFormat = new SimpleDateFormat("dd MM yyyy HH:mm:ss");
 				Date date = new Date();
 				System.out.println();
-				int result = operator.sendMessageTo(txtDestinatario.getText(), user.getCorreo(), txtAsunto.getText(),
-						dateFormat.format(date), txtMensaje.getText());
-				Component frame = null;
-				if (result == 0) {
-					JOptionPane.showMessageDialog(frame,
-							"El mensaje se ha enviado correctamente a " + txtDestinatario.getText(), "Mensaje enviado",
-							JOptionPane.INFORMATION_MESSAGE);
-					dispose();
-				} else
-					JOptionPane.showMessageDialog(frame,
-							"El usuaio '" + txtDestinatario.getText()
-									+ "' no esiste. Comprueba la informacion introducida.",
-							"Error", JOptionPane.WARNING_MESSAGE);
-				// System.out.println(user.getMensajes().firstElement().toString());
+				boolean responder=false;
+				if (user != null) {
+					int result = operator.sendMessageTo(txtDestinatario.getText(), user.getCorreo(),
+							txtAsunto.getText(), dateFormat.format(date), txtMensaje.getText());
+					Component frame = null;
+					if (result == 0) {
+						JOptionPane.showMessageDialog(frame,
+								"El mensaje se ha enviado correctamente a " + txtDestinatario.getText(),
+								"Mensaje enviado", JOptionPane.INFORMATION_MESSAGE);
+						dispose();
+					} else
+						JOptionPane.showMessageDialog(frame,
+								"El usuaio '" + txtDestinatario.getText()
+										+ "' no esiste. Comprueba la informacion introducida.",
+								"Error", JOptionPane.WARNING_MESSAGE);
 
+				} else if (user==null) if(remite==null){
+					UUID UUID = java.util.UUID.randomUUID();
+					operator.sendMessageToAdmin(UUID.toString(), txtAsunto.getText(), dateFormat.format(date),
+							txtMensaje.getText());
+					
+					JOptionPane.showMessageDialog(null, "El mensaje se ha enviado correctamente al administrador.",
+							"Mensaje enviado", JOptionPane.INFORMATION_MESSAGE);
+
+					UUIDDialog.main(null, UUID);
+					responder=true;
+					dispose();
+					
+				}
+				
+				else if (user==null) if(remite!=null) {
+					operator.sendPublicMesage(remite,asunto,dateFormat.format(date),txtMensaje.getText());
+				JOptionPane.showMessageDialog(null, "Se ha respondido correctamente al mensaje.",
+						"Mensaje enviado", JOptionPane.INFORMATION_MESSAGE);
+				dispose();
+				}	
 			}
+		
 		});
 		btnEnviar.setBounds(320, 310, 89, 23);
 		getContentPane().add(btnEnviar);
@@ -145,6 +169,14 @@ public class RedactarMsgGUI extends JDialog {
 			txtAsunto.setText(asunto);
 		getContentPane().add(txtAsunto);
 		txtAsunto.setColumns(10);
+
+		if (user == null) {
+			txtDestinatario.setText("admin@hbc.com");
+			txtDestinatario.setEnabled(false);
+			txtDestinatario.setEditable(false);
+			txtAsunto.setEditable(false);
+			txtAsunto.setEnabled(false);
+		}
 
 	}
 }

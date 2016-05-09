@@ -1,29 +1,29 @@
 package gui;
 
-import java.awt.BorderLayout;
+
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+
+import javax.swing.JButton;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import domain.Mensaje;
 import domain.Usuario;
-import javax.swing.JLabel;
-import javax.swing.JScrollPane;
-import java.awt.Component;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.JSeparator;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import javax.swing.SwingConstants;
-import java.awt.event.ActionListener;
-import java.util.Stack;
-import java.awt.event.ActionEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+
 
 public class ViewMsjGUI extends JDialog {
 
@@ -132,9 +132,12 @@ public class ViewMsjGUI extends JDialog {
 		contentPane.add(btnMantenerComoNo);
 		
 		JButton btnResponder = new JButton("Responder");
+		
 		btnResponder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RedactarMsgGUI.main(null, user ,mensaje.getRemite(),"Re: "+ mensaje.getAsunto(),"En respuesta a: "+ mensaje.getContenido(), operator);
+				if (user!=null)RedactarMsgGUI.main(null, user ,mensaje.getRemite(),"Re: "+ mensaje.getAsunto(),"En respuesta a: "+ mensaje.getContenido(), operator);
+				else RedactarMsgGUI.main(null, null ,mensaje.getRemite(),"Re: "+ mensaje.getAsunto(),"En respuesta a: "+ mensaje.getContenido(), operator);
+				
 			}
 		});
 		btnResponder.setBounds(432, 70, 147, 23);
@@ -183,5 +186,12 @@ public class ViewMsjGUI extends JDialog {
 		contentPane.add(txtFecha);
 		txtFecha.setText(mensaje.getDetalles());
 		txtFecha.setColumns(10);
+	}
+	public class Guest extends Usuario{
+		String UUID;
+		public Guest(String UUID){
+			super(null,null,null,null,null,null);
+			this.UUID=UUID;
+		}
 	}
 }

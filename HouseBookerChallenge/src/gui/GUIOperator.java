@@ -187,4 +187,29 @@ public class GUIOperator {
 		return businessLG.getAdminMenssages();
 	}
 
+	public void sendMessageToAdmin(String UUID, String asunto, String detalles, String contenido) {
+		// TODO Auto-generated method stub
+		businessLG.sendMessageToAdmin(UUID, asunto, detalles, contenido);
+		
+	}
+
+	public void resetAdmin() {
+		businessLG.resetAdmin();
+		
+	}
+
+	public Mensaje searchPublic(String uuid) {
+		return businessLG.searchPublic(uuid);
+		
+	}
+
+	public void sendPublicMesage(String destino, String asunto, String format, String contenido) {
+		businessLG.sendPublicMesage(destino,asunto,format,contenido);
+	}
+
+	public boolean WillCheckForUpdates() {
+		// TODO Auto-generated method stub
+		return businessLG.WillCheckForUpdates();
+	}
+
 }

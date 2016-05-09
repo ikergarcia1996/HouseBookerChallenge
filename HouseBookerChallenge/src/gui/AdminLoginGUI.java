@@ -83,5 +83,23 @@ public class AdminLoginGUI extends JDialog {
 			});
 			cancelButton.setActionCommand("Cancel");
 		}
+		
+		JButton btnReset = new JButton("Reset");
+		btnReset.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (gOP.superAdminLogin(password.getText())){
+					gOP.resetAdmin();
+					JOptionPane.showMessageDialog(null,
+							"Administrador reiniciado.", "Done", JOptionPane.INFORMATION_MESSAGE);
+				}
+				else
+					JOptionPane.showMessageDialog(null,
+							"Acceso no autorizado. Credenciales incorrectas.", "Error", JOptionPane.WARNING_MESSAGE);
+				dispose();
+			}
+		});
+		btnReset.setActionCommand("OK");
+		btnReset.setBounds(15, 46, 71, 23);
+		contentPanel.add(btnReset);
 	}
 }

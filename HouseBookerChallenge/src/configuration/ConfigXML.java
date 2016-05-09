@@ -41,6 +41,8 @@ public class ConfigXML {
 	private String			user;
 
 	private String			password;
+	
+	private boolean			WillCheckForUpdates;
 
 	public int getDatabasePort() {
 		return databasePort;
@@ -68,6 +70,10 @@ public class ConfigXML {
 
 	public boolean isBusinessLogicLocal() {
 		return businessLogicLocal;
+	}
+	
+	public boolean WillCheckForUpdates(){
+		return WillCheckForUpdates;
 	}
 
 	private static ConfigXML theInstance = new ConfigXML();
@@ -118,7 +124,10 @@ public class ConfigXML {
 			user = getTagValue("user", config);
 
 			password = getTagValue("password", config);
-
+			
+			String check = getTagValue("WillCheckForUpdates",config);
+			WillCheckForUpdates = check.equals("true");
+			
 			System.out.print("Read from config.xml: ");
 			main.Runer.splash.textArea.append("\n Read from config.xml: ");
 
@@ -179,5 +188,7 @@ public class ConfigXML {
 	public String getDatabaseNode() {
 		return databaseNode;
 	}
+	
+	
 
 }

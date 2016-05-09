@@ -16,4 +16,4 @@
 	<password>i4softwEngin2matx</password>
   </database>
 <javaPolicyPath>java.policy</javaPolicyPath>
-</config>
+	<WillCheckForUpdates>true</WillCheckForUpdates></config>

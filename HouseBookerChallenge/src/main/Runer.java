@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -10,6 +11,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 
 import CloudUtilities.FileManager;
 import CloudUtilities.JavaDownload;
@@ -28,16 +30,14 @@ public class Runer {
 		Thread thread2;
 		splash.main(null, splash);
 		GUIOperator operator = new GUIOperator();
-		main.Runer.splash.progressBar.setIndeterminate(false);
-		main.Runer.splash.progressBar.setValue(1);
-		main.Runer.splash.progressBar.setString("Iniciando...");
-		main.Runer.splash.textArea.append("\n Launching...");
+		if (operator.WillCheckForUpdates()) {
+
 
 		System.out.println("0");
 		Update up = new Update();
 		main.Runer.splash.progressBar.setString("Buscando Actualizaciones...");
 		NewVersion nw = up.testForUpdates();
-		splash.show(false);
+		splash.setVisible(false);
 		if (nw != null) {
 			Component frame = null;
 
@@ -85,6 +85,10 @@ public class Runer {
 			else {
 				FileManager fl = new FileManager();
 				fl.removeFile("NewVersion.rh");
+				main.Runer.splash.progressBar.setIndeterminate(false);
+				main.Runer.splash.progressBar.setValue(1);
+				main.Runer.splash.progressBar.setString("Iniciando...");
+				main.Runer.splash.textArea.append("\n Launching...");
 				MainGUI.main(null, operator);
 				splash.dispose();
 			}
@@ -95,6 +99,16 @@ public class Runer {
 
 			InicioDespuesDeActualización();
 			MainGUI.main(null, operator);
+		}
+		}
+		else {
+			main.Runer.splash.progressBar.setIndeterminate(false);
+			main.Runer.splash.progressBar.setValue(1);
+			main.Runer.splash.progressBar.setString("Iniciando...");
+			main.Runer.splash.textArea.append("\n Launching...");
+			MainGUI.main(null, operator);
+			
+			
 		}
 
 		splash.dispose();

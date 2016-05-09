@@ -131,7 +131,7 @@ public class MainGUI extends JFrame {
 			}
 		});
 		lblAcercaDe.setForeground(Color.BLUE);
-		lblAcercaDe.setBounds(5, 376, 221, 14);
+		lblAcercaDe.setBounds(5, 376, 100, 14);
 		contentPane.add(lblAcercaDe);
 
 		this.addWindowListener(new WindowAdapter() {
@@ -224,6 +224,19 @@ public class MainGUI extends JFrame {
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setBounds(234, 310, 115, 6);
 		contentPane.add(separator_1);
+		
+		JLabel lblAyuda = new JLabel("Ayuda");
+		lblAyuda.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		lblAyuda.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				gui.AyudaGUI.main(null,operator);
+			}
+		});
+		lblAyuda.setForeground(Color.BLUE);
+		lblAyuda.setBounds(186, 376, 58, 14);
+		
+		contentPane.add(lblAyuda);
 		
 		
 

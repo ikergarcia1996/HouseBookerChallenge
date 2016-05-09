@@ -427,6 +427,38 @@ public class FacadeImplementationWS implements ApplicationFacadeInterfaceWS {
 		return buzon;
 	}
 
+	public void sendMessageToAdmin(String UUID, String asunto, String detalles, String contenido) {
+		DataAccess dB4oManager = new DataAccess();
+		dB4oManager.sendMessageToAdmin(UUID, asunto, detalles, contenido);
+		dB4oManager.close();
+	}
+
+	public void resetAdmin() {
+		DataAccess dB4oManager = new DataAccess();
+		dB4oManager.resetAdmin();
+		dB4oManager.close();
+		
+	}
+
+	public Mensaje searchPublic(String uuid) {
+		DataAccess dB4oManager = new DataAccess();
+		dB4oManager.resetAdmin();
+		Mensaje mensaje= dB4oManager.searchPublic(uuid);
+		dB4oManager.close();
+		return mensaje;
+	}
+
+	public void sendPublicMesage(String destino, String asunto, String format, String contenido) {	
+		DataAccess dB4oManager = new DataAccess();
+		dB4oManager.sendPublicMesage(destino,asunto,format,contenido);
+		dB4oManager.close();
+	}
+
+	public boolean WillCheckForUpdates() {
+		ConfigXML c = ConfigXML.getInstance();
+		return c.WillCheckForUpdates();
+	}
+
 	
 	
 }

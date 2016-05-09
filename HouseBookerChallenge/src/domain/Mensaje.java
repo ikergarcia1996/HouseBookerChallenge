@@ -1,6 +1,9 @@
 package domain;
 
+import java.util.UUID;
+
 public class Mensaje {
+	private String DestPublico;
 	private Usuario Destinatario;
 	private String Remite;
 	private String Asunto;
@@ -21,6 +24,14 @@ public class Mensaje {
 		this.Detalles=detalles;
 		this.Contenido=contenido;
 	}
+	public Mensaje(String destPublico, String asunto,String detalles,String contenido,boolean nosirvepana){
+		this.DestPublico=destPublico;
+		this.Asunto=asunto;
+		this.Detalles=detalles;
+		this.Contenido=contenido;
+	}
+	
+	
 	public Mensaje() {
 		super();
 	}
