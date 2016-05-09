@@ -182,12 +182,27 @@ public class BookOfferGUI extends JDialog {
 				public void actionPerformed(ActionEvent e) {
 					btnReservar.setEnabled(false);
 					operator.reservar(offer, user);
-					btnReservar.setEnabled(true);
+					btnReservar.setEnabled(false);
 					dispose();
 				}
 			});
 			btnReservar.setBounds(723, 662, 359, 55);
 			contenpane.add(btnReservar);
+		}
+		
+		if (verInfo && offer.isReservaRealizada() && offer.getCliente().getCorreo().equals(user.getCorreo())){
+			JButton btnAnular = new JButton("Anular Reserva");
+			btnAnular.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					btnAnular.setEnabled(false);
+					operator.anular(offer, user);
+					btnAnular.setEnabled(false);
+					dispose();
+				}
+			});
+			btnAnular.setBounds(723, 662, 359, 55);
+			contenpane.add(btnAnular);
+			
 		}
 
 		JLabel lblDatosDeLa = new JLabel("Datos de la oferta");

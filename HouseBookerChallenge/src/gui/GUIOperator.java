@@ -212,4 +212,29 @@ public class GUIOperator {
 		return businessLG.WillCheckForUpdates();
 	}
 
+
+
+	public void anular(Offer offer, Usuario user) {
+		Component frame=null;
+		if (businessLG.AnularReserva(offer, user) == -1) {
+			JOptionPane.showMessageDialog(frame, "Error al realizar la reserva", "Error",
+					JOptionPane.WARNING_MESSAGE);
+		} else {
+			// Enviar mensaje al dueño
+			DateFormat dateFormat = new SimpleDateFormat("dd MM yyyy HH:mm:ss");
+			Date date = new Date();
+			sendMessageTo(offer.getRuralHouse().getOwner().getCorreo(), "notify@hbc.com",
+					"Han anulado una reserva en tu casa", dateFormat.format(date),
+					"El usuario " + user.getUserName()
+							+ " ha anulado la reserva entre los días "+ offer.getFirstDay() + " " + offer.getLastDay() + " en tu casa de " + offer.getRuralHouse().getCity() + " .\n \n \n Por favor, no responda a este mensaje ya que ha sido generado automáticamente y nadie leerá su respuesta. ");
+
+			JOptionPane.showMessageDialog(frame, "Reserva cancela, esperamos verte pronto de nuevo",
+					"Todo ha salido bien", JOptionPane.WARNING_MESSAGE);
+
+		}
+		
+		
+	}
+
 }
+
