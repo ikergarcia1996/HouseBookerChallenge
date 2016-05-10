@@ -183,7 +183,7 @@ public class AdminGUI extends JDialog {
 			public Component prepareRenderer(TableCellRenderer renderer, int row, int col) {
 				Component comp = super.prepareRenderer(renderer, row, col);
 				Object value = getModel().getValueAt(row, col);
-				if (value.toString().contains(" ")) {
+				if (value.toString().contains(" ")) { //¡No son dos espacios!
 					comp.setBackground(new Color(135, 206, 250));
 
 				} else {
