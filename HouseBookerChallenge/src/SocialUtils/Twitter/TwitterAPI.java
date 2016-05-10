@@ -3,7 +3,6 @@ package SocialUtils.Twitter;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
@@ -15,7 +14,6 @@ import twitter4j.conf.ConfigurationBuilder;
 public class TwitterAPI {
 	private Twitter twitter;
 	private User user;
-	private ConfigurationBuilder builder;
 	private RequestToken requestToken;
 	private AccessToken accessToken;
 	private String ConsumerKey = "3cpe6PPsbmJrenouFHW8t7rQM";
@@ -23,43 +21,44 @@ public class TwitterAPI {
 	
 	private boolean logged;
 	
-	public TwitterAPI(){
-		twitter.setOAuthConsumer(ConsumerKey, ConsumerSecret);
-		builder = new ConfigurationBuilder();
-		builder.setOAuthConsumerKey(ConsumerKey);
-		builder.setOAuthConsumerSecret(ConsumerSecret);
-		builder.setOAuthAccessToken(accessToken.getToken());
-		builder.setOAuthAccessTokenSecret(accessToken.getTokenSecret()); 
-	    try {
-			requestToken = twitter.getOAuthRequestToken();
-		} catch (TwitterException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public TwitterAPI() throws TwitterException{
+		ConfigurationBuilder cb = new ConfigurationBuilder();
+		cb.setDebugEnabled(true)
+		  .setOAuthConsumerKey(ConsumerKey)
+		  .setOAuthConsumerSecret(ConsumerSecret)
+		  .setOAuthAccessToken(null)
+		  .setOAuthAccessTokenSecret(null);
+		TwitterFactory tf = new TwitterFactory(cb.build());
+		twitter = tf.getInstance();
+	    requestToken = twitter.getOAuthRequestToken();
 	    accessToken = null;
 	    logged = false;
 	}
 	
-	public String getAuthURL(){
+	public String getAuthURL() throws TwitterException{
 		return requestToken.getAuthorizationURL();
 	}
 	
-	public void authAPI(String PIN){
-		try{
-	         if(PIN.length() > 0){
-	           accessToken = twitter.getOAuthAccessToken(requestToken, PIN);
-	           logged = true;
-	           user = twitter.verifyCredentials();
-	         }else{
-	           accessToken = twitter.getOAuthAccessToken();
-	         }
-	      } catch (TwitterException te) {
-	        if(401 == te.getStatusCode()){
-	          System.out.println("Unable to get the access token.");
-	        }else{
-	          te.printStackTrace();
-	        }
-	      }
+	public int authAPI(String PIN){
+		while (accessToken == null){
+			try{
+				if(PIN.length() > 0){
+					accessToken = twitter.getOAuthAccessToken(requestToken, PIN);
+					logged = true;
+					user = twitter.verifyCredentials();
+					return 0;
+				}else{
+					accessToken = twitter.getOAuthAccessToken();
+				}
+			} catch (TwitterException te) {
+				if(401 == te.getStatusCode()){
+					System.out.println("Unable to get the access token.");
+				}else{
+					te.printStackTrace();
+				}
+			}
+		}
+		return -1;
 	}
 	
 	public void renewAccessToken(){
@@ -88,11 +87,8 @@ public class TwitterAPI {
 	
 	public long getUserId(){
 		try {
-			return twitter.getId();
+			return user.getId();
 		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (TwitterException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
