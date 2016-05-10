@@ -46,7 +46,6 @@ public class SplashGUI extends JDialog {
 		setBounds(100, 100, 343, 200);
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		setLocation(dim.width / 2 - getSize().width / 2, dim.height / 2 - getSize().height / 2);
-		setAlwaysOnTop(true);
 		setUndecorated(true);
 		setResizable(false);
 

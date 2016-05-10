@@ -68,9 +68,28 @@ public class Runer {
 			System.out.println("0");
 			
 			main.Runer.splash.progressBar.setString("Buscando Actualizaciones...");
+
+			FileReader fileReader;
+			try {
+				fileReader = new FileReader("NewVersion.rh");
+				fileReader.close();
+				System.out.println("AAAA");
+				InicioDespuesDeActualización();
+				System.out.println("AAAA");
+				MainGUI.main(null, operator);
+				splash.dispose();
+				System.out.println("AAAA");
+			} catch (IOException e1) {
+			
 			threadUpdate.start();
 			threadTemp.start();
 			
+			
+				
+				
+				
+			}
+		
 			
 			while (threadUpdate.isAlive()){}
 			threadTemp.interrupt();
@@ -90,7 +109,7 @@ public class Runer {
 					Thread thread1 = new Thread() {
 						public void run() {
 							JavaDownload jd = new JavaDownload();
-							jd.Download(nw.getLinkLastVersion(), "newVesion.jar");
+							jd.Download(nw.getLinkLastVersion(), "newVersion.jar");
 							jd.Download(nw.getLinkLastVersion(), "updater.jar");
 
 							StringBuilder fileRoute = new StringBuilder();
@@ -134,7 +153,7 @@ public class Runer {
 
 			else {
 
-				InicioDespuesDeActualización();
+			
 				MainGUI.main(null, operator);
 			}
 		} else {
@@ -166,13 +185,15 @@ public class Runer {
 
 				}
 				con = textReader.readLine();
+				
 			}
 			textReader.close();
+			
 			Component frame3 = null;
 			JOptionPane.showMessageDialog(frame3, "Novedades de la actualización: \n" + notas, "Novedades", 1);
 			FileManager fl = new FileManager();
 			fl.removeFile("NewVersion.rh");
-			fl.removeFile("old.jar");
+			fl.removeFile("updater.jar");
 		} catch (IOException e) {
 			System.out.println("NO ha habido una actualización desde el ultimo inicio");
 		}
