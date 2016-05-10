@@ -24,21 +24,56 @@ import gui.MainGUI;
 import gui.SplashGUI;
 
 public class Runer {
-
+	static Update up = new Update();
+	static NewVersion nw;
 	public static SplashGUI splash = new SplashGUI();
 
 	public static void run() {
-
+		
+		Thread threadTemp;
 		Thread thread2;
 		splash.main(null, splash);
 		GUIOperator operator = new GUIOperator();
+		
+		Thread threadUpdate = new Thread() {
+			public void run() {
+				nw = up.testForUpdates();
+			
+			
+				
+			}
+		};
+		
+		threadTemp = new Thread() {
+			public void run() {
+				try {
+					Thread.sleep(10000);
+					Component frame=null;
+					if (JOptionPane.showConfirmDialog(frame,
+							"La busqueda de actualizaciones esta tardando más de lo esperado ¿Desea omitirla?",
+							"Actualización", JOptionPane.YES_NO_OPTION,
+							JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {threadUpdate.interrupt();
+							
+					}
+				} catch (InterruptedException e) {
+					System.out.println("Contador Detenido");
+				}
+				
+				
+			}
+		};
 
 		if (operator.WillCheckForUpdates()) {
 
 			System.out.println("0");
-			Update up = new Update();
+			
 			main.Runer.splash.progressBar.setString("Buscando Actualizaciones...");
-			NewVersion nw = up.testForUpdates();
+			threadUpdate.start();
+			threadTemp.start();
+			
+			
+			while (threadUpdate.isAlive()){}
+			threadTemp.interrupt();
 			splash.setVisible(false);
 			if (nw!=null) {
 				Component frame = null;
@@ -143,4 +178,6 @@ public class Runer {
 		}
 
 	}
+	
+
 }

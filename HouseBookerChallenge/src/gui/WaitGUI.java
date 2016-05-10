@@ -12,18 +12,24 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 public class WaitGUI extends JDialog {
-
+	Thread thread;
+	
 	public void main(String[] args, WaitGUI dialog) {
-
-		try {
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-			setLocation(dim.width / 2 - getSize().width / 2, dim.height / 2 - getSize().height / 2);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+		
+				try {
+					
+					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+					Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+					setLocation(dim.width / 2 - getSize().width / 2, dim.height / 2 - getSize().height / 2);
+					dialog.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		
+		
+		
+	
 
 	/**
 	 * Create the dialog.
