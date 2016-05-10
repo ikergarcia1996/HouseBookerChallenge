@@ -199,9 +199,20 @@ public class GUIOperator {
 
 
 	public void anular(Offer offer, Usuario user) {
+		java.util.Date fecha = new Date();
+		System.out.println (fecha);
+		
+		if (fecha.compareTo(offer.getFirstDay())<10){
+			Component frame = null;
+			JOptionPane.showMessageDialog(frame, "Solo se pueden anular reservas con más de 10 días de antelación", "Error",
+					JOptionPane.WARNING_MESSAGE);
+		}
+		
+		else{
+		
 		Component frame=null;
 		if (businessLG.AnularReserva(offer, user) == -1) {
-			JOptionPane.showMessageDialog(frame, "Error al realizar la reserva", "Error",
+			JOptionPane.showMessageDialog(frame, "Error al anula la reserva", "Error",
 					JOptionPane.WARNING_MESSAGE);
 		} else {
 			// Enviar mensaje al dueño
@@ -216,7 +227,7 @@ public class GUIOperator {
 					"Todo ha salido bien", JOptionPane.WARNING_MESSAGE);
 
 		}
-		
+		}
 		
 	}
 
