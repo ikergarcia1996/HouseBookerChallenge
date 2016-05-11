@@ -36,11 +36,11 @@ public class TwitterLoginGUI extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args, GUIOperator gOP) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TwitterLoginGUI frame = new TwitterLoginGUI();
+					TwitterLoginGUI frame = new TwitterLoginGUI(gOP);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -52,7 +52,7 @@ public class TwitterLoginGUI extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TwitterLoginGUI() {
+	public TwitterLoginGUI(GUIOperator gOP) {
 		setTitle("Iniciar sesi\u00F3n con Twitter");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
