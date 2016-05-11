@@ -119,12 +119,7 @@ public class TwitterLoginGUI extends JFrame {
 				if (twitterAPI.authAPI(textField.getText()) != 0){
 					JOptionPane.showMessageDialog(null,
 							"El PIN introducido no es correcto.", "Error", JOptionPane.WARNING_MESSAGE);
-					try {
-						twitterAPI = new TwitterAPI();
-					} catch (TwitterException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					dispose();
 				} else {
 					btnNewButton.setEnabled(false);
 					int resultado = 0;
