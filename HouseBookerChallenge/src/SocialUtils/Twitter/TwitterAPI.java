@@ -53,6 +53,7 @@ public class TwitterAPI {
 			} catch (TwitterException te) {
 				if(401 == te.getStatusCode()){
 					System.out.println("Unable to get the access token.");
+					return -1;
 				}else{
 					te.printStackTrace();
 				}

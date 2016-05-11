@@ -28,6 +28,7 @@ import domain.Mensaje;
 import domain.Offer;
 import domain.Propietario;
 import domain.RuralHouse;
+import domain.TwitterUser;
 import domain.Usuario;
 import exceptions.OverlappingOfferExists;
 import utilities.ProfileImg;
@@ -605,6 +606,39 @@ public class DataAccess {
 		rh.offers=rho;
 		db.delete(d);
 		db.store(rh);
+		db.commit();
+	}
+	
+	public TwitterUser fetchTwitterUser(long ID){
+		ObjectSet<Object> res = db.queryByExample(new TwitterUser(null, ID));
+		if (!res.isEmpty())
+			return (TwitterUser) res.next();
+		else return null;
+	}
+	
+	public TwitterUser fetchTwitterUserE(String email){
+		TwitterUser user = (TwitterUser) db.queryByExample(new TwitterUser(email, 0)).next();
+		return user;
+	}
+	
+	public void TwittercreateAccount(boolean isPropietario, String nombre, String apellidos, String telefono, String correo,
+			String password, String DNI, String DirPostal, ProfileImg perfil, long TwitterID) {
+		DateFormat dateFormat = new SimpleDateFormat("dd MM yyyy HH:mm:ss");
+		Date date = new Date();
+		if (!isPropietario) {
+			Cliente nuevoUsuario = new Cliente(nombre, apellidos, telefono, correo, password, perfil);
+			nuevoUsuario.sendMensaje(new Mensaje(nuevoUsuario, "welcome@hbc.com", "Bienvenido", dateFormat.format(date),
+					"Hola y bienvenido a HouseBookerChallenge.\n En primer lugar te queremos dar las gracias por empezar a formar parte de esta gran comunidad, y estamos deseando ayudarte en todo lo posible, a si que si tienes alguna pregunta, puedes coontactar con el administrador en el correo HBCHelp@HBC.com."));
+			db.store(nuevoUsuario);
+		} else {
+			Propietario nuevoUsuario = new Propietario(nombre, apellidos, telefono, correo, password, perfil, DNI,
+					DirPostal);
+			nuevoUsuario.sendMensaje(new Mensaje(nuevoUsuario, "welcome@hbc.com", "Bienvenido", dateFormat.format(date),
+					"Hola y bienvenido a HouseBookerChallenge.\n En primer lugar te queremos dar las gracias por empezar a formar parte de esta gran comunidad, y estamos deseando ayudarte en todo lo posible, a si que si tienes alguna pregunta, puedes coontactar con el administrador en el correo HBCHelp@HBC.com."));
+			db.store(nuevoUsuario);
+		}
+		TwitterUser usr = new TwitterUser(correo, TwitterID);
+		db.store(usr);
 		db.commit();
 	}
 

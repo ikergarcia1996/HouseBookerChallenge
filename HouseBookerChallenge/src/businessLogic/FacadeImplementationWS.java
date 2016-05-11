@@ -14,6 +14,7 @@ import javax.jws.WebService;
 
 import com.db4o.ObjectSet;
 
+import businessLogic.FacadeImplementationWS.loginresult;
 import configuration.ConfigXML;
 import dataAccess.DataAccess;
 import domain.Cliente;
@@ -21,6 +22,7 @@ import domain.Mensaje;
 //import domain.Booking;
 import domain.Offer;
 import domain.RuralHouse;
+import domain.TwitterUser;
 import domain.Usuario;
 import exceptions.BadDates;
 import exceptions.OverlappingOfferExists;
@@ -476,6 +478,48 @@ public class FacadeImplementationWS implements ApplicationFacadeInterfaceWS {
 		return c.WillCheckForUpdates();
 	}
 
+	public loginresult twitterlogin(long twitterID) {
+		/*
+		 * Devuelve: 1 -> Cliente 2 -> Propietario
+		 * 
+		 * -1 -> Esa cuenta no existe 0 -> Datos introducidos incorrectos
+		 */
+		DataAccess dB4oManager = new DataAccess();
+		TwitterUser getUser = dB4oManager.fetchTwitterUser(twitterID);
+		dB4oManager.close();
+		if (getUser == null) return new loginresult(-1, null);
+		else return login(getUser.getCorreo(), String.valueOf(twitterID));
+	}
 	
-	
+	public int TwittercreateAccount(boolean isPropietario, String nombre, String apellidos, String telefono, String correo,
+			String password, String DNI, String DirPostal, ProfileImg perfil, long ID) {
+		/*
+		 * -1 -> Usuario ya existe 1 -> Error de datos //retirado para aumentar
+		 * eficiencia. se hace en registroGUI
+		 * 
+		 * 0 -> Todo correcto
+		 */
+		DataAccess dB4oManager = new DataAccess();
+		int result = 0;
+		if (dB4oManager.isBannedEmail(correo)) {
+			dB4oManager.close();
+			return -2;
+		}
+		if (!dB4oManager.getUsers(correo).isEmpty())
+			result = -1;
+		else {
+			if (result == 0) dB4oManager.TwittercreateAccount(isPropietario, nombre, apellidos, telefono, correo, password,
+					DNI, DirPostal, perfil, ID);
+		}
+		dB4oManager.close();
+		return result;
+	}
+
+	public TwitterUser getTwitterUser(String correo) {
+		// TODO Auto-generated method stub
+		DataAccess dB4oManager = new DataAccess();
+		TwitterUser getUser = dB4oManager.fetchTwitterUserE(correo);
+		dB4oManager.close();
+		return getUser;
+	}
 }

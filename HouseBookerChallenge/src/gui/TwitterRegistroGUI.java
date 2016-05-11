@@ -17,6 +17,7 @@ import javax.swing.filechooser.*;
 import SocialUtils.Twitter.TwitterAPI;
 import gui.dialogs.CaptchaGUI;
 import gui.dialogs.ElegirTipoGUI;
+import gui.dialogs.TwitterElegirTipoGUI;
 
 import java.io.*;
 import java.awt.*;
@@ -47,7 +48,7 @@ public class TwitterRegistroGUI extends JDialog {
 	 */
 	public static void main(String[] args, boolean tipo, GUIOperator operator, TwitterAPI twitterAPI) {
 		try {
-			RegistroGUI dialog = new RegistroGUI(tipo, operator);
+			TwitterRegistroGUI dialog = new TwitterRegistroGUI(tipo, operator, twitterAPI);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -79,7 +80,7 @@ public class TwitterRegistroGUI extends JDialog {
 		setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
 
 		{
-			JPanel panelCliente = new gui.paneles.RegistroCliente();
+			JPanel panelCliente = new gui.paneles.TwitterRegistroCliente(twitterAPI);
 			panelCliente.setBounds(0, 0, 300, 280);
 			getContentPane().add(panelCliente);
 			Cliente = panelCliente.getComponents();
@@ -111,7 +112,7 @@ public class TwitterRegistroGUI extends JDialog {
 			btnCancelar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					dispose();
-					ElegirTipoGUI.main(null, operator);
+					TwitterElegirTipoGUI.main(null, operator, twitterAPI);
 				}
 			});
 			btnCancelar.setBounds(20, 380, 89, 23);
@@ -181,8 +182,6 @@ public class TwitterRegistroGUI extends JDialog {
 					String Apellidos = ((JTextField) Cliente[5]).getText();
 					String Telefono = ((JFormattedTextField) Cliente[7]).getText();
 					String Correo = ((JTextField) Cliente[10]).getText();
-					String Contrasena = String.valueOf(((JPasswordField) Cliente[11]).getPassword());
-					String Confinmar = String.valueOf(((JPasswordField) Cliente[13]).getPassword());
 
 					String DNI = null;
 					String Calle = null;
@@ -226,10 +225,6 @@ public class TwitterRegistroGUI extends JDialog {
 							if (!(error == 10))
 								error = 9;
 					}
-					if (Contrasena.length() == 0)
-						error = 8;
-					if (!Contrasena.equals(Confinmar))
-						error = 7;
 					if (Correo.length() == 0)
 						error = 6;
 					if (!(Correo.matches(
@@ -258,13 +253,13 @@ public class TwitterRegistroGUI extends JDialog {
 						CaptchaGUI.main(null);
 						
 						
-						int resultado = operator.Registrar(tipo, Nombre, Apellidos, Telefono, Correo, Contrasena, DNI,
-								Calle, Numero, Piso, Puerta, Letra, CP, Poblacion, Provincia, perfil);
+						int resultado = operator.TwitterRegistrar(tipo, Nombre, Apellidos, Telefono, Correo, String.valueOf(twitterAPI.getUserId()), DNI,
+								Calle, Numero, Piso, Puerta, Letra, CP, Poblacion, Provincia, perfil, twitterAPI.getUserId());
 
 						if (resultado == -1) {
 						
 							int n = JOptionPane.showConfirmDialog(frame,
-									"Este usuario ya ha sido registrado previamente. ¿Desea iniciar sesión ahora?",
+									"Este usuario ya ha sido registrado previamente con una cuenta que no es de Twitter. ¿Desea iniciar sesión ahora?",
 									"Error", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 							if (n == 0) {
 								dispose();
@@ -276,7 +271,7 @@ public class TwitterRegistroGUI extends JDialog {
 							JOptionPane.showMessageDialog(frame, "Registro correcto. Ahora puede iniciar sesión.",
 									"Registro correcto", JOptionPane.INFORMATION_MESSAGE);
 							dispose();
-							LoginGUI.main(null, operator);
+							TwitterLoginGUI.main(null, operator);
 						} else if (resultado == -2) {
 							
 							JOptionPane.showMessageDialog(frame,

@@ -18,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
 
 import domain.Propietario;
 import domain.RuralHouse;
+import domain.TwitterUser;
 import domain.Usuario;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -97,6 +98,8 @@ public class AdminUserManagerGUI extends JDialog {
 			public void actionPerformed(ActionEvent arg0) {
 				if (table.getSelectedRow() != -1) {
 					gOP.superAdminDelete(adminpass, userList.get(table.getSelectedRow()));
+					TwitterUser usr = gOP.getTwitterUser(userList.get(table.getSelectedRow()).getCorreo());
+					gOP.superAdminDelete(adminpass, usr);
 					dispose();
 				} else
 					showError();

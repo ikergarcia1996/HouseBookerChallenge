@@ -33,7 +33,7 @@ public class TwitterElegirTipoGUI extends JDialog {
 	 * @param operator
 	 */
 	public static void main(String[] args, GUIOperator operator, TwitterAPI twitterAPI) {
-		ElegirTipoGUI dialog = new ElegirTipoGUI(operator);
+		TwitterElegirTipoGUI dialog = new TwitterElegirTipoGUI(operator, twitterAPI);
 
 		dialog.setVisible(true);
 	}

@@ -18,6 +18,7 @@ import businessLogic.FacadeImplementationWS.loginresult;
 import domain.Mensaje;
 import domain.Offer;
 import domain.RuralHouse;
+import domain.TwitterUser;
 import domain.Usuario;
 import utilities.ImageUtils;
 import utilities.ProfileImg;
@@ -229,6 +230,26 @@ public class GUIOperator {
 		}
 		}
 		
+	}
+
+	loginresult twitterlogin(long twitterID) {
+		return businessLG.twitterlogin(twitterID);
+
+	}
+	
+	int TwitterRegistrar(boolean tipo, String Nombre, String Apellidos, String Telefono, String Correo, String Contrasena,
+			String DNI, String Calle, String Numero, String Piso, String Puerta, String Letra, String CP,
+			String Poblacion, String Provincia, ProfileImg perfil, long ID) {
+
+		String Direccion = Calle + ", " + Numero + ", " + Piso + ", " + Puerta + ", " + Letra + ", " + CP + ", "
+				+ Poblacion + ", " + Provincia;
+
+		return businessLG.TwittercreateAccount(tipo, Nombre, Apellidos, Telefono, Correo, Contrasena, DNI, Direccion, perfil, ID);
+	}
+
+	public TwitterUser getTwitterUser(String correo) {
+		// TODO Auto-generated method stub
+		return businessLG.getTwitterUser(correo);
 	}
 
 }

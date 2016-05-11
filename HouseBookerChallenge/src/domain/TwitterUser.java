@@ -3,9 +3,9 @@ package domain;
 public class TwitterUser {
 	
 	private String correo;
-	private String TwitterID;
+	private long TwitterID;
 	
-	public TwitterUser(String c, String ID){
+	public TwitterUser(String c, long ID){
 		correo = c;
 		TwitterID = ID;
 	}
