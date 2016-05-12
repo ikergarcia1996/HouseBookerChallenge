@@ -9,12 +9,16 @@ import java.util.UUID;
 
 import javax.swing.JTextField;
 
+import utilities.ImageTypes;
+import utilities.ImageUtils;
 import utilities.SystemClipboard;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.UIManager;
+import java.awt.Color;
 
 public class UUIDDialog extends JDialog {
 	private JTextField txtUuid;
@@ -53,9 +57,10 @@ public class UUIDDialog extends JDialog {
 		getContentPane().add(lblElSiguienteIdentificador);
 		
 		txtUuid = new JTextField();
+		txtUuid.setBackground(new Color(211,228,213));
 		txtUuid.setText(uuid.toString());
 		txtUuid.setEditable(false);
-		txtUuid.setBounds(79, 89, 360, 35);
+		txtUuid.setBounds(79, 89, 351, 35);
 		getContentPane().add(txtUuid);
 		txtUuid.setColumns(10);
 		
@@ -65,6 +70,8 @@ public class UUIDDialog extends JDialog {
 		getContentPane().add(lblIcon);
 		
 		JButton btnCopiar = new JButton("Copiar");
+		btnCopiar.setBorder(UIManager.getBorder("CheckBox.border"));
+		btnCopiar.setContentAreaFilled(false);
 		btnCopiar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				SystemClipboard cb=new SystemClipboard();
@@ -75,6 +82,8 @@ public class UUIDDialog extends JDialog {
 		getContentPane().add(btnCopiar);
 		
 		JButton btnCerrar = new JButton("Cerrar");
+		btnCerrar.setBorder(UIManager.getBorder("CheckBox.border"));
+		btnCerrar.setContentAreaFilled(false);
 		btnCerrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
@@ -82,6 +91,10 @@ public class UUIDDialog extends JDialog {
 		});
 		btnCerrar.setBounds(396, 144, 115, 23);
 		getContentPane().add(btnCerrar);
+		
+		JLabel lblC = new JLabel(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FONDOCOLOR)));
+		lblC.setBounds(0, 0, 569, 234);
+		getContentPane().add(lblC);
 
 	}
 }

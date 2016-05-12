@@ -165,11 +165,10 @@ public class ViewMsjGUI extends JDialog {
 			public void actionPerformed(ActionEvent arg0) {
 				File fileToSave = new File("C:\\"+mensaje.getDetalles()+".txt");
 				JFrame parentFrame = new JFrame();
-				 
+				
 				JFileChooser fileChooser = new JFileChooser();
 				fileChooser.setDialogTitle("Guradar mensaje");  
 				
-				 
 				int userSelection = fileChooser.showSaveDialog(parentFrame);
 				 
 				if (userSelection == JFileChooser.APPROVE_OPTION) {

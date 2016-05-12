@@ -24,6 +24,7 @@ import javax.swing.*;
 import javax.swing.filechooser.*;
 
 import utilities.ImageFilter;
+import utilities.ImageTypes;
 import utilities.ProfileImg;
 import utilities.ImageUtils;
 
@@ -65,12 +66,13 @@ public class RegistroGUI extends JDialog {
 		setTitle("Registro");
 		setModal(true);
 		setResizable(false);
+		setBounds(100, 100, 633, 440);
 		if (tipo) {
 			setBounds(100, 100, 633, 440);
 		} else {
 			setBounds(100, 100, 335, 440);
 		}
-		
+
 		SwingUtilities.updateComponentTreeUI(getContentPane());
 
 		getContentPane().setLayout(null);
@@ -79,6 +81,7 @@ public class RegistroGUI extends JDialog {
 
 		{
 			JPanel panelCliente = new gui.paneles.RegistroCliente();
+			panelCliente.setBackground(new Color(191, 208, 193));
 			panelCliente.setBounds(0, 0, 300, 280);
 			getContentPane().add(panelCliente);
 			Cliente = panelCliente.getComponents();
@@ -86,6 +89,7 @@ public class RegistroGUI extends JDialog {
 		{
 			JPanel panelPropietario = new gui.paneles.RegistroPropietario();
 			panelPropietario.setBounds(310, 0, 300, 280);
+			panelPropietario.setBackground(new Color(191, 208, 193));
 			if (tipo) {
 				getContentPane().add(panelPropietario);
 				Propietario = panelPropietario.getComponents();
@@ -107,6 +111,8 @@ public class RegistroGUI extends JDialog {
 		}
 		{
 			JButton btnCancelar = new JButton("Cancelar");
+			btnCancelar.setBorder(UIManager.getBorder("CheckBox.border"));
+			btnCancelar.setContentAreaFilled(false);
 			btnCancelar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					dispose();
@@ -126,6 +132,8 @@ public class RegistroGUI extends JDialog {
 			fc = new JFileChooser();
 
 			JButton btnSeleccionarImagenDe = new JButton("Seleccionar imagen de perfil");
+			btnSeleccionarImagenDe.setBorder(UIManager.getBorder("CheckBox.border"));
+			btnSeleccionarImagenDe.setContentAreaFilled(false);
 			btnSeleccionarImagenDe.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					fc.setFileFilter(new ImageFilter());
@@ -153,7 +161,9 @@ public class RegistroGUI extends JDialog {
 			getContentPane().add(btnSeleccionarImagenDe);
 
 			JButton btnContinuar = new JButton("Continuar");
-			btnContinuar.setLocation(0, 71);
+			btnContinuar.setContentAreaFilled(false);
+			btnContinuar.setBorder(UIManager.getBorder("CheckBox.border"));
+			btnContinuar.setBounds(508, 380, 89, 23);
 			if (tipo) {
 				btnContinuar.setBounds(508, 380, 89, 23);
 			} else
@@ -163,6 +173,8 @@ public class RegistroGUI extends JDialog {
 			rootPane.setDefaultButton(btnContinuar);
 
 			JButton btnBorrarImagenDe = new JButton("Borrar imagen de perfil");
+			btnBorrarImagenDe.setBorder(UIManager.getBorder("CheckBox.border"));
+			btnBorrarImagenDe.setContentAreaFilled(false);
 			btnBorrarImagenDe.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					ProfileImg perfil = new ProfileImg(null);
@@ -171,6 +183,10 @@ public class RegistroGUI extends JDialog {
 			});
 			btnBorrarImagenDe.setBounds(20, 325, 170, 23);
 			getContentPane().add(btnBorrarImagenDe);
+
+			JLabel lblC = new JLabel(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FONDOCOLOR)));
+			lblC.setBounds(0, 0, 627, 411);
+			getContentPane().add(lblC);
 
 			btnContinuar.addMouseListener(new MouseAdapter() {
 
@@ -255,13 +271,12 @@ public class RegistroGUI extends JDialog {
 
 					} else {
 						CaptchaGUI.main(null);
-						
-						
+
 						int resultado = operator.Registrar(tipo, Nombre, Apellidos, Telefono, Correo, Contrasena, DNI,
 								Calle, Numero, Piso, Puerta, Letra, CP, Poblacion, Provincia, perfil);
 
 						if (resultado == -1) {
-						
+
 							int n = JOptionPane.showConfirmDialog(frame,
 									"Este usuario ya ha sido registrado previamente. ¿Desea iniciar sesión ahora?",
 									"Error", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
@@ -271,13 +286,13 @@ public class RegistroGUI extends JDialog {
 							}
 
 						} else if (resultado == 0) {
-							
+
 							JOptionPane.showMessageDialog(frame, "Registro correcto. Ahora puede iniciar sesión.",
 									"Registro correcto", JOptionPane.INFORMATION_MESSAGE);
 							dispose();
 							LoginGUI.main(null, operator);
 						} else if (resultado == -2) {
-							
+
 							JOptionPane.showMessageDialog(frame,
 									"No se puede registrar este usuario por que ese correo o DNI está banneado de poder usar el sistema. Contacte con el administrador para más información.",
 									"Error", JOptionPane.INFORMATION_MESSAGE);
@@ -285,6 +300,7 @@ public class RegistroGUI extends JDialog {
 
 					}
 					btnContinuar.setEnabled(true);
+
 				}
 
 				private void GenerarError(int error) {

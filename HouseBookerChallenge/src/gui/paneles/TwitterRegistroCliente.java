@@ -6,6 +6,7 @@ import javax.swing.JTextField;
 import javax.swing.JFormattedTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JSeparator;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -14,10 +15,13 @@ import java.text.ParseException;
 import javax.swing.text.MaskFormatter;
 
 import SocialUtils.Twitter.TwitterAPI;
+import utilities.ImageTypes;
+import utilities.ImageUtils;
 
 import javax.swing.JProgressBar;
 import javax.swing.event.CaretListener;
 import javax.swing.event.CaretEvent;
+import java.awt.Color;
 
 public class TwitterRegistroCliente extends JPanel {
 	private JTextField			txtNombre;
@@ -55,6 +59,7 @@ public class TwitterRegistroCliente extends JPanel {
 		add(lblNombre);
 
 		txtNombre = new JTextField();
+		txtNombre.setBackground(new Color(211,228,213));
 		txtNombre.setBounds(130, 33, 160, 20);
 		txtNombre.setText(twitterAPI.getUserName());
 		add(txtNombre);
@@ -65,6 +70,7 @@ public class TwitterRegistroCliente extends JPanel {
 		add(lblApellidos);
 
 		txtApellidos = new JTextField();
+		txtApellidos.setBackground(new Color(211,228,213));
 		txtApellidos.setBounds(130, 58, 160, 20);
 		add(txtApellidos);
 		txtApellidos.setColumns(10);
@@ -74,6 +80,7 @@ public class TwitterRegistroCliente extends JPanel {
 		add(lblTelfono);
 
 		txtTelfono = new JFormattedTextField(createFormatter("### ## ## ##"));
+		txtTelfono.setBackground(new Color(211,228,213));
 		txtTelfono.setBounds(130, 83, 160, 20);
 		add(txtTelfono);
 		txtTelfono.setColumns(10);
@@ -87,11 +94,13 @@ public class TwitterRegistroCliente extends JPanel {
 		add(lblElegirContrasea);
 
 		txtCorreoElectrnico = new JTextField();
+		txtCorreoElectrnico.setBackground(new Color(211,228,213));
 		txtCorreoElectrnico.setBounds(20, 136, 270, 20);
 		add(txtCorreoElectrnico);
 		txtCorreoElectrnico.setColumns(10);
 
 		pwdContrasea = new JPasswordField();
+		pwdContrasea.setBackground(new Color(211,228,213));
 		pwdContrasea.setEditable(false);
 		pwdContrasea.addCaretListener(new CaretListener() {
 			public void caretUpdate(CaretEvent arg0) {
@@ -129,6 +138,7 @@ public class TwitterRegistroCliente extends JPanel {
 		add(lblConfirmarContrasea);
 
 		pwdConfirmar = new JPasswordField();
+		pwdConfirmar.setBackground(new Color(211,228,213));
 		pwdConfirmar.setEditable(false);
 		pwdConfirmar.addMouseListener(new MouseAdapter() {
 			@Override
@@ -144,6 +154,9 @@ public class TwitterRegistroCliente extends JPanel {
 		lblFuerzaDeContrasea.setBounds(170, 167, 120, 14);
 		lblFuerzaDeContrasea.setVisible(false);
 		add(lblFuerzaDeContrasea);
+		JLabel lblC = new JLabel(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FONDOCOLOR)));
+		lblC.setBounds(0, 0, 493, 326);
+		add(lblC);
 
 	}
 
@@ -158,6 +171,7 @@ public class TwitterRegistroCliente extends JPanel {
 		}
 
 		return formatter;
+
 	}
 
 	private int checkPasswordStrength(String password) {

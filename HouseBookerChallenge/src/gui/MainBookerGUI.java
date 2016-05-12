@@ -94,7 +94,7 @@ public class MainBookerGUI extends JDialog {
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
 		setIconImage(res.icono);
-		
+
 		SwingUtilities.updateComponentTreeUI(contentPane);
 
 		ArrayDeque<RuralHouse> tmp = new ArrayDeque<RuralHouse>();
@@ -191,6 +191,8 @@ public class MainBookerGUI extends JDialog {
 		contentPane.add(separator_2);
 
 		JButton btnBuscarOCasas = new JButton("");
+		btnBuscarOCasas.setBorder(UIManager.getBorder("CheckBox.border"));
+		btnBuscarOCasas.setContentAreaFilled(false);
 		if (user.getClass().equals(Propietario.class))
 			btnBuscarOCasas.setText("Administrar casas");
 		else
@@ -215,6 +217,8 @@ public class MainBookerGUI extends JDialog {
 		contentPane.add(lblLogo);
 
 		JButton btnVolverAlMenu = new JButton("Cerrar Sesi\u00F3n");
+		btnVolverAlMenu.setBorder(UIManager.getBorder("CheckBox.border"));
+		btnVolverAlMenu.setContentAreaFilled(false);
 		btnVolverAlMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (JOptionPane.showConfirmDialog(frame,
@@ -301,6 +305,8 @@ public class MainBookerGUI extends JDialog {
 		if (!user.getUserName().equals("Invitado")) {
 
 			JButton ver = new JButton("Reservas");
+			ver.setBorder(UIManager.getBorder("CheckBox.border"));
+			ver.setContentAreaFilled(false);
 			ver.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					if (user.getClass().equals(Propietario.class)) {
@@ -314,6 +320,16 @@ public class MainBookerGUI extends JDialog {
 			contentPane.add(ver);
 
 		}
+		JLabel label = new JLabel(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FONDO)));
+		label.setBounds(165, 190, 500, 500);
+		getContentPane().add(label);
+
+		JLabel lblC = new JLabel(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FONDOCOLOR)));
+		lblC.setBounds(0, 266, 634, 405);
+		getContentPane().add(lblC);
+		JLabel lblD = new JLabel(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FONDOCOLOR)));
+		lblD.setBounds(0, 0, 634, 614);
+		getContentPane().add(lblD);
 	}
 
 }

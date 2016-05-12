@@ -12,6 +12,11 @@ import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+
+import utilities.ImageTypes;
+import utilities.ImageUtils;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -74,7 +79,7 @@ public class SplashGUI extends JDialog {
 
 		
 		
-		textArea.setBackground(SystemColor.text);
+		textArea.setBackground(new Color(191,208,193));
 		textArea.setEditable(false);
 		textArea.setBounds(0, 95, 343, 105);
 		getContentPane().add(textArea);
@@ -92,6 +97,10 @@ public class SplashGUI extends JDialog {
 		});
 		btnSalir.setBounds(228, 201, 115, 19);
 		getContentPane().add(btnSalir);
+		
+		JLabel lblC = new JLabel(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FONDOCOLOR)));
+		lblC.setBounds(0, 0, 343, 200);
+		getContentPane().add(lblC);
 
 	}
 }

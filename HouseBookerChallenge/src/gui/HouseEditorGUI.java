@@ -16,6 +16,7 @@ import javax.swing.border.EmptyBorder;
 import domain.RuralHouse;
 import domain.Usuario;
 import utilities.ImageFilter;
+import utilities.ImageTypes;
 import utilities.ImageUtils;
 
 import javax.swing.JSeparator;
@@ -72,6 +73,7 @@ public class HouseEditorGUI extends JDialog {
 	 */
 	public HouseEditorGUI(Usuario user, boolean editmode, RuralHouse casa, GUIOperator operator,
 			HouseEditorGUI dialog2) {
+		
 		setModal(true);
 		setResizable(false);
 		if (editmode) {
@@ -109,6 +111,7 @@ public class HouseEditorGUI extends JDialog {
 		contentPanel.add(lblCiudad);
 
 		ciudad = new JTextField();
+		ciudad.setBackground(new Color(211, 228, 213));
 		ciudad.setBounds(66, 8, 220, 20);
 		contentPanel.add(ciudad);
 		ciudad.setColumns(10);
@@ -118,6 +121,7 @@ public class HouseEditorGUI extends JDialog {
 		contentPanel.add(lblDescripcin);
 
 		dir = new JTextField();
+		dir.setBackground(new Color(211, 228, 213));
 		dir.setBounds(66, 33, 471, 20);
 		contentPanel.add(dir);
 		dir.setColumns(10);
@@ -129,11 +133,14 @@ public class HouseEditorGUI extends JDialog {
 		fc = new JFileChooser();
 
 		JEditorPane desc = new JEditorPane();
-		desc.setBorder(new LineBorder(Color.LIGHT_GRAY));
+		desc.setBackground(new Color(211, 228, 213));
+		desc.setBorder(UIManager.getBorder("CheckBox.border"));
 		desc.setBounds(10, 86, 527, 253);
 		contentPanel.add(desc);
 
 		JButton btnSeleccionarImagenDe = new JButton("A\u00F1adir una imagen desde archivo");
+		btnSeleccionarImagenDe.setContentAreaFilled(false);
+		btnSeleccionarImagenDe.setBorder(UIManager.getBorder("CheckBox.border"));
 		contentPanel.add(btnSeleccionarImagenDe);
 		btnSeleccionarImagenDe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -162,6 +169,8 @@ public class HouseEditorGUI extends JDialog {
 		btnSeleccionarImagenDe.setBounds(10, 350, 191, 23);
 
 		JButton button = new JButton("Eliminar todas las imágenes");
+		button.setContentAreaFilled(false);
+		button.setBorder(UIManager.getBorder("CheckBox.border"));
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				imgtemp.clear();
@@ -174,6 +183,8 @@ public class HouseEditorGUI extends JDialog {
 		contentPanel.add(button);
 
 		JButton btnCargarImagenDesde = new JButton("Cargar imagen desde URL");
+		btnCargarImagenDesde.setContentAreaFilled(false);
+		btnCargarImagenDesde.setBorder(UIManager.getBorder("CheckBox.border"));
 		btnCargarImagenDesde.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				gui.URLLoaderGUI.main(null, dialog);
@@ -199,6 +210,7 @@ public class HouseEditorGUI extends JDialog {
 		});
 
 		JScrollPane panelImagenes = new JScrollPane();
+		panelImagenes.setOpaque(false);
 		panelImagenes.setBounds(10, 418, 527, 86);
 		panelImagenes.setLayout(null);
 		if (editmode) {
@@ -214,6 +226,8 @@ public class HouseEditorGUI extends JDialog {
 		}
 		contentPanel.add(panelImagenes);
 		JButton cancelButton_1 = new JButton("Cancelar");
+		cancelButton_1.setContentAreaFilled(false);
+		cancelButton_1.setBorder(UIManager.getBorder("CheckBox.border"));
 		cancelButton_1.setBounds(381, 522, 75, 23);
 		contentPanel.add(cancelButton_1);
 		cancelButton_1.addActionListener(new ActionListener() {
@@ -226,6 +240,8 @@ public class HouseEditorGUI extends JDialog {
 		});
 		{
 			JButton okButton = new JButton("Guardar");
+			okButton.setContentAreaFilled(false);
+			okButton.setBorder(UIManager.getBorder("CheckBox.border"));
 			okButton.setBounds(466, 522, 71, 23);
 			contentPanel.add(okButton);
 			okButton.addActionListener(new ActionListener() {
@@ -251,6 +267,13 @@ public class HouseEditorGUI extends JDialog {
 			{
 
 				contentPanel.add(panelImagenes);
+				JLabel label = new JLabel(new ImageIcon (ImageUtils.decodeToImage(ImageTypes.FONDO)));
+				contentPanel.add(label);
+				label.setBounds(66, 101, 509, 510);
+				
+				JLabel lblC = new JLabel(new ImageIcon (ImageUtils.decodeToImage(ImageTypes.FONDOCOLOR)));
+				lblC.setBounds(0, 0, 544, 551);
+				contentPanel.add(lblC);
 
 				{
 					JButton okButton = new JButton("Guardar");
@@ -290,5 +313,6 @@ public class HouseEditorGUI extends JDialog {
 				}
 			}
 		}
+		
 	}
 }

@@ -11,9 +11,13 @@ import gui.GUIOperator;
 import gui.HouseEditorGUI;
 import gui.OfferEditorGUI;
 import gui.OfferManagerGUI;
+import utilities.ImageTypes;
+import utilities.ImageUtils;
 
 import java.awt.Label;
 import java.awt.Button;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -47,6 +51,11 @@ public class OfferPropietario extends JPanel {
 		});
 		btnConsultar.setBounds(10, 11, 108, 108);
 		add(btnConsultar);
+		
+		JLabel lblC = new JLabel(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FONDOCOLOR)));
+		lblC.setBounds(0, 0, 493, 326);
+		add(lblC);
+
 
 	}
 }

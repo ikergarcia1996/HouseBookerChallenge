@@ -105,6 +105,8 @@ public class BookOfferGUI extends JDialog {
 		}
 
 		JButton anterior = new JButton("<-- Imagen Anterior");
+		anterior.setContentAreaFilled(false);
+		anterior.setBorder(UIManager.getBorder("CheckBox.border"));
 
 		anterior.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -131,6 +133,8 @@ public class BookOfferGUI extends JDialog {
 
 
 		siguiente = new JButton("Imagen Siguiente -->");
+		siguiente.setContentAreaFilled(false);
+		siguiente.setBorder(UIManager.getBorder("CheckBox.border"));
 
 		siguiente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -171,6 +175,8 @@ public class BookOfferGUI extends JDialog {
 		contenpane.add(separator);
 
 		JButton contacto = new JButton("Enviar mensaje");
+		contacto.setContentAreaFilled(false);
+		contacto.setBorder(UIManager.getBorder("CheckBox.border"));
 		contacto.setToolTipText("");
 		contacto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -189,6 +195,8 @@ public class BookOfferGUI extends JDialog {
 		contenpane.add(contacto);
 		if (!verInfo && !offer.isReservaRealizada()) {
 			JButton btnReservar = new JButton("Reservar");
+			btnReservar.setContentAreaFilled(false);
+			btnReservar.setBorder(UIManager.getBorder("CheckBox.border"));
 			btnReservar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					btnReservar.setEnabled(false);
@@ -203,6 +211,8 @@ public class BookOfferGUI extends JDialog {
 
 		if (verInfo && offer.isReservaRealizada() && offer.getCliente().getCorreo().equals(user.getCorreo())) {
 			JButton btnAnular = new JButton("Anular Reserva");
+			btnAnular.setContentAreaFilled(false);
+			btnAnular.setBorder(UIManager.getBorder("CheckBox.border"));
 			btnAnular.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					btnAnular.setEnabled(false);
@@ -249,6 +259,7 @@ public class BookOfferGUI extends JDialog {
 		contenpane.add(lblNDePersonas);
 
 		JTextArea textArea = new JTextArea(rh.getDescription());
+		textArea.setBackground(new Color(211,228,213));
 		textArea.setBounds(622, 350, 295, 189);
 		contenpane.add(textArea);
 		textArea.setLineWrap(true);
@@ -318,6 +329,8 @@ public class BookOfferGUI extends JDialog {
 		contenpane.add(lblDescripcinDeLa);
 
 		JButton btnDenunciarOferta = new JButton("Denunciar oferta o casa");
+		btnDenunciarOferta.setContentAreaFilled(false);
+		btnDenunciarOferta.setBorder(UIManager.getBorder("CheckBox.border"));
 		if(user.getUserName().equals("Invitado")) btnDenunciarOferta.setEnabled(false);
 		btnDenunciarOferta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -346,8 +359,20 @@ public class BookOfferGUI extends JDialog {
 				UIManager.put("Panel.background", panelBG);
 			}
 		});
-		btnDenunciarOferta.setBounds(426, 683, 149, 23);
+		btnDenunciarOferta.setBounds(775, 20, 149, 23);
 		contenpane.add(btnDenunciarOferta);
+		
+		JLabel label = new JLabel(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FONDO)));
+		label.setBounds(436, 225, 499, 500);
+		getContentPane().add(label);
+		
+		JLabel lblC = new JLabel(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FONDOCOLOR)));
+		lblC.setBounds(0, 46, 935, 621);
+		getContentPane().add(lblC);
+		
+		JLabel lblD = new JLabel(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FONDOCOLOR)));
+		lblD.setBounds(0, 0, 935, 217);
+		getContentPane().add(lblD);
 
 	}
 }

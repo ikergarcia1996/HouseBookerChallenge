@@ -23,6 +23,7 @@ import javax.swing.table.TableCellRenderer;
 import domain.Mensaje;
 import domain.Usuario;
 import utilities.ImageFilter;
+import utilities.ImageTypes;
 import utilities.ImageUtils;
 import utilities.ProfileImg;
 
@@ -92,6 +93,8 @@ public class UserGUI extends JDialog {
 
 		JFileChooser fc = new JFileChooser();
 		JButton btnCambiar = new JButton("Cambiar");
+		btnCambiar.setContentAreaFilled(false);
+		btnCambiar.setBorder(UIManager.getBorder("CheckBox.border"));
 		btnCambiar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				fc.setFileFilter(new ImageFilter());
@@ -122,6 +125,8 @@ public class UserGUI extends JDialog {
 		getContentPane().add(btnCambiar);
 
 		JButton btnBorrar = new JButton("Borrar");
+		btnBorrar.setContentAreaFilled(false);
+		btnBorrar.setBorder(UIManager.getBorder("CheckBox.border"));
 		btnBorrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ProfileImg perfil = new ProfileImg(null);
@@ -220,6 +225,8 @@ public class UserGUI extends JDialog {
 		});
 
 		JButton btnCerrar = new JButton("Cerrar");
+		btnCerrar.setContentAreaFilled(false);
+		btnCerrar.setBorder(UIManager.getBorder("CheckBox.border"));
 		btnCerrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				operator.updateUser(user);
@@ -230,6 +237,8 @@ public class UserGUI extends JDialog {
 		getContentPane().add(btnCerrar);
 
 		JButton btnRedactarMensaje = new JButton("Redactar mensaje");
+		btnRedactarMensaje.setContentAreaFilled(false);
+		btnRedactarMensaje.setBorder(UIManager.getBorder("CheckBox.border"));
 		btnRedactarMensaje.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				operator.updateUser(user);
@@ -240,11 +249,14 @@ public class UserGUI extends JDialog {
 		});
 		btnRedactarMensaje.setBounds(366, 110, 123, 23);
 		getContentPane().add(btnRedactarMensaje);
-
-		JButton btnModificarInformacion = new JButton("Modificar informacion");
-		btnModificarInformacion.setEnabled(false);
-		btnModificarInformacion.setBounds(300, 7, 138, 23);
-		getContentPane().add(btnModificarInformacion);
+		
+		JLabel label = new JLabel(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FONDO)));
+		label.setBounds(-1, 16, 500, 500);
+		getContentPane().add(label);
+		
+		JLabel lblC = new JLabel(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FONDOCOLOR)));
+		lblC.setBounds(0, 0, 499, 419);
+		getContentPane().add(lblC);
 	}
 
 	public class MiRender extends DefaultTableCellRenderer {

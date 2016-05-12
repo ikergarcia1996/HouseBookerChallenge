@@ -93,6 +93,9 @@ public class OfferCliente extends JPanel {
 		lblNewLabel.setBounds(155, 36, 280, 42);
 		add(lblNewLabel);
 		
+		JLabel lblC = new JLabel(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FONDOCOLOR)));
+		lblC.setBounds(0, 0, 493, 326);
+		add(lblC);
 
 	}
 }

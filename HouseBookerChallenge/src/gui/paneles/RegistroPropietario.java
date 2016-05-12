@@ -11,6 +11,7 @@ import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.text.NumberFormatter;
+import java.awt.Color;
 
 public class RegistroPropietario extends JPanel {
 	private JFormattedTextField	txtDni;
@@ -47,11 +48,13 @@ public class RegistroPropietario extends JPanel {
 		add(lblCalle);
 
 		txtDni = new JFormattedTextField(createFormatter("########-U"));
+		txtDni.setBackground(new Color(211, 228, 213));
 		txtDni.setBounds(120, 34, 170, 20);
 		add(txtDni);
 		txtDni.setColumns(10);
 
 		txtCalle = new JTextField();
+		txtCalle.setBackground(new Color(211, 228, 213));
 		txtCalle.setBounds(120, 84, 170, 20);
 		add(txtCalle);
 		txtCalle.setColumns(10);
@@ -61,21 +64,25 @@ public class RegistroPropietario extends JPanel {
 		add(lblNumero);
 
 		txtN = new JFormattedTextField();
+		txtN.setBackground(new Color(211, 228, 213));
 		txtN.setBounds(20, 137, 41, 20);
 		add(txtN);
 		txtN.setColumns(10);
 
 		txtPiso = new JTextField();
+		txtPiso.setBackground(new Color(211, 228, 213));
 		txtPiso.setBounds(71, 137, 41, 20);
 		add(txtPiso);
 		txtPiso.setColumns(10);
 
 		txtPuerta = new JTextField();
+		txtPuerta.setBackground(new Color(211, 228, 213));
 		txtPuerta.setBounds(122, 137, 41, 20);
 		add(txtPuerta);
 		txtPuerta.setColumns(10);
 
 		txtLetra = new JFormattedTextField(createFormatter("U"));
+		txtLetra.setBackground(new Color(211, 228, 213));
 		txtLetra.setBounds(173, 137, 40, 20);
 		add(txtLetra);
 		txtLetra.setColumns(10);
@@ -97,6 +104,7 @@ public class RegistroPropietario extends JPanel {
 		add(lblCdigoPostal);
 
 		txtCp = new JFormattedTextField(createFormatter("#####"));
+		txtCp.setBackground(new Color(211, 228, 213));
 		txtCp.setBounds(20, 193, 69, 20);
 		add(txtCp);
 		txtCp.setColumns(10);
@@ -106,6 +114,7 @@ public class RegistroPropietario extends JPanel {
 		add(lblPoblacin);
 
 		txtPoblacin = new JTextField();
+		txtPoblacin.setBackground(new Color(211, 228, 213));
 		txtPoblacin.setBounds(132, 193, 86, 20);
 		add(txtPoblacin);
 		txtPoblacin.setColumns(10);
@@ -115,6 +124,7 @@ public class RegistroPropietario extends JPanel {
 		add(lblProvincia);
 
 		txtProvincia = new JTextField();
+		txtProvincia.setBackground(new Color(211, 228, 213));
 		txtProvincia.setBounds(20, 249, 270, 20);
 		add(txtProvincia);
 		txtProvincia.setColumns(10);
