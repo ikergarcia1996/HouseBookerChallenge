@@ -5,12 +5,18 @@ import java.awt.EventQueue;
 import javax.swing.JDialog;
 
 import domain.Mensaje;
+import utilities.ImageTypes;
+import utilities.ImageUtils;
+
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
+import javax.swing.UIManager;
 
 public class ViewPublicMsgGUI extends JDialog {
 	private JTextField textField;
@@ -43,6 +49,7 @@ public class ViewPublicMsgGUI extends JDialog {
 		getContentPane().setLayout(null);
 		
 		JTextArea textArea = new JTextArea();
+		textArea.setBackground(new Color(211,228,213));
 		textArea.setWrapStyleWord(true);
 		textArea.setText(mensaje.getContenido());
 		textArea.setLineWrap(true);
@@ -51,6 +58,7 @@ public class ViewPublicMsgGUI extends JDialog {
 		getContentPane().add(textArea);
 		
 		textField = new JTextField();
+		textField.setBackground(new Color(211,228,213));
 		textField.setText(mensaje.getAsunto());
 		textField.setEditable(false);
 		textField.setColumns(10);
@@ -58,6 +66,8 @@ public class ViewPublicMsgGUI extends JDialog {
 		getContentPane().add(textField);
 		
 		JButton button = new JButton("Cerrar");
+		button.setBorder(UIManager.getBorder("CheckBox.border"));
+		button.setContentAreaFilled(false);
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
@@ -67,6 +77,7 @@ public class ViewPublicMsgGUI extends JDialog {
 		getContentPane().add(button);
 		
 		textField_1 = new JTextField();
+		textField_1.setBackground(new Color(211,228,213));
 		textField_1.setText(mensaje.getDetalles());
 		textField_1.setEditable(false);
 		textField_1.setColumns(10);
@@ -84,6 +95,10 @@ public class ViewPublicMsgGUI extends JDialog {
 		JLabel label_2 = new JLabel("Mensaje:");
 		label_2.setBounds(15, 44, 80, 14);
 		getContentPane().add(label_2);
+		
+		JLabel lblC = new JLabel(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FONDOCOLOR)));
+		lblC.setBounds(0, 0, 436, 326);
+		getContentPane().add(lblC);
 
 	}
 

@@ -38,9 +38,11 @@ import domain.RuralHouse;
 import exceptions.BadDates;
 import exceptions.OverlappingOfferExists;
 import utilities.ImageFilter;
+import utilities.ImageTypes;
 import utilities.ImageUtils;
 
 import javax.swing.JFormattedTextField;
+import java.awt.Color;
 
 public class OfferEditorGUI extends JDialog {
 
@@ -91,6 +93,7 @@ public class OfferEditorGUI extends JDialog {
 		contentPanel.add(lblPrecio);
 
 		precio = new JTextField();
+		precio.setBackground(new Color(211, 228, 213));
 		precio.setBounds(10, 31, 142, 20);
 		contentPanel.add(precio);
 		precio.setColumns(10);
@@ -124,6 +127,7 @@ public class OfferEditorGUI extends JDialog {
 		contentPanel.add(lblDia);
 
 		diaIni = new JTextField();
+		diaIni.setBackground(new Color(211, 228, 213));
 		diaIni.setBounds(33, 121, 86, 20);
 		contentPanel.add(diaIni);
 		diaIni.setColumns(10);
@@ -133,11 +137,13 @@ public class OfferEditorGUI extends JDialog {
 		contentPanel.add(lblAo);
 
 		añoIni = new JFormattedTextField();
+		añoIni.setBackground(new Color(211, 228, 213));
 		añoIni.setBounds(300, 121, 86, 20);
 		contentPanel.add(añoIni);
 		añoIni.setColumns(10);
 
 		diaFin = new JTextField();
+		diaFin.setBackground(new Color(211, 228, 213));
 		diaFin.setColumns(10);
 		diaFin.setBounds(33, 236, 86, 20);
 		contentPanel.add(diaFin);
@@ -171,6 +177,7 @@ public class OfferEditorGUI extends JDialog {
 		contentPanel.add(label_2);
 
 		añoFin = new JFormattedTextField();
+		añoFin.setBackground(new Color(211, 228, 213));
 		añoFin.setColumns(10);
 		añoFin.setBounds(300, 236, 86, 20);
 		contentPanel.add(añoFin);
@@ -184,6 +191,7 @@ public class OfferEditorGUI extends JDialog {
 		contentPanel.add(lblNDePersonas);
 
 		noPersonas = new JSpinner();
+		noPersonas.setBackground(new Color(211, 228, 213));
 		SpinnerModel model = new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1);
 		noPersonas.setModel(model);
 		noPersonas.setBounds(20, 314, 86, 20);
@@ -204,6 +212,83 @@ public class OfferEditorGUI extends JDialog {
 		JSeparator separator_3 = new JSeparator();
 		separator_3.setBounds(20, 279, 387, 78);
 		contentPanel.add(separator_3);
+		{
+			JButton okButton = new JButton("Guardar");
+			okButton.setBorder(UIManager.getBorder("CheckBox.border"));
+			okButton.setContentAreaFilled(false);
+			okButton.setBounds(340, 406, 89, 29);
+			contentPanel.add(okButton);
+			okButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					if (editmode) {
+						int mIni = mesIni.getSelectedIndex();
+						int mFin = mesFin.getSelectedIndex();
+						try {
+							Date fechaIni = new Date(Integer.valueOf(añoIni.getText()) - 1900, mIni,
+								Integer.valueOf(diaIni.getText()));
+							Date fechaFin = new Date(Integer.valueOf(añoFin.getText()) - 1900, mFin,
+								Integer.valueOf(diaFin.getText()));
+							operator.businessLG.updateOffer(oferta,
+									new Offer(0,
+											fechaIni,
+											fechaFin,
+											Float.valueOf(precio.getText()), casa, (Integer) noPersonas.getValue()));
+							dispose();
+						} catch (NumberFormatException e) {
+							JOptionPane.showMessageDialog(null,
+									"Datos introducidos incorrectos",
+									"No se ha podido editar", JOptionPane.WARNING_MESSAGE);
+						}
+					}
+					
+					else {
+						int mIni = mesIni.getSelectedIndex();
+						int mFin = mesFin.getSelectedIndex();
+							try {
+									Date fechaIni = new Date(Integer.valueOf(añoIni.getText()) - 1900, mIni,
+										Integer.valueOf(diaIni.getText()));
+									Date fechaFin = new Date(Integer.valueOf(añoFin.getText()) - 1900, mFin,
+										Integer.valueOf(diaFin.getText()));
+									operator.businessLG.createOffer(casa,
+										fechaIni,
+										fechaFin,
+										Integer.valueOf(precio.getText()), (Integer) noPersonas.getValue());
+								dispose();
+							}
+							catch (NumberFormatException | OverlappingOfferExists | BadDates e) {
+								// TODO Auto-generated catch block
+								JOptionPane.showMessageDialog(null,
+										"Datos introducidos incorrectos",
+										"No se ha podido crear", JOptionPane.WARNING_MESSAGE);
+							}
+							
+					
+					}
+				}
+			});
+			okButton.setActionCommand("OK");
+			getRootPane().setDefaultButton(okButton);
+		}
+		{
+			JButton cancelButton = new JButton("Cancelar");
+			cancelButton.setBorder(UIManager.getBorder("CheckBox.border"));
+			cancelButton.setContentAreaFilled(false);
+			cancelButton.setBounds(232, 406, 93, 29);
+			contentPanel.add(cancelButton);
+			cancelButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					dispose();
+				}
+			});
+			cancelButton.setActionCommand("Cancel");
+		}
+		JLabel label2 = new JLabel(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FONDO)));
+		contentPanel.add(label2);
+		label2.setBounds(0, 86, 500, 500);
+		
+					JLabel lblC = new JLabel(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FONDOCOLOR)));
+					contentPanel.add(lblC);
+					lblC.setBounds(0, 0, 444, 412);
 
 		// Hay que editar los valores cuando editas
 		if (editmode) {
@@ -215,76 +300,6 @@ public class OfferEditorGUI extends JDialog {
 			mesFin.setSelectedIndex(oferta.getLastDay().getMonth());
 			añoFin.setText(String.valueOf(oferta.getLastDay().getYear()+1900));
 			noPersonas.setValue(oferta.getnPersRoom());
-		}
-
-		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				JButton okButton = new JButton("Guardar");
-				okButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						if (editmode) {
-							int mIni = mesIni.getSelectedIndex();
-							int mFin = mesFin.getSelectedIndex();
-							try {
-								Date fechaIni = new Date(Integer.valueOf(añoIni.getText()) - 1900, mIni,
-									Integer.valueOf(diaIni.getText()));
-								Date fechaFin = new Date(Integer.valueOf(añoFin.getText()) - 1900, mFin,
-									Integer.valueOf(diaFin.getText()));
-								operator.businessLG.updateOffer(oferta,
-										new Offer(0,
-												fechaIni,
-												fechaFin,
-												Float.valueOf(precio.getText()), casa, (Integer) noPersonas.getValue()));
-								dispose();
-							} catch (NumberFormatException e) {
-								JOptionPane.showMessageDialog(null,
-										"Datos introducidos incorrectos",
-										"No se ha podido editar", JOptionPane.WARNING_MESSAGE);
-							}
-						}
-						
-						else {
-							int mIni = mesIni.getSelectedIndex();
-							int mFin = mesFin.getSelectedIndex();
-								try {
-										Date fechaIni = new Date(Integer.valueOf(añoIni.getText()) - 1900, mIni,
-											Integer.valueOf(diaIni.getText()));
-										Date fechaFin = new Date(Integer.valueOf(añoFin.getText()) - 1900, mFin,
-											Integer.valueOf(diaFin.getText()));
-										operator.businessLG.createOffer(casa,
-											fechaIni,
-											fechaFin,
-											Integer.valueOf(precio.getText()), (Integer) noPersonas.getValue());
-									dispose();
-								}
-								catch (NumberFormatException | OverlappingOfferExists | BadDates e) {
-									// TODO Auto-generated catch block
-									JOptionPane.showMessageDialog(null,
-											"Datos introducidos incorrectos",
-											"No se ha podido crear", JOptionPane.WARNING_MESSAGE);
-								}
-								
-						
-						}
-					}
-				});
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-			}
-			{
-				JButton cancelButton = new JButton("Cancelar");
-				cancelButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						dispose();
-					}
-				});
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
-			}
 		}
 	}
 	protected MaskFormatter createFormatter(String s) {

@@ -1,5 +1,7 @@
 package main;
 
+import java.awt.Color;
+
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -20,6 +22,9 @@ public class Launcher {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		UIManager.put("OptionPane.background", new Color(191,208,193));
+		UIManager.put("Panel.background", new Color(191,208,193));
+		
 		GUIRLoader res = new GUIRLoader();
 		main.Runer.run();
 	}

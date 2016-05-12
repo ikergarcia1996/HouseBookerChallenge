@@ -109,6 +109,8 @@ public class LoginGUI extends JDialog {
 		getContentPane().add(lblNotienes);
 
 		JButton btnRegistrarse = new JButton("Registrarse ahora");
+		btnRegistrarse.setBorder(UIManager.getBorder("CheckBox.border"));
+		btnRegistrarse.setContentAreaFilled(false);
 		btnRegistrarse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
@@ -127,12 +129,15 @@ public class LoginGUI extends JDialog {
 		getContentPane().add(lblContrasea);
 
 		txtUsuario = new JTextField();
+		txtUsuario.setBackground(new Color(211, 228, 213));
 		txtUsuario.setText("");
 		txtUsuario.setColumns(10);
 		txtUsuario.setBounds(104, 14, 189, 20);
 		getContentPane().add(txtUsuario);
 
 		pwdContrasea = new JPasswordField();
+		pwdContrasea.setBackground(new Color(211, 228, 213));
+		pwdContrasea.setBounds(104, 39, 189, 20);
 		pwdContrasea.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -153,11 +158,9 @@ public class LoginGUI extends JDialog {
 		label_3.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				Component frame = null;
-				JOptionPane.showMessageDialog(frame,
-						"Esta característica no está disponible aún. Avise al administrador.", "Proximamente!",
-						JOptionPane.WARNING_MESSAGE);
-			}
+				JOptionPane.showMessageDialog(null, "<html>Para comprobar su identidad especifica en el mensaje, tu correo electónico, su teléfono, su nombre y sus apellidos.</html>",
+						"Información", JOptionPane.INFORMATION_MESSAGE);
+				RedactarMsgGUI.main(null, null, null, "He olvidado mis datos de inicio", null, operator);			}
 		});
 		label_3.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		label_3.setForeground(Color.BLUE);
@@ -165,6 +168,8 @@ public class LoginGUI extends JDialog {
 		getContentPane().add(label_3);
 
 		JButton btnIniciarSesion = new JButton("Iniciar sesi\u00F3n");
+		btnIniciarSesion.setBorder(UIManager.getBorder("CheckBox.border"));
+		btnIniciarSesion.setContentAreaFilled(false);
 		btnIniciarSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				btnIniciarSesion.setEnabled(false);
@@ -225,6 +230,8 @@ public class LoginGUI extends JDialog {
 		rootPane.setDefaultButton(btnIniciarSesion);
 
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setBorder(UIManager.getBorder("CheckBox.border"));
+		btnCancelar.setContentAreaFilled(false);
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
@@ -255,6 +262,11 @@ public class LoginGUI extends JDialog {
 		lblGoogle.setBounds(360, 98, 25, 25);
 		lblGoogle.setIcon(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.GOOGLE)));
 		getContentPane().add(lblGoogle);
+		
+		
+		JLabel lblC = new JLabel(new ImageIcon (ImageUtils.decodeToImage(ImageTypes.FONDOCOLOR)));
+		lblC.setBounds(0, 0, 463, 150);
+		getContentPane().add(lblC);
 
 	}
 }

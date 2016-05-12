@@ -41,6 +41,7 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.awt.Color;
+import javax.swing.UIManager;
 
 public class TwitterLoginGUI extends JFrame {
 
@@ -112,11 +113,14 @@ public class TwitterLoginGUI extends JFrame {
 		contentPane.add(separator);
 		
 		textField = new JTextField();
+		textField.setBackground(new Color(211,228,213));
 		textField.setBounds(586, 463, 86, 20);
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
 		JButton btnNewButton = new JButton("Iniciar sesi\u00F3n");
+		btnNewButton.setContentAreaFilled(false);
+		btnNewButton.setBorder(UIManager.getBorder("CheckBox.border"));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (!textField.getText().isEmpty()){
@@ -179,6 +183,8 @@ public class TwitterLoginGUI extends JFrame {
 		contentPane.add(lblIntroduzcaElPin);
 		
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setContentAreaFilled(false);
+		btnCancelar.setBorder(UIManager.getBorder("CheckBox.border"));
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
@@ -213,5 +219,9 @@ public class TwitterLoginGUI extends JFrame {
 		btnnoCargaLa.setForeground(Color.BLUE);
 		btnnoCargaLa.setBounds(109, 463, 154, 23);
 		contentPane.add(btnnoCargaLa);
+		
+		JLabel lblC = new JLabel(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FONDOCOLOR)));
+		lblC.setBounds(0, 0, 794, 496);
+		getContentPane().add(lblC);
 	}
 }

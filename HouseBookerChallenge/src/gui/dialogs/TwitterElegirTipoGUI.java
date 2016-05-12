@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -18,6 +19,8 @@ import businessLogic.FacadeImplementationWS;
 import gui.GUIOperator;
 import gui.RegistroGUI;
 import gui.TwitterRegistroGUI;
+import utilities.ImageTypes;
+import utilities.ImageUtils;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -59,6 +62,8 @@ public class TwitterElegirTipoGUI extends JDialog {
 
 		{
 			JButton btnCliente = new JButton("Cliente");
+			btnCliente.setBorder(UIManager.getBorder("CheckBox.border"));
+			btnCliente.setContentAreaFilled(false);
 			btnCliente.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					dispose();
@@ -70,6 +75,8 @@ public class TwitterElegirTipoGUI extends JDialog {
 		}
 		{
 			JButton btnPropietario = new JButton("Propietario");
+			btnPropietario.setBorder(UIManager.getBorder("CheckBox.border"));
+			btnPropietario.setContentAreaFilled(false);
 			btnPropietario.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					dispose();
@@ -86,6 +93,8 @@ public class TwitterElegirTipoGUI extends JDialog {
 		}
 		{
 			JButton btnCancelar = new JButton("Cancelar");
+			btnCancelar.setBorder(UIManager.getBorder("CheckBox.border"));
+			btnCancelar.setContentAreaFilled(false);
 			btnCancelar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					dispose();
@@ -94,6 +103,10 @@ public class TwitterElegirTipoGUI extends JDialog {
 			});
 			btnCancelar.setBounds(10, 45, 89, 23);
 			contentPanel.add(btnCancelar);
+			
+			JLabel lblC = new JLabel(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FONDOCOLOR)));
+			lblC.setBounds(0, 0, 493, 326);
+			contentPanel.add(lblC);
 		}
 	}
 

@@ -10,8 +10,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Vector;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -24,6 +26,8 @@ import javax.swing.table.DefaultTableModel;
 
 import domain.Offer;
 import domain.RuralHouse;
+import utilities.ImageTypes;
+import utilities.ImageUtils;
 
 public class OfferManagerGUI extends JDialog {
 
@@ -121,6 +125,8 @@ public class OfferManagerGUI extends JDialog {
 		scrollPane.revalidate();
 
 		JButton btnAtrs = new JButton("Atr\u00E1s");
+		btnAtrs.setBorder(UIManager.getBorder("CheckBox.border"));
+		btnAtrs.setContentAreaFilled(false);
 		btnAtrs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
@@ -130,6 +136,8 @@ public class OfferManagerGUI extends JDialog {
 		contentPane.add(btnAtrs);
 
 		JButton btnAadirOferta = new JButton("A\u00F1adir oferta");
+		btnAadirOferta.setBorder(UIManager.getBorder("CheckBox.border"));
+		btnAadirOferta.setContentAreaFilled(false);
 		btnAadirOferta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				OfferEditorGUI.main(null, operator, false, casa, null);
@@ -141,6 +149,8 @@ public class OfferManagerGUI extends JDialog {
 		contentPane.add(btnAadirOferta);
 
 		JButton btnEditarOferta = new JButton("Editar oferta");
+		btnEditarOferta.setBorder(UIManager.getBorder("CheckBox.border"));
+		btnEditarOferta.setContentAreaFilled(false);
 		btnEditarOferta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (table.getSelectedRow() != -1) {
@@ -154,6 +164,8 @@ public class OfferManagerGUI extends JDialog {
 		contentPane.add(btnEditarOferta);
 
 		JButton btnEliminarOferta = new JButton("Eliminar oferta");
+		btnEliminarOferta.setBorder(UIManager.getBorder("CheckBox.border"));
+		btnEliminarOferta.setContentAreaFilled(false);
 		btnEliminarOferta.setVisible(false);
 		btnEliminarOferta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -165,5 +177,9 @@ public class OfferManagerGUI extends JDialog {
 		});
 		btnEliminarOferta.setBounds(628, 79, 101, 23);
 		contentPane.add(btnEliminarOferta);
+		
+		JLabel lblC = new JLabel(new ImageIcon (ImageUtils.decodeToImage(ImageTypes.FONDOCOLOR)));
+		lblC.setBounds(0, 0, 794, 298);
+		getContentPane().add(lblC);
 	}
 }

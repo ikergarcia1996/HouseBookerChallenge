@@ -4,12 +4,16 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
 
+import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+
+import utilities.ImageTypes;
+import utilities.ImageUtils;
 
 public class WaitGUI extends JDialog {
 	Thread thread;
@@ -55,6 +59,11 @@ public class WaitGUI extends JDialog {
 		progressBar.setStringPainted(true);
 		progressBar.setBounds(10, 36, 200, 25);
 		getContentPane().add(progressBar);
+		
+		
+		JLabel lblC = new JLabel(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FONDOCOLOR)));
+		lblC.setBounds(0, 0, 237, 85);
+		getContentPane().add(lblC);
 	}
 
 }

@@ -24,6 +24,7 @@ import java.util.Iterator;
 import java.util.Vector;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -51,6 +52,8 @@ import domain.Offer;
 import domain.RuralHouse;
 import domain.Usuario;
 import gui.paneles.OfferCliente;
+import utilities.ImageTypes;
+import utilities.ImageUtils;
 
 import java.awt.Window.Type;
 import javax.swing.JFormattedTextField;
@@ -231,6 +234,8 @@ public class BookerGUI extends JDialog {
 		SwingUtilities.updateComponentTreeUI(getContentPane());
 
 		JButton btnAtras = new JButton("Volver atr\u00E1s");
+		btnAtras.setBorder(UIManager.getBorder("CheckBox.border"));
+		btnAtras.setContentAreaFilled(false);
 		btnAtras.setBounds(10, 11, 107, 35);
 		btnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -253,6 +258,7 @@ public class BookerGUI extends JDialog {
 			e1.printStackTrace();
 		}
 		JCalendar calendar = new JCalendar();
+		calendar.setBackground(new Color(211,228,213));
 		calendar.getMonthChooser().getComboBox().setBackground(Color.WHITE);
 		calendar.getMonthChooser().getSpinner().setForeground(Color.WHITE);
 		
@@ -285,6 +291,7 @@ public class BookerGUI extends JDialog {
 		getContentPane().add(lblFiltrosDisponibles);
 
 		ciudad = new JCheckBox("Ciudad");
+		ciudad.setBackground(new Color(191,208,193));
 		ciudad.setBounds(20, 100, 97, 23);
 		ciudad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -297,6 +304,7 @@ public class BookerGUI extends JDialog {
 		getContentPane().add(ciudad);
 
 		textCiudad = new JTextField();
+		textCiudad.setBackground(new Color(211,228,213));
 		textCiudad.setBounds(20, 128, 107, 20);
 		getContentPane().add(textCiudad);
 		textCiudad.setColumns(10);
@@ -358,6 +366,7 @@ public class BookerGUI extends JDialog {
 		getContentPane().add(separator_2);
 
 		JCheckBox precioMax = new JCheckBox("Precio M\u00E1ximo");
+		precioMax.setBackground(new Color(191,208,193));
 		precioMax.setBounds(20, 321, 97, 23);
 		precioMax.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -370,6 +379,7 @@ public class BookerGUI extends JDialog {
 		getContentPane().add(precioMax);
 
 		sPrecioMax = new JSpinner();
+		sPrecioMax.setBackground(new Color(211,228,213));
 		sPrecioMax.setModel(new SpinnerNumberModel(new Float(0), new Float(0), null, new Float(1)));
 		sPrecioMax.setBounds(20, 351, 136, 20);
 		getContentPane().add(sPrecioMax);
@@ -380,6 +390,7 @@ public class BookerGUI extends JDialog {
 		getContentPane().add(separator_3);
 
 		JCheckBox tipoHabitacion = new JCheckBox("N\u00BA de personas");
+		tipoHabitacion.setBackground(new Color(191,208,193));
 		tipoHabitacion.setBounds(20, 406, 128, 23);
 		tipoHabitacion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -478,6 +489,7 @@ public class BookerGUI extends JDialog {
 
 		SpinnerModel tipomodel = new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1);
 		tipoHabitacionL = new JSpinner();
+		tipoHabitacionL.setBackground(new Color(211,228,213));
 		tipoHabitacionL.setModel(tipomodel);
 		tipoHabitacionL.setBounds(20, 442, 136, 20);
 		getContentPane().add(tipoHabitacionL);
@@ -490,6 +502,8 @@ public class BookerGUI extends JDialog {
 		getContentPane().add(labelError2);
 
 		JButton btnAplicarFiltros = new JButton("Aplicar filtros y buscar");
+		btnAplicarFiltros.setBorder(UIManager.getBorder("CheckBox.border"));
+		btnAplicarFiltros.setContentAreaFilled(false);
 		btnAplicarFiltros.setBounds(10, 513, 156, 37);
 		btnAplicarFiltros.addActionListener(new ActionListener() {
 			@SuppressWarnings("deprecation")
@@ -733,6 +747,8 @@ public class BookerGUI extends JDialog {
 		getContentPane().add(lblOrdenarPor);
 
 		JButton btnPrecio = new JButton("Precio\u2191");
+		btnPrecio.setBorder(UIManager.getBorder("CheckBox.border"));
+		btnPrecio.setContentAreaFilled(false);
 		btnPrecio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Collections.sort(ofertasEncontradas, Offer.StrPrice);
@@ -740,10 +756,12 @@ public class BookerGUI extends JDialog {
 				mostrarResult(user, operator);
 			}
 		});
-		btnPrecio.setBounds(355, 23, 69, 22);
+		btnPrecio.setBounds(355, 24, 69, 22);
 		getContentPane().add(btnPrecio);
 
 		JButton btnNombre = new JButton("Precio\u2193");
+		btnNombre.setBorder(UIManager.getBorder("CheckBox.border"));
+		btnNombre.setContentAreaFilled(false);
 		btnNombre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Collections.sort(ofertasEncontradas, Offer.StrPriceI);
@@ -752,10 +770,12 @@ public class BookerGUI extends JDialog {
 
 			}
 		});
-		btnNombre.setBounds(287, 23, 69, 22);
+		btnNombre.setBounds(287, 24, 69, 22);
 		getContentPane().add(btnNombre);
 
 		JButton btnCiudad = new JButton("Ciudad");
+		btnCiudad.setBorder(UIManager.getBorder("CheckBox.border"));
+		btnCiudad.setContentAreaFilled(false);
 		btnCiudad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Collections.sort(ofertasEncontradas, Offer.StrCity);
@@ -763,10 +783,12 @@ public class BookerGUI extends JDialog {
 				mostrarResult(user, operator);
 			}
 		});
-		btnCiudad.setBounds(423, 23, 69, 22);
+		btnCiudad.setBounds(423, 24, 69, 22);
 		getContentPane().add(btnCiudad);
 
 		anteriores = new JButton("<- Anteriores");
+		anteriores.setBorder(UIManager.getBorder("CheckBox.border"));
+		anteriores.setContentAreaFilled(false);
 		anteriores.setEnabled(false);
 		anteriores.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -779,6 +801,8 @@ public class BookerGUI extends JDialog {
 		getContentPane().add(anteriores);
 
 		siguientes = new JButton("Siguientes ->");
+		siguientes.setBorder(UIManager.getBorder("CheckBox.border"));
+		siguientes.setContentAreaFilled(false);
 		siguientes.setEnabled(false);
 		siguientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -789,6 +813,14 @@ public class BookerGUI extends JDialog {
 		siguientes.setForeground(new Color(0, 0, 102));
 		siguientes.setBounds(491, 21, 97, 25);
 		getContentPane().add(siguientes);
+		
+		JLabel label = new JLabel(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FONDO)));
+		label.setBounds(120, 183, 500, 500);
+		getContentPane().add(label);
+		
+		JLabel lblC = new JLabel(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FONDOCOLOR)));
+		lblC.setBounds(0, 0, 620, 625);
+		getContentPane().add(lblC);
 
 	}
 

@@ -26,6 +26,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
+import javax.swing.Icon;
 
 public class AcercaDeGUI extends JDialog {
 	GUIRLoader res = new GUIRLoader();
@@ -109,5 +110,10 @@ public class AcercaDeGUI extends JDialog {
 		lblT.setIcon(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.POWBYTWI)));
 		lblT.setBounds(5, 175, 138, 30);
 		getContentPane().add(lblT);
+		
+		 JLabel label = new JLabel(new ImageIcon (ImageUtils.decodeToImage(ImageTypes.FONDO)));
+		 label.setBounds(-20, -105, 389, 432);
+		 getContentPane().add(label);
+			
 	}
 }

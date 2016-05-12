@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -12,6 +13,8 @@ import javax.swing.border.EmptyBorder;
 
 import domain.Usuario;
 import gui.dialogs.UUIDDialog;
+import utilities.ImageTypes;
+import utilities.ImageUtils;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -25,6 +28,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
+import javax.swing.UIManager;
 
 public class RedactarMsgGUI extends JDialog {
 	private JTextField txtDestinatario;
@@ -74,6 +79,7 @@ public class RedactarMsgGUI extends JDialog {
 		}
 
 		JTextArea txtMensaje = new JTextArea();
+		txtMensaje.setBackground(new Color(211, 228, 213));
 		txtMensaje.setLineWrap(true);
 		txtMensaje.setWrapStyleWord(true);
 		if (contenido != null) {
@@ -101,6 +107,8 @@ public class RedactarMsgGUI extends JDialog {
 		getContentPane().add(separator);
 
 		JButton btnEnviar = new JButton("Enviar");
+		btnEnviar.setBorder(UIManager.getBorder("CheckBox.border"));
+		btnEnviar.setContentAreaFilled(false);
 		btnEnviar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				DateFormat dateFormat = new SimpleDateFormat("dd MM yyyy HH:mm:ss");
@@ -162,6 +170,8 @@ public class RedactarMsgGUI extends JDialog {
 		getContentPane().add(btnEnviar);
 
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setBorder(UIManager.getBorder("CheckBox.border"));
+		btnCancelar.setContentAreaFilled(false);
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
@@ -171,6 +181,7 @@ public class RedactarMsgGUI extends JDialog {
 		getContentPane().add(btnCancelar);
 
 		txtDestinatario = new JTextField();
+		txtDestinatario.setBackground(new Color(211, 228, 213));
 		txtDestinatario.setBounds(100, 8, 310, 20);
 		if (destinatario != null)
 			txtDestinatario.setText(destinatario);
@@ -178,6 +189,7 @@ public class RedactarMsgGUI extends JDialog {
 		txtDestinatario.setColumns(10);
 
 		txtAsunto = new JTextField();
+		txtAsunto.setBackground(new Color(211, 228, 213));
 		txtAsunto.setBounds(100, 33, 310, 20);
 		if (asunto != null)
 			txtAsunto.setText(asunto);
@@ -191,6 +203,10 @@ public class RedactarMsgGUI extends JDialog {
 			txtAsunto.setEditable(false);
 			txtAsunto.setEnabled(false);
 		}
+		
+		JLabel lblC = new JLabel(new ImageIcon (ImageUtils.decodeToImage(ImageTypes.FONDOCOLOR)));
+		lblC.setBounds(0, 0, 437, 366);
+		getContentPane().add(lblC);
 
 	}
 }

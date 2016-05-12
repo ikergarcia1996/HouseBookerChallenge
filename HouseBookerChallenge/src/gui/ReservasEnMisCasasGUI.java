@@ -11,8 +11,12 @@ import javax.swing.table.DefaultTableModel;
 import domain.Offer;
 import domain.RuralHouse;
 import domain.Usuario;
+import utilities.ImageTypes;
+import utilities.ImageUtils;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -21,6 +25,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Window.Type;
+import javax.swing.UIManager;
 
 public class ReservasEnMisCasasGUI extends JDialog {
 
@@ -86,6 +91,8 @@ public class ReservasEnMisCasasGUI extends JDialog {
 		scrollPane.revalidate();
 		
 		JButton btnNewButton = new JButton("M\u00E1s informaci\u00F3n");
+		btnNewButton.setContentAreaFilled(false);
+		btnNewButton.setBorder(UIManager.getBorder("CheckBox.border"));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (reservas.size()!=0)
@@ -98,6 +105,8 @@ public class ReservasEnMisCasasGUI extends JDialog {
 		contentPane.add(btnNewButton);
 		
 		JButton btnSalir = new JButton("Salir");
+		btnSalir.setContentAreaFilled(false);
+		btnSalir.setBorder(UIManager.getBorder("CheckBox.border"));
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
@@ -139,6 +148,14 @@ public class ReservasEnMisCasasGUI extends JDialog {
 		scrollPane.revalidate();
 		contentPane.repaint();
 		
+		JLabel lblC = new JLabel(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FONDOCOLOR)));
+		lblC.setBounds(0, 254, 730, 421);
+		getContentPane().add(lblC);
+		
+		JLabel lblD = new JLabel(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FONDOCOLOR)));
+		lblD.setBounds(0, 0, 730, 617);
+		getContentPane().add(lblD);
 		}
+	
 	}
 

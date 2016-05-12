@@ -104,6 +104,9 @@ public class MainGUI extends JFrame {
 		contentPane.add(lblLogo);
 
 		JButton btnRegistrarse = new JButton("Registrarse");
+		btnRegistrarse.setContentAreaFilled(false);
+		btnRegistrarse.setBorder(UIManager.getBorder("CheckBox.border"));
+		btnRegistrarse.setOpaque(false);
 		btnRegistrarse.setDefaultCapable(false);
 		btnRegistrarse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -115,6 +118,9 @@ public class MainGUI extends JFrame {
 		contentPane.add(btnRegistrarse);
 
 		JButton btnIniciar = new JButton("Iniciar sesi\u00F3n");
+		btnIniciar.setBorder(UIManager.getBorder("CheckBox.border"));
+		btnIniciar.setContentAreaFilled(false);
+		btnIniciar.setOpaque(false);
 		btnIniciar.setDefaultCapable(false);
 		btnIniciar.setBounds(234, 241, 114, 23);
 		btnIniciar.addActionListener(new ActionListener() {
@@ -153,6 +159,9 @@ public class MainGUI extends JFrame {
 		});
 		
 		JButton btnSalir = new JButton("Salir");
+		btnSalir.setBorder(UIManager.getBorder("CheckBox.border"));
+		btnSalir.setContentAreaFilled(false);
+		btnSalir.setOpaque(false);
 		btnSalir.setDefaultCapable(false);
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -172,6 +181,9 @@ public class MainGUI extends JFrame {
 		contentPane.add(scrollPane);
 
 		JButton btnVerOfertas = new JButton("Ver ofertas");
+		btnVerOfertas.setBorder(UIManager.getBorder("CheckBox.border"));
+		btnVerOfertas.setContentAreaFilled(false);
+		btnVerOfertas.setOpaque(false);
 		btnVerOfertas.setDefaultCapable(false);
 		btnVerOfertas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -242,7 +254,6 @@ public class MainGUI extends JFrame {
 		contentPane.add(lblAyuda);
 		
 	 JLabel label = new JLabel(new ImageIcon (ImageUtils.decodeToImage(ImageTypes.FONDO)));
-	 //label.setIcon(null);
 	 label.setBounds(0, -17, 389, 432);
 	 contentPane.add(label);
 		

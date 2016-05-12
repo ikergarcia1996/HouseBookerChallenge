@@ -9,8 +9,10 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -23,6 +25,9 @@ import javax.swing.table.DefaultTableModel;
 
 import domain.RuralHouse;
 import domain.Usuario;
+import utilities.ImageTypes;
+import utilities.ImageUtils;
+import java.awt.Color;
 
 public class HouseManagerGUI extends JDialog {
 
@@ -73,6 +78,8 @@ public class HouseManagerGUI extends JDialog {
 		SwingUtilities.updateComponentTreeUI(contentPane);
 
 		table = new JTable();
+		table.setBackground(new Color(211, 228, 213));
+		table.setOpaque(false);
 		DefaultTableModel tableModel = new DefaultTableModel(null, columnNames) {
 
 		    /**
@@ -88,6 +95,8 @@ public class HouseManagerGUI extends JDialog {
 
 		table.setModel(tableModel);
 		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBackground(new Color(211, 228, 213));
+		scrollPane.setOpaque(false);
 		scrollPane.setBounds(10, 11, 605, 203);
 		scrollPane.setViewportBorder(null);
 		getContentPane().add(scrollPane);
@@ -106,6 +115,8 @@ public class HouseManagerGUI extends JDialog {
 		scrollPane.revalidate();
 
 		JButton btnCrearCasa = new JButton("Registrar casa");
+		btnCrearCasa.setBorder(UIManager.getBorder("CheckBox.border"));
+		btnCrearCasa.setContentAreaFilled(false);
 		btnCrearCasa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				HouseEditorGUI.main(null, user, false, null, operator);
@@ -119,6 +130,8 @@ public class HouseManagerGUI extends JDialog {
 		contentPane.add(btnCrearCasa);
 
 		JButton btnModificarCasa = new JButton("Modificar casa");
+		btnModificarCasa.setBorder(UIManager.getBorder("CheckBox.border"));
+		btnModificarCasa.setContentAreaFilled(false);
 		btnModificarCasa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (table.getSelectedRow() != -1){
@@ -141,6 +154,8 @@ public class HouseManagerGUI extends JDialog {
 		contentPane.add(btnModificarCasa);
 
 		JButton btnAtrs = new JButton("Atr\u00E1s");
+		btnAtrs.setBorder(UIManager.getBorder("CheckBox.border"));
+		btnAtrs.setContentAreaFilled(false);
 		btnAtrs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
@@ -150,6 +165,8 @@ public class HouseManagerGUI extends JDialog {
 		contentPane.add(btnAtrs);
 
 		JButton btnAdministrarOfertas = new JButton("Ofertas");
+		btnAdministrarOfertas.setBorder(UIManager.getBorder("CheckBox.border"));
+		btnAdministrarOfertas.setContentAreaFilled(false);
 		btnAdministrarOfertas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (table.getSelectedRow() != -1){
@@ -161,6 +178,8 @@ public class HouseManagerGUI extends JDialog {
 		contentPane.add(btnAdministrarOfertas);
 
 		JButton btnRefrescar = new JButton("Refrescar");
+		btnRefrescar.setBorder(UIManager.getBorder("CheckBox.border"));
+		btnRefrescar.setContentAreaFilled(false);
 		btnRefrescar.setVisible(false);
 		 btnRefrescar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -172,6 +191,8 @@ public class HouseManagerGUI extends JDialog {
 		contentPane.add(btnRefrescar);
 		
 		JButton btnEliminarCasa_1 = new JButton("Eliminar casa");
+		btnEliminarCasa_1.setBorder(UIManager.getBorder("CheckBox.border"));
+		btnEliminarCasa_1.setContentAreaFilled(false);
 		btnEliminarCasa_1.setVisible(false);
 		btnEliminarCasa_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -184,6 +205,10 @@ public class HouseManagerGUI extends JDialog {
 		btnEliminarCasa_1.setBounds(625, 79, 101, 23);
 		contentPane.add(btnEliminarCasa_1);
 		
+		
+		JLabel lblC = new JLabel(new ImageIcon (ImageUtils.decodeToImage(ImageTypes.FONDOCOLOR)));
+		lblC.setBounds(0, 0, 794, 298);
+		getContentPane().add(lblC);
 		
 	}
 }
