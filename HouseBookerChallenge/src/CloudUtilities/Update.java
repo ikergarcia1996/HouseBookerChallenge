@@ -1,15 +1,18 @@
 package CloudUtilities;
 
 import java.io.BufferedReader;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import main.Launcher;
+
 public class Update {
 
-	public final int CurrentVersion = 3; //ACTUALIZAR AL SACAR UNA NUEVA VERSIÓN. 
+	 //ACTUALIZAR AL SACAR UNA NUEVA VERSIï¿½N. 
 	
-	//Comprueba si hay una nueva versión, si la hay devuelve un objeto de la clase NewVersion (mirar más abajo) en caso contrario, devuelve null
+	//Comprueba si hay una nueva versiï¿½n, si la hay devuelve un objeto de la clase NewVersion (mirar mï¿½s abajo) en caso contrario, devuelve null
 	  
 	
 	public NewVersion testForUpdates (){ 
@@ -28,12 +31,12 @@ public class Update {
 			FileReader fr = new FileReader("NewVersion.rh");
 			BufferedReader textReader = new BufferedReader(fr);
 			try {
-				int LastVersion = Integer.valueOf(textReader.readLine());
+				Float LastVersion = Float.valueOf(textReader.readLine());
 				
 				
 			
-				if (LastVersion > CurrentVersion){
-					System.out.println("Nueva versión encontrada");
+				if (LastVersion > Launcher.VERSION){
+					System.out.println("Nueva versiï¿½n encontrada");
 					
 					String url = textReader.readLine();
 					String urlupdate = textReader.readLine();
@@ -65,13 +68,13 @@ public class Update {
 				
 			} catch (NumberFormatException | IOException e) {
 				
-				System.out.println("Error al leer el archivo de actualización");
+				System.out.println("Error al leer el archivo de actualizaciï¿½n");
 				e.printStackTrace();
 			}
 			
 		} catch (FileNotFoundException e) {
 			
-			System.out.println("No existe el fichero de actualización o no se ha podido abrir. Probablemente debido a un error en la descarga");
+			System.out.println("No existe el fichero de actualizaciÃ³n o no se ha podido abrir. Probablemente debido a un error en la descarga");
 		}
 		return null;
 	
@@ -83,31 +86,31 @@ public class Update {
 	
 	
 	
-	public class NewVersion{ //Esta clase sirve para devolver al que llama toda la información de la nueva versión
-		//documento de texto en dropbox para actualizar (poner cada cosa en una línea, las notas pueden tener extensión infinita)
+	public class NewVersion{ //Esta clase sirve para devolver al que llama toda la informaciï¿½n de la nueva versiï¿½n
+		//documento de texto en dropbox para actualizar (poner cada cosa en una lï¿½nea, las notas pueden tener extensiï¿½n infinita)
 		
-		//Nº de Versión
-		//URL nueva versión
-		//Comandos (Es un int, sirve para enviar a la aplicación alguna indicación, por ejemplo si es "1" la actualización es obligatoria,
-					//añadido por si en un futuro nos sirviera de algo xD). En caso normal escribir 0.
-		//Notas (aquí se pueden escribir las novedades de la versión o cualquier otra cosa que se quiera mostrar en la interfaz).
+		//Nï¿½ de Versiï¿½n
+		//URL nueva versiï¿½n
+		//Comandos (Es un int, sirve para enviar a la aplicaciï¿½n alguna indicaciï¿½n, por ejemplo si es "1" la actualizaciï¿½n es obligatoria,
+					//aï¿½adido por si en un futuro nos sirviera de algo xD). En caso normal escribir 0.
+		//Notas (aquï¿½ se pueden escribir las novedades de la versiï¿½n o cualquier otra cosa que se quiera mostrar en la interfaz).
 		
-		public int LastVersion; 
+		public Float LastVersion; 
 		public String LinkLastVersion;
 		public String LinkUpdater;
 		public int Comandos;
 		public String Notas;
 		
-		public NewVersion(int lastVersion, String linkLastVersion,String LinkUpdater, int comandos, String notas) {
+		public NewVersion(Float lastVersion2, String linkLastVersion,String LinkUpdater, int comandos, String notas) {
 	
-			LastVersion = lastVersion;
+			LastVersion = lastVersion2;
 			LinkLastVersion = linkLastVersion;
 			LinkUpdater= LinkUpdater;
 			Comandos = comandos;
 			Notas = notas;
 		}
 		
-		public int getLastVersion() {
+		public Float getLastVersion() {
 			return LastVersion;
 		}
 		public String getLinkLastVersion() {

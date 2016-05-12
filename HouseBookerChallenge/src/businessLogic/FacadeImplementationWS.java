@@ -530,4 +530,5 @@ public class FacadeImplementationWS implements ApplicationFacadeInterfaceWS {
 		dB4oManager.close();
 		return getUser;
 	}
+
 }

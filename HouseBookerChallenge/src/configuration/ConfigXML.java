@@ -44,6 +44,9 @@ public class ConfigXML {
 	
 	private boolean			WillCheckForUpdates;
 
+	
+	
+
 	public int getDatabasePort() {
 		return databasePort;
 	}
@@ -75,8 +78,12 @@ public class ConfigXML {
 	public boolean WillCheckForUpdates(){
 		return WillCheckForUpdates;
 	}
+	
+	
 
 	private static ConfigXML theInstance = new ConfigXML();
+
+	private Element config;
 
 	private ConfigXML() {
 
@@ -87,8 +94,7 @@ public class ConfigXML {
 			doc.getDocumentElement().normalize();
 
 			NodeList list = doc.getElementsByTagName("config");
-			Element config = (Element) list.item(0); // list.item(0) is a Node
-														// that is an Element
+			config = (Element) list.item(0);
 
 			// Two possible values: true (no instance of RemoteServer needs to
 			// be launched) or false (RemoteServer needs to be run first)
@@ -128,6 +134,7 @@ public class ConfigXML {
 			String check = getTagValue("WillCheckForUpdates",config);
 			WillCheckForUpdates = check.equals("true");
 			
+			
 			System.out.print("Read from config.xml: ");
 			main.Runer.splash.textArea.append("\n Read from config.xml: ");
 
@@ -139,7 +146,8 @@ public class ConfigXML {
 
 			System.out.println("\t dataBaseOpenMode=" + dataBaseOpenMode);
 			main.Runer.splash.textArea.append("\n \t dataBaseOpenMode=" + dataBaseOpenMode);
-
+			
+			
 		}
 		catch (Exception e) {
 			System.out.println("Error in ConfigXML.java: problems with config.xml");
@@ -160,6 +168,8 @@ public class ConfigXML {
 		return nValue.getNodeValue();
 
 	}
+	
+	
 
 	public static ConfigXML getInstance() {
 		return theInstance;
@@ -188,6 +198,9 @@ public class ConfigXML {
 	public String getDatabaseNode() {
 		return databaseNode;
 	}
+	
+
+
 	
 	
 
