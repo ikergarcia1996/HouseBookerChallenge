@@ -24,6 +24,7 @@ import javax.swing.table.DefaultTableModel;
 
 import domain.Offer;
 import domain.RuralHouse;
+import domain.Usuario;
 
 public class OfferManagerGUI extends JDialog {
 
@@ -40,11 +41,11 @@ public class OfferManagerGUI extends JDialog {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args, RuralHouse casa, GUIOperator operator) {
+	public static void main(String[] args, Usuario user, RuralHouse casa, GUIOperator operator) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					OfferManagerGUI frame = new OfferManagerGUI(casa, operator);
+					OfferManagerGUI frame = new OfferManagerGUI(user, casa, operator);
 					frame.setVisible(true);
 				}
 				catch (Exception e) {
@@ -57,7 +58,7 @@ public class OfferManagerGUI extends JDialog {
 	/**
 	 * Create the frame.
 	 */
-	public OfferManagerGUI(RuralHouse casa, GUIOperator operator) {
+	public OfferManagerGUI(Usuario user, RuralHouse casa, GUIOperator operator) {
 		setTitle("Administrar ofertas para la casa: " + casa.getCity() + " " + casa.getDireccion());
 		setResizable(false);
 		setModal(true);
@@ -134,7 +135,7 @@ public class OfferManagerGUI extends JDialog {
 			public void actionPerformed(ActionEvent arg0) {
 				OfferEditorGUI.main(null, operator, false, casa, null);
 				dispose();
-				OfferManagerGUI.main(null, casa, operator);
+				OfferManagerGUI.main(null, user, casa, operator);
 			}
 		});
 		btnAadirOferta.setBounds(628, 11, 101, 23);
@@ -146,21 +147,31 @@ public class OfferManagerGUI extends JDialog {
 				if (table.getSelectedRow() != -1) {
 					OfferEditorGUI.main(null, operator, true, casa, offPanel.get(table.getSelectedRow()));
 					dispose();
-					OfferManagerGUI.main(null, casa, operator);
-				}
+					OfferManagerGUI.main(null, user, casa, operator);
+				} else JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna oferta, selecciónela en la lista de la izquierda.",
+						"Error", JOptionPane.ERROR_MESSAGE);
 			}
 		});
 		btnEditarOferta.setBounds(628, 45, 101, 23);
 		contentPane.add(btnEditarOferta);
 
 		JButton btnEliminarOferta = new JButton("Eliminar oferta");
-		btnEliminarOferta.setVisible(false);
 		btnEliminarOferta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Component frame = null;
-				JOptionPane.showMessageDialog(frame,
-						"Esta característiaca aun no está disponible, se habilitará con la proxima actualización",
-						"Proximamente!", JOptionPane.INFORMATION_MESSAGE);
+				if (table.getSelectedRow() != -1){
+					btnEliminarOferta.setEnabled(false);
+					int opcode = operator.deleteOfferOwner(user, offPanel.get(table.getSelectedRow()));
+					if (opcode == 0){
+						
+					} else if (opcode == 1) JOptionPane.showMessageDialog(null, "La oferta seleccionada está reservada, no se puede eliminar.",
+							"Error", JOptionPane.ERROR_MESSAGE);
+					else JOptionPane.showMessageDialog(null, "Error en la operación.",
+							"Error", JOptionPane.ERROR_MESSAGE);
+					dispose();
+					OfferManagerGUI.main(null, user, casa, operator);
+				} else JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna oferta, selecciónela en la lista de la izquierda.",
+						"Error", JOptionPane.ERROR_MESSAGE);
+				
 			}
 		});
 		btnEliminarOferta.setBounds(628, 79, 101, 23);

@@ -46,6 +46,7 @@ public class AdminOfferDeleteGUI extends JDialog {
 	 * Create the dialog.
 	 */
 	public AdminOfferDeleteGUI(GUIOperator gOP, String adminpass) {
+		setModal(true);
 		setTitle("Modo Administrador: Eliminar una oferta");
 		setBounds(100, 100, 700, 577);
 		getContentPane().setLayout(new BorderLayout());

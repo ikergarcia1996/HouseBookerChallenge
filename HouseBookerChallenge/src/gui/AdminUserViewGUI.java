@@ -38,6 +38,7 @@ public class AdminUserViewGUI extends JDialog {
 	 * Create the dialog.
 	 */
 	public AdminUserViewGUI(Usuario user) {
+		setModal(true);
 		setTitle("Informaci\u00F3n sobre el usuario: ");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
