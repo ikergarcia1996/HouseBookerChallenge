@@ -652,7 +652,11 @@ public class DataAccess {
 				res2 = db.queryByExample(o);
 				db.delete(res2.next());
 			}
+			res2 = db.queryByExample(rh1.getOwner());
+			Propietario p = (Propietario) res2.next();
+			p.getCasas().remove(rh1);
 			db.delete(rh1);
+			db.store(p);
 			db.commit();
 		}
 	}
