@@ -1,3 +1,5 @@
+package main;
+
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -7,6 +9,7 @@ import gui.MainBookerGUI;
 import gui.SplashGUI;
 
 public class Launcher {
+	public static final float VERSION=3;
 
 	public static void main(String[] args) {
 

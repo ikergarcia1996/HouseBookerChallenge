@@ -16,6 +16,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 
+import main.Launcher;
 import utilities.ImageTypes;
 import utilities.ImageUtils;
 
@@ -100,7 +101,7 @@ public class AcercaDeGUI extends JDialog {
 		btnAceptar.setBounds(260, 141, 89, 23);
 		getContentPane().add(btnAceptar);
 
-		JLabel lblVersinDelPrograma = new JLabel("Versi\u00F3n del programa: 2.1");
+		JLabel lblVersinDelPrograma = new JLabel("Versi\u00F3n del programa: "+Launcher.VERSION);
 		lblVersinDelPrograma.setBounds(5, 150, 240, 14);
 		getContentPane().add(lblVersinDelPrograma);
 		

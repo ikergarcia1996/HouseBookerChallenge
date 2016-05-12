@@ -22,51 +22,50 @@ import CloudUtilities.Update.NewVersion;
 import gui.GUIOperator;
 import gui.MainGUI;
 import gui.SplashGUI;
+import gui.WaitGUI;
 
 public class Runer {
 	static Update up = new Update();
 	static NewVersion nw;
 	public static SplashGUI splash = new SplashGUI();
+	public static WaitGUI downloading = new WaitGUI("Descargando actualizacion...");
 
 	public static void run() {
-		
 		Thread threadTemp;
 		Thread thread2;
 		splash.main(null, splash);
 		GUIOperator operator = new GUIOperator();
-		
+
 		Thread threadUpdate = new Thread() {
 			public void run() {
 				nw = up.testForUpdates();
-			
-			
-				
+
 			}
 		};
-		
+
 		threadTemp = new Thread() {
 			public void run() {
 				try {
 					Thread.sleep(10000);
-					Component frame=null;
+					Component frame = null;
 					if (JOptionPane.showConfirmDialog(frame,
 							"La busqueda de actualizaciones esta tardando más de lo esperado ¿Desea omitirla?",
 							"Actualización", JOptionPane.YES_NO_OPTION,
-							JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {threadUpdate.interrupt();
-							
+							JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+						threadUpdate.interrupt();
+
 					}
 				} catch (InterruptedException e) {
 					System.out.println("Contador Detenido");
 				}
-				
-				
+
 			}
 		};
 
 		if (operator.WillCheckForUpdates()) {
 
 			System.out.println("0");
-			
+
 			main.Runer.splash.progressBar.setString("Buscando Actualizaciones...");
 
 			FileReader fileReader;
@@ -80,27 +79,25 @@ public class Runer {
 				splash.dispose();
 				System.out.println("AAAA");
 			} catch (IOException e1) {
-			
-			threadUpdate.start();
-			threadTemp.start();
-			
-			
-				
-				
-				
+
+				threadUpdate.start();
+				threadTemp.start();
+
 			}
-		
-			
-			while (threadUpdate.isAlive()){}
+
+			while (threadUpdate.isAlive()) {
+			}
 			threadTemp.interrupt();
 			splash.setVisible(false);
-			if (nw!=null) {
+			if (nw != null) {
 				Component frame = null;
-
+				
 				if (JOptionPane.showConfirmDialog(frame,
 						"La versión " + nw.LastVersion + " de la aplicación esta disponible ¿Desea actualizar ahora?",
 						"Actualización", JOptionPane.YES_NO_OPTION,
 						JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+					downloading.setVisible(true);
+					
 					thread2 = new Thread() {
 						public void run() {
 							utilities.Tetris.main(null);
@@ -108,6 +105,7 @@ public class Runer {
 					};
 					Thread thread1 = new Thread() {
 						public void run() {
+							
 							JavaDownload jd = new JavaDownload();
 							jd.Download(nw.getLinkLastVersion(), "newVersion.jar");
 							jd.Download(nw.getLinkLastVersion(), "updater.jar");
@@ -117,9 +115,10 @@ public class Runer {
 							fileRoute.append("\\updater.jar");
 
 							Component frame2 = null;
-
+							downloading.setVisible(false);
 							JOptionPane.showMessageDialog(frame2, "Actualizació lista pulsa OK para continuar",
 									"Actualizar", 1);
+							
 							ProcessBuilder pb = new ProcessBuilder("java", "-jar", fileRoute.toString());
 							try {
 								Process p = pb.start();
@@ -133,9 +132,12 @@ public class Runer {
 						}
 					};
 
-					thread1.start();
-					thread2.start();
-
+					
+					if (JOptionPane.showConfirmDialog(frame,
+							"La descarga de la actualizacion puede tardar un tiempo, ¿quieres jugar a tetris mientras esperas?",
+							"Actualización", JOptionPane.YES_NO_OPTION,
+							JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {thread1.start();thread2.start();}
+					else thread1.start();
 				}
 
 				else {
@@ -153,7 +155,6 @@ public class Runer {
 
 			else {
 
-			
 				MainGUI.main(null, operator);
 			}
 		} else {
@@ -185,10 +186,10 @@ public class Runer {
 
 				}
 				con = textReader.readLine();
-				
+
 			}
 			textReader.close();
-			
+
 			Component frame3 = null;
 			JOptionPane.showMessageDialog(frame3, "Novedades de la actualización: \n" + notas, "Novedades", 1);
 			FileManager fl = new FileManager();
@@ -199,6 +200,5 @@ public class Runer {
 		}
 
 	}
-	
 
 }
