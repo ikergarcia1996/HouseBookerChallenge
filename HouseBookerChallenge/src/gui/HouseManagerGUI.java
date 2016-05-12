@@ -173,7 +173,8 @@ public class HouseManagerGUI extends JDialog {
 		contentPane.add(btnRefrescar);
 		
 		JButton btnEliminarCasa_1 = new JButton("Eliminar casa");
-		btnEliminarCasa_1.addActionListener(new ActionListener() {
+		btnEliminarCasa_1.setVisible(false);
+		/*btnEliminarCasa_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (table.getSelectedRow() != -1){
 					btnEliminarCasa_1.setEnabled(false);
@@ -190,7 +191,7 @@ public class HouseManagerGUI extends JDialog {
 						"Error", JOptionPane.ERROR_MESSAGE);
 				
 			}
-		});
+		});*/
 		btnEliminarCasa_1.setBounds(625, 79, 101, 23);
 		contentPane.add(btnEliminarCasa_1);
 		

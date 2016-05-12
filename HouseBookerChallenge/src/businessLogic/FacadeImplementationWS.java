@@ -531,7 +531,7 @@ public class FacadeImplementationWS implements ApplicationFacadeInterfaceWS {
 		return getUser;
 	}
 
-	public int deleteHouseOwner(Usuario user, RuralHouse ruralHouse) {
+	/*public int deleteHouseOwner(Usuario user, RuralHouse ruralHouse) {
 		DataAccess dB4oManager = new DataAccess();
 		RuralHouse rh = dB4oManager.getRuralHouse(ruralHouse.getHouseNumber());
 		if (rh.getOwner().getCorreo().equals(user.getCorreo())){
@@ -568,6 +568,6 @@ public class FacadeImplementationWS implements ApplicationFacadeInterfaceWS {
 			dB4oManager.close();
 			return -1;
 		}
-	}
+	}*/
 
 }

@@ -156,7 +156,8 @@ public class OfferManagerGUI extends JDialog {
 		contentPane.add(btnEditarOferta);
 
 		JButton btnEliminarOferta = new JButton("Eliminar oferta");
-		btnEliminarOferta.addActionListener(new ActionListener() {
+		btnEliminarOferta.setVisible(false);
+		/*btnEliminarOferta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (table.getSelectedRow() != -1){
 					btnEliminarOferta.setEnabled(false);
@@ -173,7 +174,7 @@ public class OfferManagerGUI extends JDialog {
 						"Error", JOptionPane.ERROR_MESSAGE);
 				
 			}
-		});
+		});*/
 		btnEliminarOferta.setBounds(628, 79, 101, 23);
 		contentPane.add(btnEliminarOferta);
 	}

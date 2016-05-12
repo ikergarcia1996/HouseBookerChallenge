@@ -253,7 +253,7 @@ public class GUIOperator {
 		return businessLG.getTwitterUser(correo);
 	}
 
-	public int deleteHouseOwner(Usuario user, RuralHouse ruralHouse) {
+	/*public int deleteHouseOwner(Usuario user, RuralHouse ruralHouse) {
 		// TODO Auto-generated method stub
 		return businessLG.deleteHouseOwner(user, ruralHouse);
 	}
@@ -261,7 +261,7 @@ public class GUIOperator {
 	public int deleteOfferOwner(Usuario user, Offer o) {
 		// TODO Auto-generated method stub
 		return businessLG.deleteOfferOwner(user, o);
-	}
+	}*/
 
 }
 
