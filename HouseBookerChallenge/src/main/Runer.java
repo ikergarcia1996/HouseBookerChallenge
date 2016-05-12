@@ -195,7 +195,7 @@ public class Runer {
 			Component frame3 = null;
 			JOptionPane.showMessageDialog(frame3, "Novedades de la actualización: \n" + notas, "Novedades", 1);
 			FileManager fl = new FileManager();
-			fl.removeFile("NewVersion.rh");
+			fl.removeFile("newVersion.rh");
 			fl.removeFile("updater.jar");
 		} catch (IOException e) {
 			System.out.println("NO ha habido una actualización desde el ultimo inicio");
