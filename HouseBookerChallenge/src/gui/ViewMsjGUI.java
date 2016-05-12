@@ -111,6 +111,8 @@ public class ViewMsjGUI extends JDialog {
 		contentPane.add(textAsunto);
 		
 		JButton btnCerrar = new JButton("Cerrar");
+		btnCerrar.setContentAreaFilled(false);
+		btnCerrar.setBorder(UIManager.getBorder("CheckBox.border"));
 		btnCerrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				operator.updateMsg(oldmsg, mensaje);
@@ -130,6 +132,8 @@ public class ViewMsjGUI extends JDialog {
 		contentPane.add(lblAcciones);
 		
 		JButton btnMantenerComoNo = new JButton("Mantener como no leido");
+		btnMantenerComoNo.setContentAreaFilled(false);
+		btnMantenerComoNo.setBorder(UIManager.getBorder("CheckBox.border"));
 		btnMantenerComoNo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				mensaje.setUnReaden();
@@ -139,6 +143,8 @@ public class ViewMsjGUI extends JDialog {
 		contentPane.add(btnMantenerComoNo);
 		
 		JButton btnResponder = new JButton("Responder");
+		btnResponder.setContentAreaFilled(false);
+		btnResponder.setBorder(UIManager.getBorder("CheckBox.border"));
 		
 		btnResponder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -161,6 +167,8 @@ public class ViewMsjGUI extends JDialog {
 		//contentPane.add(btnEliminar);
 		
 		JButton btnExportarAArchivo = new JButton("Exportar a archivo");
+		btnExportarAArchivo.setContentAreaFilled(false);
+		btnExportarAArchivo.setBorder(UIManager.getBorder("CheckBox.border"));
 		btnExportarAArchivo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				File fileToSave = new File("C:\\"+mensaje.getDetalles()+".txt");
@@ -213,6 +221,8 @@ public class ViewMsjGUI extends JDialog {
 		contentPane.add(btnExportarAArchivo);
 		
 		JButton btnDenunciarAAdministrador = new JButton("Denunciar");
+		btnDenunciarAAdministrador.setContentAreaFilled(false);
+		btnDenunciarAAdministrador.setBorder(UIManager.getBorder("CheckBox.border"));
 		btnDenunciarAAdministrador.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(null,

@@ -116,32 +116,33 @@ public class RedactarMsgGUI extends JDialog {
 				System.out.println();
 				boolean responder = false;
 				if (remite != null) {// Si no es un guest
-					if (!destinatario.equals("admin@hbc.com")){ 
-					int result = operator.sendMessageTo(txtDestinatario.getText(), remite.getCorreo(),
-							txtAsunto.getText(), dateFormat.format(date), txtMensaje.getText());
-					Component frame = null;
-					if (result == 0) {
-						JOptionPane.showMessageDialog(frame,
-								"El mensaje se ha enviado correctamente a " + txtDestinatario.getText(),
-								"Mensaje enviado", JOptionPane.INFORMATION_MESSAGE);
-						dispose();
-					} else
-						JOptionPane.showMessageDialog(frame,
-								"El usuaio '" + txtDestinatario.getText()
-										+ "' no esiste. Comprueba la informacion introducida.",
-								"Error", JOptionPane.WARNING_MESSAGE);
-
-					}
-					else{
+					if (destinatario!=null && destinatario.equals("admin@hbc.com")){ 
 						operator.sendMessageToAdmin(remite.getCorreo(), txtAsunto.getText(), dateFormat.format(date),
 								txtMensaje.getText());
 						JOptionPane.showMessageDialog(null, "El mensaje se ha enviado correctamente al administrador.",
 								"Mensaje enviado", JOptionPane.INFORMATION_MESSAGE);
 						dispose();
+			
+					
+					}
+					else {
+						int result = operator.sendMessageTo(txtDestinatario.getText(), remite.getCorreo(),
+								txtAsunto.getText(), dateFormat.format(date), txtMensaje.getText());
+						Component frame = null;
+						if (result == 0) {
+							JOptionPane.showMessageDialog(frame,
+									"El mensaje se ha enviado correctamente a " + txtDestinatario.getText(),
+									"Mensaje enviado", JOptionPane.INFORMATION_MESSAGE);
+							dispose();
+						} else
+							JOptionPane.showMessageDialog(frame,
+									"El usuaio '" + txtDestinatario.getText()
+											+ "' no esiste. Comprueba la informacion introducida.",
+									"Error", JOptionPane.WARNING_MESSAGE);
+
 						
 					}
-					} else if (remite == null)
-					if (destinatario == null) {// si es un guest
+					} else if (remite == null) if (destinatario == null) {// si es un guest
 						UUID UUID = java.util.UUID.randomUUID();
 						operator.sendMessageToAdmin(UUID.toString(), txtAsunto.getText(), dateFormat.format(date),
 								txtMensaje.getText());

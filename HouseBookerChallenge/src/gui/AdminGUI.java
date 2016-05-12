@@ -29,6 +29,7 @@ import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.JScrollPane;
+import javax.swing.UIManager;
 
 public class AdminGUI extends JDialog {
 
@@ -63,6 +64,8 @@ public class AdminGUI extends JDialog {
 		contentPane.setLayout(null);
 
 		JButton btnAdministrarUsuarios = new JButton("Administrar usuarios");
+		btnAdministrarUsuarios.setBorder(UIManager.getBorder("CheckBox.border"));
+		btnAdministrarUsuarios.setContentAreaFilled(false);
 		btnAdministrarUsuarios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				AdminUserManagerGUI.main(null, gOP, adminpass);
@@ -72,6 +75,8 @@ public class AdminGUI extends JDialog {
 		contentPane.add(btnAdministrarUsuarios);
 
 		JButton btnEliminarUnaCasa = new JButton("Eliminar una casa");
+		btnEliminarUnaCasa.setBorder(UIManager.getBorder("CheckBox.border"));
+		btnEliminarUnaCasa.setContentAreaFilled(false);
 		btnEliminarUnaCasa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AdminHouseDeleteGUI.main(null, gOP, adminpass);
@@ -81,6 +86,8 @@ public class AdminGUI extends JDialog {
 		contentPane.add(btnEliminarUnaCasa);
 
 		JButton btnEliminarUnaOferta = new JButton("Eliminar una oferta");
+		btnEliminarUnaOferta.setBorder(UIManager.getBorder("CheckBox.border"));
+		btnEliminarUnaOferta.setContentAreaFilled(false);
 		btnEliminarUnaOferta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AdminOfferDeleteGUI.main(null, gOP, adminpass);
@@ -90,6 +97,8 @@ public class AdminGUI extends JDialog {
 		contentPane.add(btnEliminarUnaOferta);
 
 		JButton btnSalirDelModo = new JButton("Salir del modo administrador");
+		btnSalirDelModo.setBorder(UIManager.getBorder("CheckBox.border"));
+		btnSalirDelModo.setContentAreaFilled(false);
 		btnSalirDelModo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
@@ -104,6 +113,8 @@ public class AdminGUI extends JDialog {
 		contentPane.add(passwordField);
 
 		JButton btnOk = new JButton("OK");
+		btnOk.setBorder(UIManager.getBorder("CheckBox.border"));
+		btnOk.setContentAreaFilled(false);
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (gOP.superAdminChangePass(adminpass, passwordField.getText())) {
@@ -123,6 +134,8 @@ public class AdminGUI extends JDialog {
 		contentPane.add(btnOk);
 
 		JButton btnCambiarContrasea = new JButton("Cambiar contrase\u00F1a");
+		btnCambiarContrasea.setBorder(UIManager.getBorder("CheckBox.border"));
+		btnCambiarContrasea.setContentAreaFilled(false);
 		btnCambiarContrasea.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				btnCambiarContrasea.setVisible(false);
