@@ -1,6 +1,7 @@
 package gui;
 
 
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,12 +14,14 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import domain.Mensaje;
@@ -159,7 +162,35 @@ public class ViewMsjGUI extends JDialog {
 		contentPane.add(btnExportarAArchivo);
 		
 		JButton btnDenunciarAAdministrador = new JButton("Denunciar");
-		btnDenunciarAAdministrador.setEnabled(false);
+		btnDenunciarAAdministrador.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null,
+						"<html>A continuacion se abrira una ventana para contactar con el administrador. No olvide especificar su nombre de usuario para que pueda ser identificado.</html>",
+						"Información", JOptionPane.INFORMATION_MESSAGE);
+				Object paneBG = UIManager.get("OptionPane.background");
+				Object panelBG = UIManager.get("Panel.background");
+				UIManager.put("OptionPane.background", Color.red);
+				UIManager.put("Panel.background", Color.red);
+				if (JOptionPane.showConfirmDialog(null,
+						"Atención, denunciar un mensaje implica una investigacion al usuario denunciado.\n Si los movios de la denuncia son suficientes el usuario denunciado recivirá una notificacion para que actue en consecuuencia.\n Si usted ha denunciado este mensaje con fines estratégicos o destructivos SU CUENTA SE DESTRUIRÁ.\n Usted es responsable de sus actos. Si no esta de acuerdo con los términos expuestos, no continue.\n ¿Desea realmente denunciar este mensaje?",
+						"¡ATENCIÓN!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE) == JOptionPane.YES_OPTION)
+				{
+					UIManager.put("OptionPane.background", paneBG);
+					UIManager.put("Panel.background", panelBG);
+
+					RedactarMsgGUI.main(null, user, "admin@hbc.com", "Denuncia de oferta.",
+							"El usuariio " + user.getUserName() + " ha denunciado un mensaje enviado por "
+									+ mensaje.getRemite() + " a fecha de "
+									+ mensaje.getDetalles()
+									+" con el asunto " +mensaje.getAsunto()
+									+ " con el contenido\n"+mensaje.getContenido()
+									+ "\n Por los motivos que siguen a continuación: ",
+							operator);
+				}
+				UIManager.put("OptionPane.background", paneBG);
+				UIManager.put("Panel.background", panelBG);
+			}
+		});
 		btnDenunciarAAdministrador.setBounds(432, 232, 147, 23);
 		contentPane.add(btnDenunciarAAdministrador);
 		

@@ -157,21 +157,21 @@ public class UserGUI extends JDialog {
 			Object[] row = new Object[3];
 			if (msg.isUnread())
 			{
-				row[0] = msg.getRemite()+" " ;
+				row[0] = msg.getRemite()+" *" ;
 			}
 			else
 				row[0] = msg.getRemite();
 			
 			if (msg.isUnread())
 			{
-				row[1] = msg.getAsunto()+" " ;
+				row[1] = msg.getAsunto()+" *" ;
 			}
 			else
 				row[1] = msg.getAsunto();
 			
 			if (msg.isUnread())
 			{
-				row[2] = msg.getDetalles()+" " ;
+				row[2] = msg.getDetalles()+" *" ;
 			}
 			else
 				row[2] = msg.getDetalles();
@@ -191,7 +191,7 @@ public class UserGUI extends JDialog {
 			public Component prepareRenderer(TableCellRenderer renderer, int row, int col) {
 				Component comp = super.prepareRenderer(renderer, row, col);
 				Object value = getModel().getValueAt(row, col);
-				if (value.toString().contains(" ")) {
+				if (value.toString().contains(" *")) {
 					comp.setBackground(new Color(135,206,250));
 
 				} else {

@@ -35,12 +35,11 @@ public class RedactarMsgGUI extends JDialog {
 	 * 
 	 * @param contenido
 	 * @param asunto
-	 * @param remite
+	 * @param destinatario
 	 */
-	public static void main(String[] args, Usuario user, String remite, String asunto, String contenido,
-			GUIOperator operator) {
+	public static void main(String[] args, Usuario remite, String destinatario, String asunto, String contenido,GUIOperator operator) {
 		try {
-			RedactarMsgGUI dialog = new RedactarMsgGUI(user, remite, asunto, contenido, operator);
+			RedactarMsgGUI dialog = new RedactarMsgGUI(remite, destinatario, asunto, contenido, operator);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -52,12 +51,12 @@ public class RedactarMsgGUI extends JDialog {
 	 * Create the dialog.
 	 * 
 	 * @param operator
-	 * @param user
+	 * @param remite
 	 * @param contenido
 	 * @param asunto
-	 * @param remite
+	 * @param destinatario
 	 */
-	public RedactarMsgGUI(Usuario user, String remite, String asunto, String contenido, GUIOperator operator) {
+	public RedactarMsgGUI(Usuario remite, String destinatario, String asunto, String contenido, GUIOperator operator) {
 		setTitle("Redactar nuevo mensaje");
 		setResizable(false);
 		setModal(true);
@@ -75,6 +74,8 @@ public class RedactarMsgGUI extends JDialog {
 		}
 
 		JTextArea txtMensaje = new JTextArea();
+		txtMensaje.setLineWrap(true);
+		txtMensaje.setWrapStyleWord(true);
 		if (contenido != null) {
 			txtMensaje.append("");
 			txtMensaje.append("");
@@ -105,9 +106,10 @@ public class RedactarMsgGUI extends JDialog {
 				DateFormat dateFormat = new SimpleDateFormat("dd MM yyyy HH:mm:ss");
 				Date date = new Date();
 				System.out.println();
-				boolean responder=false;
-				if (user != null) {
-					int result = operator.sendMessageTo(txtDestinatario.getText(), user.getCorreo(),
+				boolean responder = false;
+				if (remite != null) {// Si no es un guest
+					if (!destinatario.equals("admin@hbc.com")){ 
+					int result = operator.sendMessageTo(txtDestinatario.getText(), remite.getCorreo(),
 							txtAsunto.getText(), dateFormat.format(date), txtMensaje.getText());
 					Component frame = null;
 					if (result == 0) {
@@ -121,28 +123,40 @@ public class RedactarMsgGUI extends JDialog {
 										+ "' no esiste. Comprueba la informacion introducida.",
 								"Error", JOptionPane.WARNING_MESSAGE);
 
-				} else if (user==null) if(remite==null){
-					UUID UUID = java.util.UUID.randomUUID();
-					operator.sendMessageToAdmin(UUID.toString(), txtAsunto.getText(), dateFormat.format(date),
-							txtMensaje.getText());
-					
-					JOptionPane.showMessageDialog(null, "El mensaje se ha enviado correctamente al administrador.",
-							"Mensaje enviado", JOptionPane.INFORMATION_MESSAGE);
+					}
+					else{
+						operator.sendMessageToAdmin(remite.getCorreo(), txtAsunto.getText(), dateFormat.format(date),
+								txtMensaje.getText());
+						JOptionPane.showMessageDialog(null, "El mensaje se ha enviado correctamente al administrador.",
+								"Mensaje enviado", JOptionPane.INFORMATION_MESSAGE);
+						dispose();
+						
+					}
+					} else if (remite == null)
+					if (destinatario == null) {// si es un guest
+						UUID UUID = java.util.UUID.randomUUID();
+						operator.sendMessageToAdmin(UUID.toString(), txtAsunto.getText(), dateFormat.format(date),
+								txtMensaje.getText());
 
-					UUIDDialog.main(null, UUID);
-					responder=true;
-					dispose();
-					
-				}
-				
-				else if (user==null) if(remite!=null) {
-					operator.sendPublicMesage(remite,asunto,dateFormat.format(date),txtMensaje.getText());
-				JOptionPane.showMessageDialog(null, "Se ha respondido correctamente al mensaje.",
-						"Mensaje enviado", JOptionPane.INFORMATION_MESSAGE);
-				dispose();
-				}	
+						JOptionPane.showMessageDialog(null, "El mensaje se ha enviado correctamente al administrador.",
+								"Mensaje enviado", JOptionPane.INFORMATION_MESSAGE);
+
+						UUIDDialog.main(null, UUID);
+						responder = true;
+						dispose();
+
+					}
+
+					else if (remite == null)
+						if (destinatario != null) { // Si el admin responde
+							operator.sendPublicMesage(destinatario, asunto, dateFormat.format(date),
+									txtMensaje.getText());
+							JOptionPane.showMessageDialog(null, "Se ha respondido correctamente al mensaje.",
+									"Mensaje enviado", JOptionPane.INFORMATION_MESSAGE);
+							dispose();
+						}
 			}
-		
+
 		});
 		btnEnviar.setBounds(320, 310, 89, 23);
 		getContentPane().add(btnEnviar);
@@ -158,8 +172,8 @@ public class RedactarMsgGUI extends JDialog {
 
 		txtDestinatario = new JTextField();
 		txtDestinatario.setBounds(100, 8, 310, 20);
-		if (remite != null)
-			txtDestinatario.setText(remite);
+		if (destinatario != null)
+			txtDestinatario.setText(destinatario);
 		getContentPane().add(txtDestinatario);
 		txtDestinatario.setColumns(10);
 
@@ -170,7 +184,7 @@ public class RedactarMsgGUI extends JDialog {
 		getContentPane().add(txtAsunto);
 		txtAsunto.setColumns(10);
 
-		if (user == null) {
+		if (remite == null) {
 			txtDestinatario.setText("admin@hbc.com");
 			txtDestinatario.setEnabled(false);
 			txtDestinatario.setEditable(false);
