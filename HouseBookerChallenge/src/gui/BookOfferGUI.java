@@ -21,6 +21,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.Toolkit;
+
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
@@ -32,6 +34,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 
 import javax.swing.JTextArea;
 import java.awt.Window.Type;
@@ -70,15 +73,17 @@ public class BookOfferGUI extends JDialog {
 		setTitle("Casa en" + rh.getCity());
 
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 1190, 781);
+		setBounds(100, 100, 939, 696);
 		contenpane = new JPanel();
-		contenpane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contenpane.setBorder(new EmptyBorder(0, 0, 0, 0));
 		setContentPane(contenpane);
 		contenpane.setLayout(null);
 		setResizable(false);
 
 		GUIRLoader res = new GUIRLoader();
 		setIconImage(res.icono);
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
 		
 		try {
 			img = new JLabel(new ImageIcon(utilities.ImageUtils.resize(utilities.ImageUtils.decodeToImage(rh.getImagenes().get(0)), 560, 450)));
@@ -95,7 +100,7 @@ public class BookOfferGUI extends JDialog {
 
 		}
 
-		JButton anterior = new JButton("Imagen Anterior");
+		JButton anterior = new JButton("<-- Imagen Anterior");
 		anterior.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ifotos--;
@@ -118,7 +123,7 @@ public class BookOfferGUI extends JDialog {
 		contenpane.add(anterior);
 		anterior.setEnabled(false);
 
-		siguiente = new JButton("Imagen Siguiente \uF075");
+		siguiente = new JButton("Imagen Siguiente -->");
 		siguiente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ifotos++;
@@ -173,7 +178,6 @@ public class BookOfferGUI extends JDialog {
 		});
 		contacto.setBounds(434, 20, 141, 23);
 		contenpane.add(contacto);
-
 		if (!verInfo && !offer.isReservaRealizada()) {
 			JButton btnReservar = new JButton("Reservar");
 			btnReservar.addActionListener(new ActionListener() {
@@ -184,7 +188,7 @@ public class BookOfferGUI extends JDialog {
 					dispose();
 				}
 			});
-			btnReservar.setBounds(723, 662, 359, 55);
+			btnReservar.setBounds(622, 602, 295, 55);
 			contenpane.add(btnReservar);
 		}
 		
@@ -198,74 +202,78 @@ public class BookOfferGUI extends JDialog {
 					dispose();
 				}
 			});
-			btnAnular.setBounds(723, 662, 359, 55);
+			btnAnular.setBounds(622, 602, 295, 55);
 			contenpane.add(btnAnular);
 			
 		}
 
 		JLabel lblDatosDeLa = new JLabel("Datos de la oferta");
 		lblDatosDeLa.setFont(new Font("Tahoma", Font.PLAIN, 23));
-		lblDatosDeLa.setBounds(818, 58, 192, 28);
+		lblDatosDeLa.setBounds(622, 62, 192, 28);
 		contenpane.add(lblDatosDeLa);
 
 		JLabel lblPrimerDa = new JLabel("Primer d\u00EDa: " + offer.getFirstDay());
-		lblPrimerDa.setBounds(622, 174, 430, 14);
+		lblPrimerDa.setBounds(622, 174, 295, 14);
 		contenpane.add(lblPrimerDa);
 
 		JLabel lblltimoDa = new JLabel("\u00DAltimo d\u00EDa: " + offer.getLastDay());
-		lblltimoDa.setBounds(622, 216, 460, 14);
+		lblltimoDa.setBounds(622, 216, 295, 14);
 		contenpane.add(lblltimoDa);
 
 		JLabel lblPrecio = new JLabel("Precio: " + offer.getPrice() + "€");
 		lblPrecio.setForeground(Color.GRAY);
 		lblPrecio.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		lblPrecio.setBounds(762, 616, 309, 28);
+		lblPrecio.setBounds(687, 550, 309, 28);
 		contenpane.add(lblPrecio);
 
 		JLabel lblCiudad = new JLabel("Ciudad: " + rh.getCity());
-		lblCiudad.setBounds(622, 135, 508, 14);
+		lblCiudad.setBounds(622, 135, 302, 14);
 		contenpane.add(lblCiudad);
 
-		JLabel lblDireccin = new JLabel("Direcci\u00F3n: " + rh.getDireccion());
-		lblDireccin.setBounds(622, 254, 460, 14);
+		JLabel lblDireccin = new JLabel("Direcci\u00F3n: \n" + rh.getDireccion());
+		lblDireccin.setBounds(622, 241, 295, 37);
 		contenpane.add(lblDireccin);
+		
 
 		JLabel lblNDePersonas = new JLabel("N\u00BA de Personas m\u00E1ximo: " + offer.getnPersRoom());
-		lblNDePersonas.setBounds(622, 302, 460, 14);
+		lblNDePersonas.setBounds(622, 289, 460, 14);
 		contenpane.add(lblNDePersonas);
 
 		JTextArea textArea = new JTextArea(rh.getDescription());
-		textArea.setBounds(622, 405, 521, 189);
+		textArea.setBounds(622, 350, 295, 189);
 		contenpane.add(textArea);
-
+		textArea.setLineWrap(true);
+		textArea.setWrapStyleWord(true);
+		
+		
 		JLabel lblContacto = new JLabel("Contacto");
 		lblContacto.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lblContacto.setBounds(63, 23, 160, 14);
 		contenpane.add(lblContacto);
 		
 		if (!esPropietario) {
-			try {
+		//	try {
 				Usuario ow = rh.getOwner();
 				JLabel lblNombreDelDueo = new JLabel(
 						"Nombre del due\u00F1o: " + ow.getNombre() + " " + ow.getApellido());
-				lblNombreDelDueo.setBounds(63, 46, 164, 14);
+				lblNombreDelDueo.setBounds(63, 46, 512, 14);
 				contenpane.add(lblNombreDelDueo);
 
 				JLabel lblCorreo = new JLabel("Correo: " + ow.getCorreo());
-				lblCorreo.setBounds(63, 58, 164, 14);
+				lblCorreo.setBounds(63, 58, 512, 14);
 				contenpane.add(lblCorreo);
 
 				JLabel lblTelfono = new JLabel("Tel\u00E9fono : " + ow.getTlf());
-				lblTelfono.setBounds(63, 70, 46, 14);
+				lblTelfono.setBounds(63, 70, 517, 14);
 				contenpane.add(lblTelfono);
-			}
+			//}
 
 			// TODO LO DEL CATCH SE PUEDE BORRAR CUANDO ACTUALICEMOS TODAS LAS
 			// CASAS DE LA BASE DATOS
 			// HE AÑADIDO QUE LAS CASAS TENGAN A SU DUEÑO COMO PARAMETRO
 			// LAS CASAS QUE HAY AHORA EN LA BASE DE DATOS NO LO TIENEN
 			// POR LO QUE LO DE ARRIBA PETA Y SALTA ESTE CATCH
-			catch (java.lang.NullPointerException exct) {
+		/*	catch (java.lang.NullPointerException exct) {
 
 				JLabel lblNombreDelDueo = new JLabel("La casa no está actualizada");
 				lblNombreDelDueo.setBounds(63, 46, 164, 14);
@@ -277,27 +285,27 @@ public class BookOfferGUI extends JDialog {
 
 				JLabel lblTelfono = new JLabel("Para poder mostar sus datos");
 				lblTelfono.setBounds(63, 70, 46, 14);
-				contenpane.add(lblTelfono);
-			}
+				contenpane.add(lblTelfono);*/
+			//}
 		} else {
 			Usuario cl = offer.getCliente();
 			JLabel lblNombreDelDueo = new JLabel("Nombre del cliente: " + cl.getNombre() + " " + cl.getApellido());
-			lblNombreDelDueo.setBounds(63, 46, 164, 14);
+			lblNombreDelDueo.setBounds(63, 46, 512, 14);
 			contenpane.add(lblNombreDelDueo);
 
 			JLabel lblCorreo = new JLabel("Correo: " + cl.getCorreo());
-			lblCorreo.setBounds(63, 58, 164, 14);
+			lblCorreo.setBounds(63, 58, 512, 14);
 			contenpane.add(lblCorreo);
 
 			JLabel lblTelfono = new JLabel("Tel\u00E9fono : " + cl.getTlf());
-			lblTelfono.setBounds(63, 70, 46, 14);
+			lblTelfono.setBounds(63, 70, 512, 14);
 			contenpane.add(lblTelfono);
 
 		}
 
 		JLabel lblDescripcinDeLa = new JLabel("Descripci\u00F3n de la casa: ");
 		lblDescripcinDeLa.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblDescripcinDeLa.setBounds(622, 380, 169, 14);
+		lblDescripcinDeLa.setBounds(622, 325, 169, 14);
 		contenpane.add(lblDescripcinDeLa);
 
 	}
