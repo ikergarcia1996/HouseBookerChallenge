@@ -11,7 +11,7 @@ import gui.MainBookerGUI;
 import gui.SplashGUI;
 
 public class Launcher {
-	public static final float VERSION=3;
+	public static final float VERSION=5;
 
 	public static void main(String[] args) {
 

@@ -154,8 +154,10 @@ public class Runer {
 			}
 
 			else {
-
+				FileManager fl = new FileManager();
+				fl.removeFile("NewVersion.rh");
 				MainGUI.main(null, operator);
+				splash.dispose();
 			}
 		} else {
 			main.Runer.splash.progressBar.setIndeterminate(false);
