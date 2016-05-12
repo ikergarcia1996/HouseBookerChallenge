@@ -21,6 +21,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.UIManager;
 
 public class OfferPropietario extends JPanel {
 
@@ -33,6 +34,7 @@ public class OfferPropietario extends JPanel {
 	 * @param operator
 	 */
 	public OfferPropietario(Offer offer, Usuario user, GUIOperator operator) {
+		setOpaque(false);
 		setLayout(null);
 
 		JLabel lblNombre = new JLabel("Ciudad: " + offer.getRuralHouse().getCity());
@@ -44,6 +46,8 @@ public class OfferPropietario extends JPanel {
 		add(lblDescripcin);
 
 		JButton btnConsultar = new JButton("Modificar");
+		btnConsultar.setContentAreaFilled(false);
+		btnConsultar.setBorder(UIManager.getBorder("CheckBox.border"));
 		btnConsultar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				OfferEditorGUI.main(null, operator, true, offer.getRuralHouse(), offer);
@@ -51,10 +55,6 @@ public class OfferPropietario extends JPanel {
 		});
 		btnConsultar.setBounds(10, 11, 108, 108);
 		add(btnConsultar);
-		
-		JLabel lblC = new JLabel(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FONDOCOLOR)));
-		lblC.setBounds(0, 0, 493, 326);
-		add(lblC);
 
 
 	}
