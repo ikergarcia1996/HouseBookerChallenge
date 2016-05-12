@@ -444,9 +444,9 @@ public class FacadeImplementationWS implements ApplicationFacadeInterfaceWS {
 		return buzon;
 	}
 
-	public void sendMessageToAdmin(String UUID, String asunto, String detalles, String contenido) {
+	public void sendMessageToAdmin(String remite, String asunto, String detalles, String contenido) {
 		DataAccess dB4oManager = new DataAccess();
-		dB4oManager.sendMessageToAdmin(UUID, asunto, detalles, contenido);
+		dB4oManager.sendMessageToAdmin(remite, asunto, detalles, contenido);
 		dB4oManager.close();
 	}
 

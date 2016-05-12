@@ -171,9 +171,9 @@ public class GUIOperator {
 		return businessLG.getAdminMenssages();
 	}
 
-	public void sendMessageToAdmin(String UUID, String asunto, String detalles, String contenido) {
+	public void sendMessageToAdmin(String remite, String asunto, String detalles, String contenido) {
 		// TODO Auto-generated method stub
-		businessLG.sendMessageToAdmin(UUID, asunto, detalles, contenido);
+		businessLG.sendMessageToAdmin(remite, asunto, detalles, contenido);
 		
 	}
 

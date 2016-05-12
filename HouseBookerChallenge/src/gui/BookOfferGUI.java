@@ -79,9 +79,10 @@ public class BookOfferGUI extends JDialog {
 
 		GUIRLoader res = new GUIRLoader();
 		setIconImage(res.icono);
-		
+
 		try {
-			img = new JLabel(new ImageIcon(utilities.ImageUtils.resize(utilities.ImageUtils.decodeToImage(rh.getImagenes().get(0)), 560, 450)));
+			img = new JLabel(new ImageIcon(utilities.ImageUtils
+					.resize(utilities.ImageUtils.decodeToImage(rh.getImagenes().get(0)), 560, 450)));
 			img.setBounds(15, 152, 560, 450);
 			contenpane.add(img);
 
@@ -89,19 +90,21 @@ public class BookOfferGUI extends JDialog {
 
 		catch (java.lang.NullPointerException | java.lang.IndexOutOfBoundsException ext) {
 			// IMAGEN POR DEFECTO
-			JLabel img = new JLabel(new ImageIcon(utilities.ImageUtils.resize(ImageUtils.decodeToImage(ImageTypes.DefaultHouse), 560, 450)));
+			JLabel img = new JLabel(new ImageIcon(
+					utilities.ImageUtils.resize(ImageUtils.decodeToImage(ImageTypes.DefaultHouse), 560, 450)));
 			img.setBounds(15, 152, 560, 450);
 			contenpane.add(img);
 
 		}
 
-		JButton anterior = new JButton("Imagen Anterior");
+		JButton anterior = new JButton("\u2190 Imagen Anterior");
 		anterior.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ifotos--;
 				img.removeAll();
 				contenpane.remove(img);
-				img = new JLabel(new ImageIcon(utilities.ImageUtils.resize(utilities.ImageUtils.decodeToImage(rh.getImagenes().get(ifotos)), 560, 450)));
+				img = new JLabel(new ImageIcon(utilities.ImageUtils
+						.resize(utilities.ImageUtils.decodeToImage(rh.getImagenes().get(ifotos)), 560, 450)));
 				img.setBounds(15, 152, 560, 450);
 				contenpane.add(img);
 				img.repaint();
@@ -118,13 +121,14 @@ public class BookOfferGUI extends JDialog {
 		contenpane.add(anterior);
 		anterior.setEnabled(false);
 
-		siguiente = new JButton("Imagen Siguiente \uF075");
+		siguiente = new JButton("Imagen Siguiente \u2192");
 		siguiente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ifotos++;
 				img.removeAll();
 				contenpane.remove(img);
-				img = new JLabel(new ImageIcon(utilities.ImageUtils.resize(utilities.ImageUtils.decodeToImage(rh.getImagenes().get(ifotos)), 560, 450)));
+				img = new JLabel(new ImageIcon(utilities.ImageUtils
+						.resize(utilities.ImageUtils.decodeToImage(rh.getImagenes().get(ifotos)), 560, 450)));
 				img.setBounds(15, 152, 560, 450);
 				contenpane.add(img);
 				img.repaint();
@@ -153,7 +157,7 @@ public class BookOfferGUI extends JDialog {
 
 		JSeparator separator = new JSeparator();
 		separator.setOrientation(SwingConstants.VERTICAL);
-		separator.setBounds(590, 46, 1, 640);
+		separator.setBounds(590, 46, 2, 695);
 		contenpane.add(separator);
 
 		JButton contacto = new JButton("Enviar mensaje");
@@ -187,8 +191,8 @@ public class BookOfferGUI extends JDialog {
 			btnReservar.setBounds(723, 662, 359, 55);
 			contenpane.add(btnReservar);
 		}
-		
-		if (verInfo && offer.isReservaRealizada() && offer.getCliente().getCorreo().equals(user.getCorreo())){
+
+		if (verInfo && offer.isReservaRealizada() && offer.getCliente().getCorreo().equals(user.getCorreo())) {
 			JButton btnAnular = new JButton("Anular Reserva");
 			btnAnular.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -200,7 +204,7 @@ public class BookOfferGUI extends JDialog {
 			});
 			btnAnular.setBounds(723, 662, 359, 55);
 			contenpane.add(btnAnular);
-			
+
 		}
 
 		JLabel lblDatosDeLa = new JLabel("Datos de la oferta");
@@ -242,7 +246,7 @@ public class BookOfferGUI extends JDialog {
 		lblContacto.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lblContacto.setBounds(63, 23, 160, 14);
 		contenpane.add(lblContacto);
-		
+
 		if (!esPropietario) {
 			try {
 				Usuario ow = rh.getOwner();
@@ -299,6 +303,38 @@ public class BookOfferGUI extends JDialog {
 		lblDescripcinDeLa.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblDescripcinDeLa.setBounds(622, 380, 169, 14);
 		contenpane.add(lblDescripcinDeLa);
+
+		JButton btnDenunciarOferta = new JButton("Denunciar oferta o casa");
+		if(user.getUserName().equals("Invitado")) btnDenunciarOferta.setEnabled(false);
+		btnDenunciarOferta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JOptionPane.showMessageDialog(null,
+						"<html>A continuacion se abrira una ventana para contactar con el administrador. No olvide especificar su nombre de usuario para que pueda ser identificado.</html>",
+						"Información", JOptionPane.INFORMATION_MESSAGE);
+				Object paneBG = UIManager.get("OptionPane.background");
+				Object panelBG = UIManager.get("Panel.background");
+				UIManager.put("OptionPane.background", Color.red);
+				UIManager.put("Panel.background", Color.red);
+				if (JOptionPane.showConfirmDialog(null,
+						"Atención, denunciar una oferta implica una investigacion al usuario denunciado.\n Si los movios de la denuncia son suficientes el usuario denunciado recivirá una notificacion para que actue en consecuuencia.\n Si usted ha denunciado esta oferta o casa con fines estratégicos o destructivos SU CUENTA SE DESTRUIRÁ.\n Usted es responsable de sus actos. Si no esta de acuerdo con los términos expuestos, no continue.\n ¿Desea realmente denunciar esta oferta o casa?",
+						"¡ATENCIÓN!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE) == JOptionPane.YES_OPTION)
+				{
+					UIManager.put("OptionPane.background", paneBG);
+					UIManager.put("Panel.background", panelBG);
+
+					RedactarMsgGUI.main(null, user, "admin@hbc.com", "Denuncia de oferta.",
+							"El usuariio " + user.getUserName() + " ha denunciado la oferta numero "
+									+ offer.getOfferNumber() + " de la casa numero "
+									+ offer.getRuralHouse().getHouseNumber()
+									+ "Por los motivos que se describen a continuación.",
+							operator);
+				}
+				UIManager.put("OptionPane.background", paneBG);
+				UIManager.put("Panel.background", panelBG);
+			}
+		});
+		btnDenunciarOferta.setBounds(426, 683, 149, 23);
+		contenpane.add(btnDenunciarOferta);
 
 	}
 }
