@@ -18,6 +18,8 @@ import java.net.URL;
 import java.net.MalformedURLException;
 
 public class Tetris extends Applet {
+	public Tetris() {
+	}
 	
 	//
 	// STATIC MEMBERS
@@ -675,7 +677,7 @@ public class Tetris extends Applet {
 
 		frame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
-				System.exit(0);
+				frame.dispose();
 			}
 		});
 
