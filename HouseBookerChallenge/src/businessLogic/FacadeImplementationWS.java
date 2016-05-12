@@ -531,4 +531,43 @@ public class FacadeImplementationWS implements ApplicationFacadeInterfaceWS {
 		return getUser;
 	}
 
+	public int deleteHouseOwner(Usuario user, RuralHouse ruralHouse) {
+		DataAccess dB4oManager = new DataAccess();
+		RuralHouse rh = dB4oManager.getRuralHouse(ruralHouse.getHouseNumber());
+		if (rh.getOwner().getCorreo().equals(user.getCorreo())){
+			boolean reserve = false;
+			for (Offer o: rh.getOffers())
+				reserve = o.isReservaRealizada();
+			if (reserve) {
+				dB4oManager.close();
+				return 1;
+			} else {
+				dB4oManager.rhDelete(rh);
+				dB4oManager.close();
+				return 0;
+			}
+		} else {
+			dB4oManager.close();
+			return -1;
+		}
+	}
+	
+	public int deleteOfferOwner(Usuario user, Offer offer) {
+		DataAccess dB4oManager = new DataAccess();
+		Offer o = dB4oManager.getOffer(offer);
+		if (o.getRuralHouse().getOwner().getCorreo().equals(user.getCorreo())){
+			if (o.isReservaRealizada()) {
+				dB4oManager.close();
+				return 1;
+			} else {
+				dB4oManager.oDelete(o);
+				dB4oManager.close();
+				return 0;
+			}
+		} else {
+			dB4oManager.close();
+			return -1;
+		}
+	}
+
 }

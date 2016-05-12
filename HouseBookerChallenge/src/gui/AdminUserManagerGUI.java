@@ -47,6 +47,7 @@ public class AdminUserManagerGUI extends JDialog {
 	 * Create the dialog.
 	 */
 	public AdminUserManagerGUI(GUIOperator gOP, String adminpass) {
+		setModal(true);
 		setTitle("Modo Administrador: Administrar Usuarios");
 		setBounds(100, 100, 722, 430);
 		getContentPane().setLayout(new BorderLayout());

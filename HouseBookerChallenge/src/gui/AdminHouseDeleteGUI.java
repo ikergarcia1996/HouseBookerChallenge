@@ -45,6 +45,7 @@ public class AdminHouseDeleteGUI extends JDialog {
 	 * Create the dialog.
 	 */
 	public AdminHouseDeleteGUI(GUIOperator gOP, String adminpass) {
+		setModal(true);
 		setTitle("Modo Administrador: Eliminar una casa");
 		setBounds(100, 100, 640, 459);
 		getContentPane().setLayout(new BorderLayout());

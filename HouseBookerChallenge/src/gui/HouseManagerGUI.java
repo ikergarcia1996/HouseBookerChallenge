@@ -153,8 +153,9 @@ public class HouseManagerGUI extends JDialog {
 		btnAdministrarOfertas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (table.getSelectedRow() != -1){
-					OfferManagerGUI.main(null, houseList.get(table.getSelectedRow()), operator);
-				}
+					OfferManagerGUI.main(null, user, houseList.get(table.getSelectedRow()), operator);
+				} else JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna casa, selecciónela en la lista de la izquierda.",
+						"Error", JOptionPane.ERROR_MESSAGE);
 			}
 		});
 		btnAdministrarOfertas.setBounds(625, 123, 101, 23);
@@ -172,13 +173,22 @@ public class HouseManagerGUI extends JDialog {
 		contentPane.add(btnRefrescar);
 		
 		JButton btnEliminarCasa_1 = new JButton("Eliminar casa");
-		btnEliminarCasa_1.setVisible(false);
 		btnEliminarCasa_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Component frame = null;
-				JOptionPane.showMessageDialog(frame,
-						"Esta característiaca aun no está disponible, se habilitará con la proxima actualización",
-						"Proximamente!", JOptionPane.INFORMATION_MESSAGE);
+				if (table.getSelectedRow() != -1){
+					btnEliminarCasa_1.setEnabled(false);
+					int opcode = operator.deleteHouseOwner(user, houseList.get(table.getSelectedRow()));
+					if (opcode == 0){
+						
+					} else if (opcode == 1) JOptionPane.showMessageDialog(null, "La casa seleccionada contiene ofertas reservadas, no se puede eliminar.",
+							"Error", JOptionPane.ERROR_MESSAGE);
+					else JOptionPane.showMessageDialog(null, "Error en la operación.",
+							"Error", JOptionPane.ERROR_MESSAGE);
+					dispose();
+					HouseManagerGUI.main(null, user, operator);
+				} else JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna casa, selecciónela en la lista de la izquierda.",
+						"Error", JOptionPane.ERROR_MESSAGE);
+				
 			}
 		});
 		btnEliminarCasa_1.setBounds(625, 79, 101, 23);

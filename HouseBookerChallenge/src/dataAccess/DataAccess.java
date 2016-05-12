@@ -642,4 +642,35 @@ public class DataAccess {
 		db.commit();
 	}
 
+	public void rhDelete(RuralHouse rh) {
+		// TODO Auto-generated method stub
+		ObjectSet<Object> res = db.queryByExample(rh);
+		ObjectSet<Object> res2;
+		if (!res.isEmpty()) {
+			RuralHouse rh1 = (RuralHouse) res.next();
+			for (Offer o: rh1.getOffers()) {
+				res2 = db.queryByExample(o);
+				db.delete(res2.next());
+			}
+			db.delete(rh1);
+			db.commit();
+		}
+	}
+	
+	public void oDelete(Offer o) {
+		// TODO Auto-generated method stub
+		ObjectSet<Object> res = db.queryByExample(o);
+		if (!res.isEmpty()) {
+			Offer o1 = (Offer) res.next();
+			ObjectSet<Object> res2 = db.queryByExample(o1.getRuralHouse());
+			if (!res2.isEmpty()) {
+				RuralHouse rh = (RuralHouse) res2.next();
+				rh.getOffers().remove(o1);
+				db.delete(o1);
+				db.store(rh);
+				db.commit();
+			}
+		}
+	}
+
 }
