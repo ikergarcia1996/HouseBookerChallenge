@@ -276,12 +276,20 @@ public class FacadeImplementationWS implements ApplicationFacadeInterfaceWS {
 		DataAccess dB4oManager = new DataAccess();
 		int result = dB4oManager.sendMessageTo(destinatario, remitente, asunto, detalles, mensaje);
 		dB4oManager.close();
-		try {
-			GoogleMail.Send(null, null, destinatario, "HBC: " + asunto, "Este es un mensaje redirigido a tu correo, para responder accede a la aplicación.\n Remitente: " +remitente + "\n"+mensaje);
-		} catch (MessagingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		Thread hilo = new Thread(){
+			public void run(){
+				try {
+					System.out.println("Enviando gmail");
+					GoogleMail.Send(null, null, destinatario, "HBC: " + asunto, "Este es un mensaje redirigido a tu correo, para responder accede a la aplicación.\n Remitente: " +remitente + "\n"+mensaje);
+					System.out.println("Envio gmail finalizado");
+				} catch (MessagingException e) {
+					// TODO Auto-generated catch block
+					System.out.println("Error al enviar correo");
+				}
+			}
+		};
+		hilo.start();
+		
 		return result;
 
 	}
