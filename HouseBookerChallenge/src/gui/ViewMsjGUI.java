@@ -7,11 +7,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import javax.swing.JButton;
 
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -157,7 +161,55 @@ public class ViewMsjGUI extends JDialog {
 		//contentPane.add(btnEliminar);
 		
 		JButton btnExportarAArchivo = new JButton("Exportar a archivo");
-		btnExportarAArchivo.setEnabled(false);
+		btnExportarAArchivo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				File fileToSave = new File("C:\\"+mensaje.getDetalles()+".txt");
+				JFrame parentFrame = new JFrame();
+				 
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setDialogTitle("Guradar mensaje");  
+				
+				 
+				int userSelection = fileChooser.showSaveDialog(parentFrame);
+				 
+				if (userSelection == JFileChooser.APPROVE_OPTION) {
+				    fileToSave = fileChooser.getSelectedFile();
+				    System.out.println("Save as file: " + fileToSave.getAbsolutePath());
+				}
+				String contenido="Remitente: "+mensaje.getRemite()+"\n Asunto: "+mensaje.getAsunto()+"\n Detalles: "+ mensaje.getDetalles()+"\n Contenido: \n \n"+mensaje.getContenido();
+				
+				if (!fileToSave.exists()) {
+					try {
+						fileToSave.createNewFile();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+				}
+				FileWriter fw = null;
+				try {
+					fw = new FileWriter(fileToSave.getAbsoluteFile());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				BufferedWriter bw = new BufferedWriter(fw);
+				try {
+					bw.write(contenido);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				try {
+					bw.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+		});
 		btnExportarAArchivo.setBounds(432, 266, 147, 23);
 		contentPane.add(btnExportarAArchivo);
 		
