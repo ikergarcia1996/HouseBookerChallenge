@@ -15,6 +15,10 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
+
+import utilities.ImageTypes;
+import utilities.ImageUtils;
+
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -48,7 +52,7 @@ public class AcercaDeGUI extends JDialog {
 		setTitle("Acerca de HouseBookerChallenge");
 		setResizable(false);
 		setModal(true);
-		setBounds(100, 100, 370, 200);
+		setBounds(100, 100, 370, 249);
 		getContentPane().setLayout(null);
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
@@ -99,5 +103,10 @@ public class AcercaDeGUI extends JDialog {
 		JLabel lblVersinDelPrograma = new JLabel("Versi\u00F3n del programa: 2.1");
 		lblVersinDelPrograma.setBounds(5, 150, 240, 14);
 		getContentPane().add(lblVersinDelPrograma);
+		
+		JLabel lblT = new JLabel("T");
+		lblT.setIcon(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.POWBYTWI)));
+		lblT.setBounds(5, 175, 138, 30);
+		getContentPane().add(lblT);
 	}
 }

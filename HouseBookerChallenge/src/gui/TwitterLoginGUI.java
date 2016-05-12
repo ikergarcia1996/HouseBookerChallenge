@@ -21,9 +21,12 @@ import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
 import javafx.scene.web.WebView;
 import twitter4j.TwitterException;
+import utilities.ImageTypes;
+import utilities.ImageUtils;
 
 import javax.swing.JInternalFrame;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -67,6 +70,7 @@ public class TwitterLoginGUI extends JFrame {
 	 */
 	public TwitterLoginGUI(GUIOperator gOP) {
 		setTitle("Iniciar sesi\u00F3n con Twitter");
+		setIconImage(ImageUtils.decodeToImage(ImageTypes.TWITTER));
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 800, 525);
