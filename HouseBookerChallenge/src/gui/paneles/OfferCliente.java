@@ -28,6 +28,7 @@ import java.util.Base64;
 import javax.swing.JFormattedTextField;
 import java.awt.SystemColor;
 import javax.swing.JSeparator;
+import javax.swing.UIManager;
 
 public class OfferCliente extends JPanel {
 	
@@ -45,6 +46,8 @@ public class OfferCliente extends JPanel {
 		add(lblCiudad);
 
 		JButton btnConsultar = new JButton("M\u00E1s info / Reservar");
+		btnConsultar.setBorder(UIManager.getBorder("CheckBox.border"));
+		btnConsultar.setContentAreaFilled(false);
 		btnConsultar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			
@@ -92,10 +95,6 @@ public class OfferCliente extends JPanel {
 		JLabel lblNewLabel = new JLabel("Descripción: " + offer.getRuralHouse().getDescription());
 		lblNewLabel.setBounds(155, 36, 280, 42);
 		add(lblNewLabel);
-		
-		JLabel lblC = new JLabel(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FONDOCOLOR)));
-		lblC.setBounds(0, 0, 493, 326);
-		add(lblC);
 
 	}
 }

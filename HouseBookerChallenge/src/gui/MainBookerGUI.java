@@ -130,9 +130,11 @@ public class MainBookerGUI extends JDialog {
 
 				JPanel panel = new OfferCliente(ultima0, user, operator);
 				panel.setBounds(180, 96, 440, 130);
+				panel.setOpaque(false);
 				contentPane.add(panel);
 			} else {
 				JPanel panel = new OfferPropietario(ultima0, user, operator);
+				panel.setOpaque(false);
 				panel.setBounds(180, 96, 440, 130);
 				contentPane.add(panel);
 			}
@@ -142,10 +144,12 @@ public class MainBookerGUI extends JDialog {
 			Offer ultima1 = ultimasOfertas.get(1);
 			if (user.getClass().equals(Cliente.class)) {
 				JPanel panel_1 = new OfferCliente(ultima1, user, operator);
+				panel_1.setOpaque(false);
 				panel_1.setBounds(180, 237, 440, 130);
 				contentPane.add(panel_1);
 			} else {
 				JPanel panel_1 = new OfferPropietario(ultimasOfertas.get(1), user, operator);
+				panel_1.setOpaque(false);
 				panel_1.setBounds(180, 237, 440, 130);
 				contentPane.add(panel_1);
 			}
@@ -155,10 +159,12 @@ public class MainBookerGUI extends JDialog {
 			Offer ultima2 = ultimasOfertas.get(2);
 			if (user.getClass().equals(Cliente.class)) {
 				JPanel panel_2 = new OfferCliente(ultima2, user, operator);
+				panel_2.setOpaque(false);
 				panel_2.setBounds(180, 378, 440, 130);
 				contentPane.add(panel_2);
 			} else {
 				JPanel panel_2 = new OfferPropietario(ultima2, user, operator);
+				panel_2.setOpaque(false);
 				panel_2.setBounds(180, 378, 440, 130);
 				contentPane.add(panel_2);
 			}
@@ -167,10 +173,12 @@ public class MainBookerGUI extends JDialog {
 			Offer ultima3 = ultimasOfertas.get(3);
 			if (user.getClass().equals(Cliente.class)) {
 				JPanel panel_3 = new OfferCliente(ultima3, user, operator);
+				panel_3.setOpaque(false);
 				panel_3.setBounds(180, 519, 440, 130);
 				contentPane.add(panel_3);
 			} else {
 				JPanel panel_3 = new OfferPropietario(ultima3, user, operator);
+				panel_3.setOpaque(false);
 				panel_3.setBounds(180, 519, 440, 130);
 				contentPane.add(panel_3);
 			}
@@ -321,7 +329,7 @@ public class MainBookerGUI extends JDialog {
 
 		}
 		JLabel label = new JLabel(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FONDO)));
-		label.setBounds(165, 190, 500, 500);
+		label.setBounds(165, 227, 500, 500);
 		getContentPane().add(label);
 
 		JLabel lblC = new JLabel(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FONDOCOLOR)));

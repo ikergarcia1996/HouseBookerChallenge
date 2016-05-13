@@ -134,10 +134,11 @@ public class BookerGUI extends JDialog {
 
 			p1 = new OfferCliente(ofertasEncontradas.get(indice), user, operator);
 			p1.setBounds(170, 59, 440, 130);
+			p1.setOpaque(false);
 			contentPane.add(p1);
 			System.out.println(ofertasEncontradas.get(indice).toString() + " "
 					+ ofertasEncontradas.get(indice).getRuralHouse().toString());
-			p1.repaint();
+			
 
 		}
 
@@ -145,20 +146,22 @@ public class BookerGUI extends JDialog {
 
 			p2 = new OfferCliente(ofertasEncontradas.get(indice + 1), user, operator);
 			p2.setBounds(170, 201, 440, 130);
+			p2.setOpaque(false);
 			contentPane.add(p2);
 			System.out.println(ofertasEncontradas.get(indice + 1).toString() + " "
 					+ ofertasEncontradas.get(indice + 1).getRuralHouse().toString());
-			p2.repaint();
+			
 
 		}
 
 		if (i > 2) {
 			p3 = new OfferCliente(ofertasEncontradas.get(indice + 2), user, operator);
 			p3.setBounds(170, 342, 440, 130);
+			p3.setOpaque(false);
 			contentPane.add(p3);
 			System.out.println(ofertasEncontradas.get(indice + 2).toString() + " "
 					+ ofertasEncontradas.get(indice + 2).getRuralHouse().toString());
-			p3.repaint();
+			
 		}
 
 		if (i > 3) {
@@ -166,8 +169,9 @@ public class BookerGUI extends JDialog {
 			System.out.println(ofertasEncontradas.get(indice + 3).toString() + " "
 					+ ofertasEncontradas.get(indice + 3).getRuralHouse().toString());
 			p4.setBounds(170, 486, 440, 130);
+			p4.setOpaque(false);
 			contentPane.add(p4);
-			p4.repaint();
+			
 		}
 
 		/* Debug */System.out.println("indice lista ofertas: " + indice);
@@ -182,6 +186,7 @@ public class BookerGUI extends JDialog {
 	 * Launch the application.
 	 */
 	public static void main(String[] args, Usuario user, GUIOperator operator) {
+		
 		cargando.setVisible(true);
 		EventQueue.invokeLater(new Runnable() {
 
@@ -215,13 +220,16 @@ public class BookerGUI extends JDialog {
 
 			}
 		});
+		
+		
+
+		
+		
 		GUIRLoader res = new GUIRLoader();
 		setModal(true);
 		setResizable(false);
 
 		contentPane = new JPanel();
-		
-		
 		
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -813,7 +821,6 @@ public class BookerGUI extends JDialog {
 		siguientes.setForeground(new Color(0, 0, 102));
 		siguientes.setBounds(491, 21, 97, 25);
 		getContentPane().add(siguientes);
-
 	}
 
 	protected MaskFormatter createFormatter(String s) {
