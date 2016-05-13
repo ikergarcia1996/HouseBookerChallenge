@@ -813,14 +813,6 @@ public class BookerGUI extends JDialog {
 		siguientes.setForeground(new Color(0, 0, 102));
 		siguientes.setBounds(491, 21, 97, 25);
 		getContentPane().add(siguientes);
-		
-		JLabel label = new JLabel(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FONDO)));
-		label.setBounds(120, 183, 500, 500);
-		getContentPane().add(label);
-		
-		JLabel lblC = new JLabel(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FONDOCOLOR)));
-		lblC.setBounds(0, 0, 620, 625);
-		getContentPane().add(lblC);
 
 	}
 

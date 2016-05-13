@@ -204,7 +204,7 @@ public class GUIOperator {
 		java.util.Date fecha = new Date();
 		System.out.println (fecha);
 		
-		if (fecha.compareTo(offer.getFirstDay())<10){
+		if (fecha.compareTo(offer.getFirstDay())>10){
 			Component frame = null;
 			JOptionPane.showMessageDialog(frame, "Solo se pueden anular reservas con más de 10 días de antelación", "Error",
 					JOptionPane.WARNING_MESSAGE);
