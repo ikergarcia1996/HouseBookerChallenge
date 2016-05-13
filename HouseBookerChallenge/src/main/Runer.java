@@ -75,8 +75,8 @@ public class Runer {
 				System.out.println("AAAA");
 				InicioDespuesDeActualización();
 				System.out.println("AAAA");
-				MainGUI.main(null, operator);
-				splash.dispose();
+			//	MainGUI.main(null, operator);
+			//	splash.dispose();
 				System.out.println("AAAA");
 			} catch (IOException e1) {
 
@@ -121,8 +121,8 @@ public class Runer {
 							
 							ProcessBuilder pb = new ProcessBuilder("java", "-jar", fileRoute.toString());
 							try {
-								Process p = pb.start();
 								thread2.interrupt();
+								Process p = pb.start();
 								System.exit(0);
 							} catch (IOException e) {
 								System.out.println("Error al ejecutar el programa");
