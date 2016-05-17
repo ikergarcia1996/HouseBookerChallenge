@@ -9,6 +9,8 @@ import java.io.IOException;
 import main.Launcher;
 
 public class Update {
+	public final static String SERVER="www.dropbox.com";
+	public final static String NVRH="https://www.dropbox.com/s/aorbo9tsuuddxv5/nev.txt?dl=1";
 
 	 //ACTUALIZAR AL SACAR UNA NUEVA VERSI�N. 
 	
@@ -17,7 +19,7 @@ public class Update {
 	
 	public NewVersion testForUpdates (){ 
 		JavaDownload jv = new JavaDownload();
-		int result = jv.Download("https://www.dropbox.com/s/aorbo9tsuuddxv5/nev.txt?dl=1", "NewVersion.rh");
+		int result = jv.Download(NVRH, "NewVersion.rh");
 		if (result==-1){
 			return null;
 			
@@ -101,11 +103,11 @@ public class Update {
 		public int Comandos;
 		public String Notas;
 		
-		public NewVersion(Float lastVersion2, String linkLastVersion,String LinkUpdater, int comandos, String notas) {
+		public NewVersion(Float lastVersion, String linkLastVersion,String linkUpdater, int comandos, String notas) {
 	
-			LastVersion = lastVersion2;
+			LastVersion = lastVersion;
 			LinkLastVersion = linkLastVersion;
-			LinkUpdater= LinkUpdater;
+			LinkUpdater= linkUpdater;
 			Comandos = comandos;
 			Notas = notas;
 		}
@@ -121,6 +123,10 @@ public class Update {
 		}
 		public String getNotas() {
 			return Notas;
+		}
+
+		public String getLinkUpdater() {
+			return LinkUpdater;
 		}
 		
 		
