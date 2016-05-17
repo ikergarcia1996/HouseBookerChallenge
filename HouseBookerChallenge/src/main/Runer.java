@@ -72,7 +72,7 @@ public class Runer {
 		if (operator.WillCheckForUpdates()) {
 			try {
 				InetAddress server = InetAddress.getByAddress(new byte[]{8,8,8,8});
-				if (server.isReachable(3000)) {
+				if (server.isReachable(3000)&&JavaDownload.isReachableTime(5000,"www.dropbox.com")) {
 
 					System.out.println("0");
 
@@ -183,7 +183,14 @@ public class Runer {
 				JOptionPane.showMessageDialog(null,
 						"No se puede contactar con el servidor de descarga de actualizacion. Se omitirá la busqueda de actualizaciones.",
 						"Actualizar", JOptionPane.WARNING_MESSAGE);
+				
 				e.printStackTrace();
+				main.Runer.splash.progressBar.setIndeterminate(false);
+				main.Runer.splash.progressBar.setValue(1);
+				main.Runer.splash.progressBar.setString("Iniciando...");
+				main.Runer.splash.textArea.append("\n Launching...");
+				MainGUI.main(null, operator);
+
 			}
 			catch (IOException e) {
 				// TODO Auto-generated catch block
