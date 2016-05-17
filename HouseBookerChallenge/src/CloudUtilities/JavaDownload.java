@@ -3,8 +3,10 @@ package CloudUtilities;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 
@@ -85,4 +87,42 @@ public class JavaDownload {
 	            e.printStackTrace();
 	        }
 	    }
+	 public static boolean isReachableTime(int time,String servidor) {
+			Thread Solve = new Thread() {
+				public void run() {
+					System.out.println("Pasando por Solve");
+					try {
+						InetAddress.getByName(servidor);
+					}
+					catch (UnknownHostException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					System.out.println("Terminado Solve");
+				}
+			};
+			Thread Time = new Thread() {
+				public void run() {
+					System.out.println("Pasando por Time");
+					try {
+						Thread.sleep(time);
+					}
+					catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					System.out.println("Terminando Time");
+				}
+			};
+			Solve.start();
+			Time.start();
+			while(Solve.isAlive()){
+				if(!Time.isAlive()){Solve.interrupt(); return false;}
+			}
+			Time.interrupt();
+			return true;
+		}
+
+
+	 
 }
