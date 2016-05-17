@@ -70,6 +70,7 @@ public class Runer {
 		};
 
 		if (operator.WillCheckForUpdates()) {
+			main.Runer.splash.progressBar.setString("Comprobando conexión a internet...");
 			try {
 				InetAddress server = InetAddress.getByAddress(new byte[]{8,8,8,8});
 				if (server.isReachable(3000)&&JavaDownload.isReachableTime(5000,"www.dropbox.com")) {
@@ -128,7 +129,7 @@ public class Runer {
 
 									Component frame2 = null;
 									downloading.setVisible(false);
-									JOptionPane.showMessageDialog(frame2, "Actualizació lista pulsa OK para continuar",
+									JOptionPane.showMessageDialog(frame2, "Actualización lista pulsa OK para continuar",
 											"Actualizar", JOptionPane.INFORMATION_MESSAGE);
 
 									ProcessBuilder pb = new ProcessBuilder("java", "-jar", fileRoute.toString());
@@ -158,8 +159,6 @@ public class Runer {
 						else {
 							FileManager fl = new FileManager();
 							fl.removeFile("NewVersion.rh");
-							main.Runer.splash.progressBar.setIndeterminate(false);
-							main.Runer.splash.progressBar.setValue(1);
 							main.Runer.splash.progressBar.setString("Iniciando...");
 							main.Runer.splash.textArea.append("\n Launching...");
 							MainGUI.main(null, operator);
@@ -171,6 +170,8 @@ public class Runer {
 					else {
 						FileManager fl = new FileManager();
 						fl.removeFile("NewVersion.rh");
+						main.Runer.splash.progressBar.setString("Iniciando...");
+						main.Runer.splash.textArea.append("\n Launching...");
 						MainGUI.main(null, operator);
 						splash.dispose();
 					}
@@ -180,17 +181,14 @@ public class Runer {
 				}
 			}
 			catch (UnknownHostException e) {
+				main.Runer.splash.progressBar.setString("No hay conexión a internet");
 				JOptionPane.showMessageDialog(null,
-						"No se puede contactar con el servidor de descarga de actualizacion. Se omitirá la busqueda de actualizaciones.",
+						"No se puede conectar con el servidor de descarga de actualización. Compruebe su conexión e inténtelo de nuevo más tarde. Se omitirá la busqueda de actualizaciones.",
 						"Actualizar", JOptionPane.WARNING_MESSAGE);
-				
 				e.printStackTrace();
-				main.Runer.splash.progressBar.setIndeterminate(false);
-				main.Runer.splash.progressBar.setValue(1);
 				main.Runer.splash.progressBar.setString("Iniciando...");
 				main.Runer.splash.textArea.append("\n Launching...");
 				MainGUI.main(null, operator);
-
 			}
 			catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -198,8 +196,6 @@ public class Runer {
 			}
 		}
 		else {
-			main.Runer.splash.progressBar.setIndeterminate(false);
-			main.Runer.splash.progressBar.setValue(1);
 			main.Runer.splash.progressBar.setString("Iniciando...");
 			main.Runer.splash.textArea.append("\n Launching...");
 			MainGUI.main(null, operator);
