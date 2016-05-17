@@ -148,13 +148,7 @@ public class ReservasEnMisCasasGUI extends JDialog {
 		scrollPane.revalidate();
 		contentPane.repaint();
 		
-		JLabel lblC = new JLabel(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FONDOCOLOR)));
-		lblC.setBounds(0, 254, 730, 421);
-		getContentPane().add(lblC);
 		
-		JLabel lblD = new JLabel(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FONDOCOLOR)));
-		lblD.setBounds(0, 0, 730, 617);
-		getContentPane().add(lblD);
 		}
 	
 	}

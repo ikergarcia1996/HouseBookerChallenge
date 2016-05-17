@@ -116,9 +116,6 @@ public class CaptchaGUI extends JDialog {
 		lblResultado.setBounds(20, 88, 118, 14);
 		getContentPane().add(lblResultado);
 		
-		JLabel lblC = new JLabel(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FONDOCOLOR)));
-		lblC.setBounds(0, 0, 493, 326);
-		getContentPane().add(lblC);
 	}
 
 	public int update() {

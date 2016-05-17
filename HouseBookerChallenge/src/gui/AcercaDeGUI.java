@@ -106,14 +106,6 @@ public class AcercaDeGUI extends JDialog {
 		lblVersinDelPrograma.setBounds(5, 150, 240, 14);
 		getContentPane().add(lblVersinDelPrograma);
 		
-		JLabel lblT = new JLabel("T");
-		lblT.setIcon(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.POWBYTWI)));
-		lblT.setBounds(5, 175, 138, 30);
-		getContentPane().add(lblT);
-		
-		 JLabel label = new JLabel(new ImageIcon (ImageUtils.decodeToImage(ImageTypes.FONDO)));
-		 label.setBounds(-20, -105, 389, 432);
-		 getContentPane().add(label);
 			
 	}
 }

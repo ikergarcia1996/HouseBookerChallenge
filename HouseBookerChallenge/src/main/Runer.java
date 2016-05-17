@@ -71,8 +71,8 @@ public class Runer {
 
 		if (operator.WillCheckForUpdates()) {
 			try {
-				InetAddress dropbox = InetAddress.getByName(Update.SERVER);
-				if (dropbox.isReachable(3000)) {
+				InetAddress server = InetAddress.getByAddress(new byte[]{8,8,8,8});
+				if (server.isReachable(3000)) {
 
 					System.out.println("0");
 

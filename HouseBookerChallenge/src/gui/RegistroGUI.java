@@ -81,7 +81,7 @@ public class RegistroGUI extends JDialog {
 
 		{
 			JPanel panelCliente = new gui.paneles.RegistroCliente();
-			panelCliente.setBackground(new Color(191, 208, 193));
+
 			panelCliente.setBounds(0, 0, 300, 280);
 			getContentPane().add(panelCliente);
 			Cliente = panelCliente.getComponents();
@@ -89,7 +89,7 @@ public class RegistroGUI extends JDialog {
 		{
 			JPanel panelPropietario = new gui.paneles.RegistroPropietario();
 			panelPropietario.setBounds(310, 0, 300, 280);
-			panelPropietario.setBackground(new Color(191, 208, 193));
+
 			if (tipo) {
 				getContentPane().add(panelPropietario);
 				Propietario = panelPropietario.getComponents();
@@ -184,9 +184,7 @@ public class RegistroGUI extends JDialog {
 			btnBorrarImagenDe.setBounds(20, 325, 170, 23);
 			getContentPane().add(btnBorrarImagenDe);
 
-			JLabel lblC = new JLabel(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FONDOCOLOR)));
-			lblC.setBounds(0, 0, 627, 411);
-			getContentPane().add(lblC);
+			
 
 			btnContinuar.addMouseListener(new MouseAdapter() {
 

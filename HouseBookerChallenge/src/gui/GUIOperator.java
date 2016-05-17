@@ -201,57 +201,13 @@ public class GUIOperator {
 
 
 	public void anular(Offer offer, Usuario user) {
-		java.util.Date fecha = new Date();
-		System.out.println (fecha);
-		
-		if (fecha.compareTo(offer.getFirstDay())>10){
-			Component frame = null;
-			JOptionPane.showMessageDialog(frame, "Solo se pueden anular reservas con más de 10 días de antelación", "Error",
-					JOptionPane.WARNING_MESSAGE);
-		}
-		
-		else{
-		
-		Component frame=null;
-		if (businessLG.AnularReserva(offer, user) == -1) {
-			JOptionPane.showMessageDialog(frame, "Error al anula la reserva", "Error",
-					JOptionPane.WARNING_MESSAGE);
-		} else {
-			// Enviar mensaje al dueño
-			DateFormat dateFormat = new SimpleDateFormat("dd MM yyyy HH:mm:ss");
-			Date date = new Date();
-			sendMessageTo(offer.getRuralHouse().getOwner().getCorreo(), "notify@hbc.com",
-					"Han anulado una reserva en tu casa", dateFormat.format(date),
-					"El usuario " + user.getUserName()
-							+ " ha anulado la reserva entre los días "+ offer.getFirstDay() + " " + offer.getLastDay() + " en tu casa de " + offer.getRuralHouse().getCity() + " .\n \n \n Por favor, no responda a este mensaje ya que ha sido generado automáticamente y nadie leerá su respuesta. ");
-
-			JOptionPane.showMessageDialog(frame, "Reserva cancela, esperamos verte pronto de nuevo",
-					"Todo ha salido bien", JOptionPane.WARNING_MESSAGE);
-
-		}
-		}
+		JOptionPane.showMessageDialog(null,
+				"Esta característica estará disponible próximamente",
+				"Proximamente", JOptionPane.QUESTION_MESSAGE);
 		
 	}
 
-	loginresult twitterlogin(long twitterID) {
-		return businessLG.twitterlogin(twitterID);
 
-	}
-	
-	int TwitterRegistrar(boolean tipo, String Nombre, String Apellidos, String Telefono, String Correo, String Contrasena,
-			String DNI, String Calle, String Numero, String Piso, String Puerta, String Letra, String CP,
-			String Poblacion, String Provincia, ProfileImg perfil, long ID) {
-
-		String Direccion = Calle + ", " + Numero + ", " + Piso + ", " + Puerta + ", " + Letra + ", " + CP + ", "
-				+ Poblacion + ", " + Provincia;
-
-		return businessLG.TwittercreateAccount(tipo, Nombre, Apellidos, Telefono, Correo, Contrasena, DNI, Direccion, perfil, ID);
-	}
-
-	public TwitterUser getTwitterUser(String correo) {
-		// TODO Auto-generated method stub
-		return businessLG.getTwitterUser(correo);
-	}
 
 	/*public int deleteHouseOwner(Usuario user, RuralHouse ruralHouse) {
 		// TODO Auto-generated method stub

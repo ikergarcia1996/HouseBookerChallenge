@@ -111,7 +111,7 @@ public class HouseEditorGUI extends JDialog {
 		contentPanel.add(lblCiudad);
 
 		ciudad = new JTextField();
-		ciudad.setBackground(new Color(211, 228, 213));
+
 		ciudad.setBounds(66, 8, 220, 20);
 		contentPanel.add(ciudad);
 		ciudad.setColumns(10);
@@ -121,7 +121,7 @@ public class HouseEditorGUI extends JDialog {
 		contentPanel.add(lblDescripcin);
 
 		dir = new JTextField();
-		dir.setBackground(new Color(211, 228, 213));
+
 		dir.setBounds(66, 33, 471, 20);
 		contentPanel.add(dir);
 		dir.setColumns(10);
@@ -133,7 +133,7 @@ public class HouseEditorGUI extends JDialog {
 		fc = new JFileChooser();
 
 		JEditorPane desc = new JEditorPane();
-		desc.setBackground(new Color(211, 228, 213));
+
 		desc.setBorder(UIManager.getBorder("CheckBox.border"));
 		desc.setBounds(10, 86, 527, 253);
 		contentPanel.add(desc);
@@ -267,13 +267,6 @@ public class HouseEditorGUI extends JDialog {
 			{
 
 				contentPanel.add(panelImagenes);
-				JLabel label = new JLabel(new ImageIcon (ImageUtils.decodeToImage(ImageTypes.FONDO)));
-				contentPanel.add(label);
-				label.setBounds(66, 101, 509, 510);
-				
-				JLabel lblC = new JLabel(new ImageIcon (ImageUtils.decodeToImage(ImageTypes.FONDOCOLOR)));
-				lblC.setBounds(0, 0, 544, 551);
-				contentPanel.add(lblC);
 
 				{
 					JButton okButton = new JButton("Guardar");

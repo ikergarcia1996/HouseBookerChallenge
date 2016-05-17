@@ -328,16 +328,7 @@ public class MainBookerGUI extends JDialog {
 			contentPane.add(ver);
 
 		}
-		JLabel label = new JLabel(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FONDO)));
-		label.setBounds(165, 227, 500, 500);
-		getContentPane().add(label);
 
-		JLabel lblC = new JLabel(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FONDOCOLOR)));
-		lblC.setBounds(0, 266, 634, 405);
-		getContentPane().add(lblC);
-		JLabel lblD = new JLabel(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FONDOCOLOR)));
-		lblD.setBounds(0, 0, 634, 614);
-		getContentPane().add(lblD);
 	}
 
 }

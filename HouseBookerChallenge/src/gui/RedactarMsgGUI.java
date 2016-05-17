@@ -79,7 +79,7 @@ public class RedactarMsgGUI extends JDialog {
 		}
 
 		JTextArea txtMensaje = new JTextArea();
-		txtMensaje.setBackground(new Color(211, 228, 213));
+
 		txtMensaje.setLineWrap(true);
 		txtMensaje.setWrapStyleWord(true);
 		if (contenido != null) {
@@ -182,7 +182,7 @@ public class RedactarMsgGUI extends JDialog {
 		getContentPane().add(btnCancelar);
 
 		txtDestinatario = new JTextField();
-		txtDestinatario.setBackground(new Color(211, 228, 213));
+
 		txtDestinatario.setBounds(100, 8, 310, 20);
 		if (destinatario != null)
 			txtDestinatario.setText(destinatario);
@@ -190,7 +190,7 @@ public class RedactarMsgGUI extends JDialog {
 		txtDestinatario.setColumns(10);
 
 		txtAsunto = new JTextField();
-		txtAsunto.setBackground(new Color(211, 228, 213));
+
 		txtAsunto.setBounds(100, 33, 310, 20);
 		if (asunto != null)
 			txtAsunto.setText(asunto);
@@ -205,9 +205,7 @@ public class RedactarMsgGUI extends JDialog {
 			txtAsunto.setEnabled(false);
 		}
 		
-		JLabel lblC = new JLabel(new ImageIcon (ImageUtils.decodeToImage(ImageTypes.FONDOCOLOR)));
-		lblC.setBounds(0, 0, 437, 366);
-		getContentPane().add(lblC);
+
 
 	}
 }

@@ -78,7 +78,7 @@ public class HouseManagerGUI extends JDialog {
 		SwingUtilities.updateComponentTreeUI(contentPane);
 
 		table = new JTable();
-		table.setBackground(new Color(211, 228, 213));
+
 		table.setOpaque(false);
 		DefaultTableModel tableModel = new DefaultTableModel(null, columnNames) {
 
@@ -95,7 +95,7 @@ public class HouseManagerGUI extends JDialog {
 
 		table.setModel(tableModel);
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBackground(new Color(211, 228, 213));
+
 		scrollPane.setOpaque(false);
 		scrollPane.setBounds(10, 11, 605, 203);
 		scrollPane.setViewportBorder(null);
@@ -216,10 +216,7 @@ public class HouseManagerGUI extends JDialog {
 		btnEliminarCasa_1.setBounds(625, 79, 101, 23);
 		contentPane.add(btnEliminarCasa_1);
 		
-		
-		JLabel lblC = new JLabel(new ImageIcon (ImageUtils.decodeToImage(ImageTypes.FONDOCOLOR)));
-		lblC.setBounds(0, 0, 794, 298);
-		getContentPane().add(lblC);
+
 		
 	}
 }

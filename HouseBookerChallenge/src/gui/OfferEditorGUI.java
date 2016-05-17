@@ -93,7 +93,7 @@ public class OfferEditorGUI extends JDialog {
 		contentPanel.add(lblPrecio);
 
 		precio = new JTextField();
-		precio.setBackground(new Color(211, 228, 213));
+
 		precio.setBounds(10, 31, 142, 20);
 		contentPanel.add(precio);
 		precio.setColumns(10);
@@ -127,7 +127,7 @@ public class OfferEditorGUI extends JDialog {
 		contentPanel.add(lblDia);
 
 		diaIni = new JTextField();
-		diaIni.setBackground(new Color(211, 228, 213));
+
 		diaIni.setBounds(33, 121, 86, 20);
 		contentPanel.add(diaIni);
 		diaIni.setColumns(10);
@@ -137,13 +137,13 @@ public class OfferEditorGUI extends JDialog {
 		contentPanel.add(lblAo);
 
 		añoIni = new JFormattedTextField();
-		añoIni.setBackground(new Color(211, 228, 213));
+
 		añoIni.setBounds(300, 121, 86, 20);
 		contentPanel.add(añoIni);
 		añoIni.setColumns(10);
 
 		diaFin = new JTextField();
-		diaFin.setBackground(new Color(211, 228, 213));
+
 		diaFin.setColumns(10);
 		diaFin.setBounds(33, 236, 86, 20);
 		contentPanel.add(diaFin);
@@ -177,7 +177,7 @@ public class OfferEditorGUI extends JDialog {
 		contentPanel.add(label_2);
 
 		añoFin = new JFormattedTextField();
-		añoFin.setBackground(new Color(211, 228, 213));
+
 		añoFin.setColumns(10);
 		añoFin.setBounds(300, 236, 86, 20);
 		contentPanel.add(añoFin);
@@ -191,7 +191,7 @@ public class OfferEditorGUI extends JDialog {
 		contentPanel.add(lblNDePersonas);
 
 		noPersonas = new JSpinner();
-		noPersonas.setBackground(new Color(211, 228, 213));
+
 		SpinnerModel model = new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1);
 		noPersonas.setModel(model);
 		noPersonas.setBounds(20, 314, 86, 20);
@@ -282,13 +282,7 @@ public class OfferEditorGUI extends JDialog {
 			});
 			cancelButton.setActionCommand("Cancel");
 		}
-		JLabel label2 = new JLabel(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FONDO)));
-		contentPanel.add(label2);
-		label2.setBounds(0, 86, 500, 500);
 		
-					JLabel lblC = new JLabel(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FONDOCOLOR)));
-					contentPanel.add(lblC);
-					lblC.setBounds(0, 0, 444, 412);
 
 		// Hay que editar los valores cuando editas
 		if (editmode) {

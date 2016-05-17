@@ -167,6 +167,7 @@ public class ViewMsjGUI extends JDialog {
 		//contentPane.add(btnEliminar);
 		
 		JButton btnExportarAArchivo = new JButton("Exportar a archivo");
+		btnExportarAArchivo.setEnabled(false);
 		btnExportarAArchivo.setContentAreaFilled(false);
 		btnExportarAArchivo.setBorder(UIManager.getBorder("CheckBox.border"));
 		btnExportarAArchivo.addActionListener(new ActionListener() {
@@ -221,6 +222,7 @@ public class ViewMsjGUI extends JDialog {
 		contentPane.add(btnExportarAArchivo);
 		
 		JButton btnDenunciarAAdministrador = new JButton("Denunciar");
+		btnDenunciarAAdministrador.setEnabled(false);
 		btnDenunciarAAdministrador.setContentAreaFilled(false);
 		btnDenunciarAAdministrador.setBorder(UIManager.getBorder("CheckBox.border"));
 		btnDenunciarAAdministrador.addActionListener(new ActionListener() {

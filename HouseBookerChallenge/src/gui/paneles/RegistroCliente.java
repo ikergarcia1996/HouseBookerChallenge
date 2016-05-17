@@ -33,7 +33,7 @@ public class RegistroCliente extends JPanel {
 		setLayout(null);
 
 		JProgressBar progressBar = new JProgressBar();
-		progressBar.setBackground(new Color(211, 228, 213));
+
 		progressBar.setString("Insuficiente");
 		progressBar.setStringPainted(true);
 		progressBar.setBounds(170, 192, 120, 20);
@@ -52,7 +52,7 @@ public class RegistroCliente extends JPanel {
 		add(lblNombre);
 
 		txtNombre = new JTextField();
-		txtNombre.setBackground(new Color(211, 228, 213));
+
 		txtNombre.setBounds(130, 33, 160, 20);
 		add(txtNombre);
 		txtNombre.setColumns(10);
@@ -62,7 +62,7 @@ public class RegistroCliente extends JPanel {
 		add(lblApellidos);
 
 		txtApellidos = new JTextField();
-		txtApellidos.setBackground(new Color(211, 228, 213));
+
 		txtApellidos.setBounds(130, 58, 160, 20);
 		add(txtApellidos);
 		txtApellidos.setColumns(10);
@@ -72,7 +72,7 @@ public class RegistroCliente extends JPanel {
 		add(lblTelfono);
 
 		txtTelfono = new JFormattedTextField(createFormatter("### ## ## ##"));
-		txtTelfono.setBackground(new Color(211, 228, 213));
+
 		txtTelfono.setBounds(130, 83, 160, 20);
 		add(txtTelfono);
 		txtTelfono.setColumns(10);
@@ -86,13 +86,13 @@ public class RegistroCliente extends JPanel {
 		add(lblElegirContrasea);
 
 		txtCorreoElectrnico = new JTextField();
-		txtCorreoElectrnico.setBackground(new Color(211, 228, 213));
+
 		txtCorreoElectrnico.setBounds(20, 136, 270, 20);
 		add(txtCorreoElectrnico);
 		txtCorreoElectrnico.setColumns(10);
 
 		pwdContrasea = new JPasswordField();
-		pwdContrasea.setBackground(new Color(211, 228, 213));
+
 		pwdContrasea.addCaretListener(new CaretListener() {
 			public void caretUpdate(CaretEvent arg0) {
 				progressBar.setValue(checkPasswordStrength(String.valueOf(pwdContrasea.getPassword())));
@@ -129,7 +129,7 @@ public class RegistroCliente extends JPanel {
 		add(lblConfirmarContrasea);
 
 		pwdConfirmar = new JPasswordField();
-		pwdConfirmar.setBackground(new Color(211, 228, 213));
+
 		pwdConfirmar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

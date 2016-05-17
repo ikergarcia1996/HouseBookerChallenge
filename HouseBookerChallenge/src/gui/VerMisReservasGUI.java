@@ -141,12 +141,6 @@ public class VerMisReservasGUI extends JDialog {
 			contentPane.repaint();
 		}
 		
-		JLabel label = new JLabel(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FONDO)));
-		label.setBounds(244, -31, 500, 500);
-		getContentPane().add(label);
-		
-		JLabel lblC = new JLabel(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FONDOCOLOR)));
-		lblC.setBounds(0, 0, 499, 419);
-		getContentPane().add(lblC);
+
 	}
 }

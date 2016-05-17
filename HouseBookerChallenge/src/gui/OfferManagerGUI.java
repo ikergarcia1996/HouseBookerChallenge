@@ -192,8 +192,6 @@ public class OfferManagerGUI extends JDialog {
 		btnEliminarOferta.setBounds(628, 79, 101, 23);
 		contentPane.add(btnEliminarOferta);
 		
-		JLabel lblC = new JLabel(new ImageIcon (ImageUtils.decodeToImage(ImageTypes.FONDOCOLOR)));
-		lblC.setBounds(0, 0, 794, 298);
-		getContentPane().add(lblC);
+
 	}
 }

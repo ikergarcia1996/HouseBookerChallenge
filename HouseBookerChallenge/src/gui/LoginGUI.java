@@ -129,14 +129,14 @@ public class LoginGUI extends JDialog {
 		getContentPane().add(lblContrasea);
 
 		txtUsuario = new JTextField();
-		txtUsuario.setBackground(new Color(211, 228, 213));
+
 		txtUsuario.setText("");
 		txtUsuario.setColumns(10);
 		txtUsuario.setBounds(104, 14, 189, 20);
 		getContentPane().add(txtUsuario);
 
 		pwdContrasea = new JPasswordField();
-		pwdContrasea.setBackground(new Color(211, 228, 213));
+
 		pwdContrasea.setBounds(104, 39, 189, 20);
 		pwdContrasea.addMouseListener(new MouseAdapter() {
 			@Override
@@ -241,32 +241,6 @@ public class LoginGUI extends JDialog {
 		});
 		btnCancelar.setBounds(10, 77, 89, 23);
 		getContentPane().add(btnCancelar);
-		
-		JLabel lblTwitter = new JLabel("Twitter");
-		lblTwitter.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		lblTwitter.setBorder(new LineBorder(new Color(0, 191, 255), 2, true));
-		lblTwitter.setBounds(315, 98, 25, 25);
-		lblTwitter.setIcon(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.TWITTER)));
-		getContentPane().add(lblTwitter);
-		
-		JLabel lblFacebook = new JLabel("Facebook");
-		lblFacebook.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		lblFacebook.setBorder(new LineBorder(new Color(65, 105, 225), 2, true));
-		lblFacebook.setBounds(409, 98, 25, 25);
-		lblFacebook.setIcon(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FACEBOOK)));
-		getContentPane().add(lblFacebook);
-		
-		JLabel lblGoogle = new JLabel("Google");
-		lblGoogle.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		lblGoogle.setBorder(new LineBorder(new Color(255, 0, 0), 2, true));
-		lblGoogle.setBounds(360, 98, 25, 25);
-		lblGoogle.setIcon(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.GOOGLE)));
-		getContentPane().add(lblGoogle);
-		
-		
-		JLabel lblC = new JLabel(new ImageIcon (ImageUtils.decodeToImage(ImageTypes.FONDOCOLOR)));
-		lblC.setBounds(0, 0, 463, 150);
-		getContentPane().add(lblC);
 
 	}
 }

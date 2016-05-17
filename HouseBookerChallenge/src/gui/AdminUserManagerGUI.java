@@ -99,8 +99,6 @@ public class AdminUserManagerGUI extends JDialog {
 			public void actionPerformed(ActionEvent arg0) {
 				if (table.getSelectedRow() != -1) {
 					gOP.superAdminDelete(adminpass, userList.get(table.getSelectedRow()));
-					TwitterUser usr = gOP.getTwitterUser(userList.get(table.getSelectedRow()).getCorreo());
-					if (usr != null) gOP.superAdminDelete(adminpass, usr);
 					dispose();
 				} else
 					showError();

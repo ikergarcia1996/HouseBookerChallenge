@@ -213,39 +213,16 @@ public class MainGUI extends JFrame {
 		
 		contentPane.add(scroll);
 		
-		JLabel lblTwitter = new JLabel("Twitter");
-		lblTwitter.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				TwitterLoginGUI.main(null, operator);
-			}
-		});
-		lblTwitter.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		lblTwitter.setBorder(new LineBorder(new Color(0, 191, 255), 2, true));
-		lblTwitter.setBounds(10, 279, 25, 25);
-		lblTwitter.setIcon(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.TWITTER)));
-		getContentPane().add(lblTwitter);
 		
-		JLabel lblFacebook = new JLabel("Facebook");
-		lblFacebook.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		lblFacebook.setBorder(new LineBorder(new Color(65, 105, 225), 2, true));
-		lblFacebook.setBounds(99, 279, 25, 25);
-		lblFacebook.setIcon(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FACEBOOK)));
-		getContentPane().add(lblFacebook);
-		
-		JLabel lblGoogle = new JLabel("Google");
-		lblGoogle.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		lblGoogle.setBorder(new LineBorder(new Color(255, 0, 0), 2, true));
-		lblGoogle.setBounds(57, 279, 25, 25);
-		lblGoogle.setIcon(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.GOOGLE)));
-		getContentPane().add(lblGoogle);
 		
 		JLabel lblAyuda = new JLabel("Ayuda");
 		lblAyuda.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblAyuda.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				gui.AyudaGUI.main(null,operator);
+				JOptionPane.showMessageDialog(null,
+						"Esta característica estará disponible próximamente",
+						"Proximamente", JOptionPane.QUESTION_MESSAGE);
 			}
 		});
 		lblAyuda.setForeground(Color.BLUE);
@@ -253,9 +230,7 @@ public class MainGUI extends JFrame {
 		
 		contentPane.add(lblAyuda);
 		
-	 JLabel label = new JLabel(new ImageIcon (ImageUtils.decodeToImage(ImageTypes.FONDO)));
-	 label.setBounds(0, -17, 389, 432);
-	 contentPane.add(label);
+	
 		
 		
 

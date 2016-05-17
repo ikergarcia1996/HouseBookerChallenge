@@ -61,9 +61,7 @@ public class WaitGUI extends JDialog {
 		getContentPane().add(progressBar);
 		
 		
-		JLabel lblC = new JLabel(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FONDOCOLOR)));
-		lblC.setBounds(0, 0, 237, 85);
-		getContentPane().add(lblC);
+
 	}
 
 }

@@ -92,9 +92,7 @@ public class UUIDDialog extends JDialog {
 		btnCerrar.setBounds(396, 144, 115, 23);
 		getContentPane().add(btnCerrar);
 		
-		JLabel lblC = new JLabel(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FONDOCOLOR)));
-		lblC.setBounds(0, 0, 569, 234);
-		getContentPane().add(lblC);
+
 
 	}
 }

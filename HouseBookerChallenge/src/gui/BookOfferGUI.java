@@ -362,17 +362,7 @@ public class BookOfferGUI extends JDialog {
 		btnDenunciarOferta.setBounds(775, 20, 149, 23);
 		contenpane.add(btnDenunciarOferta);
 		
-		JLabel label = new JLabel(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FONDO)));
-		label.setBounds(436, 225, 499, 500);
-		getContentPane().add(label);
-		
-		JLabel lblC = new JLabel(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FONDOCOLOR)));
-		lblC.setBounds(0, 46, 935, 621);
-		getContentPane().add(lblC);
-		
-		JLabel lblD = new JLabel(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FONDOCOLOR)));
-		lblD.setBounds(0, 0, 935, 217);
-		getContentPane().add(lblD);
+
 
 	}
 }

@@ -250,13 +250,7 @@ public class UserGUI extends JDialog {
 		btnRedactarMensaje.setBounds(366, 110, 123, 23);
 		getContentPane().add(btnRedactarMensaje);
 		
-		JLabel label = new JLabel(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FONDO)));
-		label.setBounds(-1, 16, 500, 500);
-		getContentPane().add(label);
-		
-		JLabel lblC = new JLabel(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FONDOCOLOR)));
-		lblC.setBounds(0, 0, 499, 419);
-		getContentPane().add(lblC);
+
 	}
 
 	public class MiRender extends DefaultTableCellRenderer {

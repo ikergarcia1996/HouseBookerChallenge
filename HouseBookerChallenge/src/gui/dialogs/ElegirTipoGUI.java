@@ -103,9 +103,7 @@ public class ElegirTipoGUI extends JDialog {
 			contentPanel.add(btnCancelar);
 			
 			
-			JLabel lblC = new JLabel(new ImageIcon(ImageUtils.decodeToImage(ImageTypes.FONDOCOLOR)));
-			lblC.setBounds(0, 0, 493, 326);
-			contentPanel.add(lblC);
+
 		}
 	}
 

@@ -11,7 +11,7 @@ import gui.MainBookerGUI;
 import gui.SplashGUI;
 
 public class Launcher {
-	public static final float VERSION=5;
+	public static final float VERSION=4;
 
 	public static void main(String[] args) {
 
@@ -22,8 +22,7 @@ public class Launcher {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		UIManager.put("OptionPane.background", new Color(191,208,193));
-		UIManager.put("Panel.background", new Color(191,208,193));
+		
 		
 		GUIRLoader res = new GUIRLoader();
 		main.Runer.run();
