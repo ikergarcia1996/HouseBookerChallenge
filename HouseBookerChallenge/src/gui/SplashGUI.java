@@ -13,6 +13,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import main.Launcher;
 import utilities.ImageTypes;
 import utilities.ImageUtils;
 
@@ -84,7 +85,7 @@ public class SplashGUI extends JDialog {
 		textArea.setBounds(0, 95, 343, 105);
 		getContentPane().add(textArea);
 
-		JLabel lblV = new JLabel("v1.0");
+		JLabel lblV = new JLabel("v"+Launcher.VERSION);
 		lblV.setBounds(311, 49, 22, 20);
 		getContentPane().add(lblV);
 
